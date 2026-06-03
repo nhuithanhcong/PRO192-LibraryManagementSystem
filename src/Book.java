@@ -1,21 +1,21 @@
 import java.util.ArrayList;
 import java.util.List;
-public class Book extends BorrowingTransaction
+public class Book 
 {
     private String bookID, title, author, genre;
     private int publicationYear, Quantity;
-    
-    //relationships picture attribute missing
     private int availableCopies;
 
     public void addBook()
     {
         
     }
+    
     public void updateBook()
     {
         
     }
+    
     public String displayBook()
     {
         return "No available Books";

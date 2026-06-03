@@ -2,7 +2,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 
-public class BorrowingTransaction extends RegularMember
+public class BorrowingTransaction 
 {
     private String transactionID;
     private LocalDateTime borrowDate,dueDate,returnDate;

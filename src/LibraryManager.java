@@ -1,38 +1,42 @@
 import java.util.List;
 import java.util.ArrayList;
 
-public class LibraryManager extends BorrowingTransaction
+public class LibraryManager
 {
-    private List<String> bookList = new ArrayList<>(); 
-    private List<String> membeList = new ArrayList<>(); 
-    private List<String> transactionList = new ArrayList<>(); 
+    private List<Book> bookList = new ArrayList<>(); 
+    private List<Member> memberList = new ArrayList<>(); 
+    private List<BorrowingTransaction> transactionList = new ArrayList<>();
     
-    public void addBook( List<String> bookList, String Book)
+    public void addBook(Book book) 
     {
-       
+        bookList.add(book);
     }
     
-    public void addMember( List<String> memberList, String Member)
+    public void registerMember(Member member) 
     {
-      
+        memberList.add(member);
     }
     
-    public void borrowBook(String memberID, String bookID)
+    public void borrowBook(String memberID, String bookID) 
     {
-        
+        // Logic tìm member, tìm book, kiểm tra điều kiện mượn ở đây
     }
+    
     public void returnBook(String transactionID)
     {
         
     }
+    
     public void generateOverdueReport()
     {
         
     }
+    
     public void saveData()
     {
         
     }
+    
     public void loadData()
     {
         
