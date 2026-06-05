@@ -1,25 +1,28 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Scanner;
 
-public class Member 
+public class Member extends ArrayList<Member>
 {
-    private String memberID, name, phone, email, address;
+    private String memberID, name, phone, email;
     
     //localDate
     private LocalDateTime localDate;
     private DateTimeFormatter dateformatter;
     
     public Member() {
-    }//cho vui
+    }
+    
+   
 
-    public Member(String memberID, String name, String phone, String email, String address) {
+    public Member(String memberID, String name, String phone, String email) {
         this.memberID = memberID;
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
     }
-
+    
     public String getMemberID() {
         return memberID;
     }
@@ -52,19 +55,25 @@ public class Member
         this.email = email;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
+  
     
     
     
     //Methods
     public void addMember()
-    {
+    {   
+        Member member = new Member();
+        Scanner newMember = new Scanner(System.in);
+        String memberInfor; 
+         System.out.println("Your ID: ");
+         memberInfor = newMember.nextLine();
+        System.out.println("Your name: ");
+         memberInfor = newMember.nextLine();
+        System.out.println("Your phone: ");
+         memberInfor = newMember.nextLine();
+        System.out.println("Your mail");
+         memberInfor = newMember.nextLine();
+       
         
     }
     public void updateMember()
