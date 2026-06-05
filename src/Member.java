@@ -10,7 +10,7 @@ public class Member
     private DateTimeFormatter dateformatter;
     
     public Member() {
-    }
+    }//cho vui
 
     public Member(String memberID, String name, String phone, String email, String address) {
         this.memberID = memberID;
