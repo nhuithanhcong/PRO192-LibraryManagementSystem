@@ -90,14 +90,14 @@ public class MemberList extends ArrayList<Member> implements GeneralUtil
 
             System.out.print("Email: ");
             String newEmail = sc.nextLine();
-            member.setMemberID(newEmail);
+            member.setMemberID(newEmail);                                                               
             
             break;//dung vonglap lun de k con phai chay them 1 vong moi nua de tiet kiem tai nguyen va thoi gian
             }
             
         }
-        if (!found) {
-System.out.println("Member not found.");
+         if (!found) {
+            System.out.println("Member not found.");
         }
     }
     
