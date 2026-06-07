@@ -96,6 +96,9 @@ public class MemberList extends ArrayList<Member> implements GeneralUtil
             }
             
         }
+         if (!found) {
+            System.out.println("Member not found.");
+        }
     }
     
     
