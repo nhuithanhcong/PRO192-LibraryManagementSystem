@@ -39,7 +39,6 @@ public class BookList extends ArrayList<Book> implements GeneralUtil{
             }
         }
     }
-    
     //cap nhat info cua sach
     @Override
     public void update(){
