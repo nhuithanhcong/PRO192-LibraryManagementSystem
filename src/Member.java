@@ -57,50 +57,6 @@ public class Member extends ArrayList<Member>
 
   
     
-    
-    
-    //Methods
-    public void addMember()
-    {   
-        Member member = new Member();
-        Scanner newMember = new Scanner(System.in);
-        String memberInfor; 
-         System.out.println("Your ID: ");
-         memberInfor = newMember.nextLine();
-        System.out.println("Your name: ");
-         memberInfor = newMember.nextLine();
-        System.out.println("Your phone: ");
-         memberInfor = newMember.nextLine();
-        System.out.println("Your mail");
-         memberInfor = newMember.nextLine();
-       
-        
-    }
-    public void updateMember()
-    {
-        
-    }
-    public String displayMember()
-    {
-        return "No available Members";
-    }
-    public String searchMember(String name) {
-        
-        return null;
-        
-    }
-           
-    //Methods not in abstraction
-    public String getMember()
-    {
-        return memberID;
-    }
-    
-    public void updateinfo()
-    {
-        
-    }
-    
     public int getBorrowLimit()
     {
         return 0;
