@@ -1,14 +1,13 @@
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class MemberList extends ArrayList<Member>{
-    
-    
+public class MemberList extends ArrayList<Member> implements GeneralUtil
+{
     
     //input du lieu tu user
-    public void addNewMember() {
+    @Override
+    public void add() {
 
     Scanner sc = new Scanner(System.in);//tao scanner de lay input tu user
 
@@ -16,7 +15,10 @@ public class MemberList extends ArrayList<Member>{
 
     System.out.print("Member ID: ");
     String id = sc.nextLine();
-
+    if (isDuplicateID(id)) {
+        System.out.println("Member ID already exists!");
+        return;
+    }
     System.out.print("Name: ");
     String name = sc.nextLine();
 
@@ -25,6 +27,7 @@ public class MemberList extends ArrayList<Member>{
 
     System.out.print("Email: ");
     String email = sc.nextLine();
+               
     
     System.out.println("[1] Save    [2] Cancel");
     System.out.print("Choose: ");
@@ -43,7 +46,9 @@ public class MemberList extends ArrayList<Member>{
      
      
      //Display member
-     public void displayMember()
+    
+    @Override
+     public void display()
     {
         int size = this.size();
         if (size == 0) {
@@ -58,7 +63,8 @@ public class MemberList extends ArrayList<Member>{
     
     
     
-    public void updateMember()
+    @Override
+    public void update()
     {
         Scanner sc = new Scanner(System.in);
         System.out.println("----------- UPDATE MEMBER -----------");
@@ -73,13 +79,9 @@ public class MemberList extends ArrayList<Member>{
             found = true;
             System.out.println("Current Information: " + member.toString());
             
-            
-            System.out.print("New Member ID: ");
-            String newID = sc.nextLine();//nhap input gia tri moi vao
-            member.setMemberID(newID);//gan gia tri moi vao member va tu member do se gan vao memberList moi
 
-            System.out.print("New Name: ");
-            String newName = sc.nextLine();
+            System.out.print("New Name: ");//nhap input gia tri moi vao
+            String newName = sc.nextLine();//gan gia tri moi vao member va tu member do se gan vao memberList moi
             member.setMemberID(newName);
 
             System.out.print("New Phone Number: ");
@@ -95,13 +97,14 @@ public class MemberList extends ArrayList<Member>{
             
         }
         if (!found) {
-            System.out.println("Member not found.");
+System.out.println("Member not found.");
         }
     }
     
     
     
-    public void searchMember() {
+    @Override
+    public void search() {
         Scanner sc = new Scanner(System.in);
         System.out.println("----------- SEARCH MEMBER -----------");
         System.out.println("Enter member ID: ");
@@ -124,7 +127,9 @@ public class MemberList extends ArrayList<Member>{
         } 
     }
     
-    public void deleteMember() {
+   
+    @Override
+    public void delete() {
         Scanner sc = new Scanner(System.in);
         System.out.println("----------- DELETE MEMBER -----------");
         System.out.println("Enter member ID: ");
@@ -143,9 +148,10 @@ public class MemberList extends ArrayList<Member>{
             }
         }
         if (removeMember != null) {
-            System.out.println("[1] Save    [2] Cancel");
+            System.out.println("[1] Delete   [2] Cancel");
             System.out.print("Choose: ");
             int choice = sc.nextInt();
+            
             if (choice == 1) {
                 this.remove(removeMember);//Tu 2 note tren ta co the thay rang trong muc deleteMember can co 1 bien co de xac dinh member do la ai de co the remove de hon
                 System.out.println("Member deleted successfully!");
@@ -156,7 +162,20 @@ public class MemberList extends ArrayList<Member>{
             System.out.println("Member not found.");
         }
     }
-           
+     //Ham ktra xem lieu id cua member dinh input da ton tai hay chua      
+    public boolean isDuplicateID(String id) {
+    int size = this.size();
+    for (int i = 0; i < size; i++) {
+        Member member = this.get(i);
+        if (member.getMemberID().equalsIgnoreCase(id)) {
+
+            return true;
+        }
+    }
+
+    return false;
+}
+    
     
     
     public int getBorrowLimit()
