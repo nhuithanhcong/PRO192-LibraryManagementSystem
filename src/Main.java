@@ -12,6 +12,11 @@ public class Main {
         System.out.println("|_| \\_||_| |_| \\____/ |_|  |_|      |_|  ");
         System.out.println("                                   ");
         
+        LibraryManager LM = new LibraryManager();
+        
+        
+        
+        
         Scanner scanner = new Scanner(System.in);
         int choice;
 
@@ -47,7 +52,7 @@ public class Main {
                             bookChoice = scanner.nextInt();
                             switch (bookChoice) {
                                 case 1:
-                                    //ham
+                                    LM.addBook();
                                     break;
                                 case 2:
                                     //ham
@@ -89,7 +94,7 @@ public class Main {
                             MemberChoice = scanner.nextInt();
                             switch (MemberChoice) {
                                 case 1:
-                                    //ham
+                                    LM.registerMember();
                                     break;
                                 case 2:
                                     //ham
@@ -130,10 +135,10 @@ public class Main {
                             BRChoice = scanner.nextInt();
                             switch (BRChoice) {
                                 case 1:
-                                    //ham
+                                    LM.borrowBook();
                                     break;
                                 case 2:
-                                    //ham
+                                    LM.returnBook();
                                     break;
                                 case 3:
                                     //ham
