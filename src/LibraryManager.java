@@ -3,28 +3,29 @@ import java.util.ArrayList;
 
 public class LibraryManager
 {
-    private List<Book> bookList = new ArrayList<>(); 
-    private List<Member> memberList = new ArrayList<>(); 
-    private List<BorrowingTransaction> transactionList = new ArrayList<>();
+    // call methods from list
+    private TransactionList TL = new TransactionList();
+    private MemberList ML = new MemberList();
+    private BookList BL = new BookList();
     
-    public void addBook(Book book) 
+    public void addBook()
     {
-        bookList.add(book);
+        BL.add();
     }
     
-    public void registerMember(Member member) 
+    public void registerMember() 
     {
-        memberList.add(member);
+        ML.add();
     }
     
-    public void borrowBook(String memberID, String bookID) 
+    public void borrowBook() 
     {
-        // Logic tìm member, tìm book, kiểm tra điều kiện mượn ở đây
+       TL.borrowBook();
     }
     
     public void returnBook(String transactionID)
     {
-        
+        TL.returnbook();
     }
     
     public void generateOverdueReport()
