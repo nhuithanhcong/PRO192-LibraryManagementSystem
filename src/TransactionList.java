@@ -87,7 +87,6 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
         {
             System.out.println("There are no Data in the member list database! (Press enter to return!)");
             input.nextLine();
-            input.close();
             return;
         }
         
@@ -142,7 +141,7 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                        //end
                        System.out.println("Press Enter to return!");
                        input.nextLine();
-                       input.close();
+                       
                        return; 
                   }
                 }
@@ -153,7 +152,6 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                   String e = input.nextLine();
                   if(returnOrcontinue(e)) 
                     {
-                        input.close();
                         return;
                     }
                 }
@@ -163,7 +161,6 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
         System.out.println("User ID Not Found In The DataBase!"); 
         System.out.println("Press Enter to return!");
         input.nextLine();
-        input.close();
         return;
        
     }
@@ -194,7 +191,6 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                 String e = input.nextLine();
                 if(returnOrcontinue(e)) 
                 {
-                    input.close();
                     return;
                 }
             }
@@ -216,7 +212,6 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                 String e = input.nextLine();
                 if(returnOrcontinue(e)) 
                 {
-                    input.close();
                     return;
                 }
             }
@@ -227,7 +222,6 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
         {
             System.out.println("There are no Data in the member list database! (Press enter to return!)");
             input.nextLine();
-            input.close();
             return;
         }
         
@@ -261,7 +255,6 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                         String e = input.nextLine();
                         if(returnOrcontinue(e)) 
                         {
-                            input.close();
                             return;
                         }
                     }
@@ -283,7 +276,6 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                    this.get(i).toString();
                    System.out.println("Press Enter to return!");
                    input.nextLine();
-                   input.close();
                    return; // end
                    
                }
@@ -294,7 +286,6 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                    String e = input.nextLine();
                    if(returnOrcontinue(e)) 
                    {
-                       input.close();
                        return;
                    }
                }
@@ -303,7 +294,6 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
         System.out.println("User ID Not Found!");
         System.out.println("Press Enter to return!");
         input.nextLine();
-        input.close();
         return;
     }
     
@@ -322,7 +312,6 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
         String e = input.nextLine();
         if(returnOrcontinue(e)) 
         {
-            input.close();
             return;
         }
         
@@ -347,7 +336,6 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                 String e = input.nextLine();
                 if(returnOrcontinue(e)) 
                 {
-                    input.close();
                     return;
                 }
             }
@@ -358,7 +346,6 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
             System.out.println("there are no Data in the database!");
             System.out.println("Press Enter to return");
             String e = input.nextLine();
-            input.close();
             return;
         }
         for(int i = 0; i < this.size();i++)
@@ -367,7 +354,6 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
             if(check) 
             {
                 System.out.println(this.get(i).toString()); 
-                input.close();
                 return;
             }
         }
