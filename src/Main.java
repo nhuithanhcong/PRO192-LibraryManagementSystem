@@ -55,16 +55,16 @@ public class Main {
                                     LM.addBook();
                                     break;
                                 case 2:
-                                    //ham
+                                    LM.updateBook();
                                     break;
                                 case 3:
-                                    //ham
+                                    LM.removeBook();
                                     break;
                                 case 4:
-                                    //ham
+                                    LM.viewAllBook();
                                     break;
                                 case 5:
-                                    //ham
+                                    LM.searchBookByTerms();
                                     break;
                                 case 6:
                                     System.out.println("Returning to Main Menu...");
@@ -94,19 +94,19 @@ public class Main {
                             MemberChoice = scanner.nextInt();
                             switch (MemberChoice) {
                                 case 1:
-                                    LM.registerMember();
+                                    LM.addNewMember();
                                     break;
                                 case 2:
-                                    //ham
+                                    LM.updateMemberInfo();
                                     break;
                                 case 3:
-                                    //ham
+                                    LM.removeMember();
                                     break;
                                 case 4:
-                                    //ham
+                                    LM.viewAllMember();
                                     break;
                                 case 5:
-                                    //ham
+                                    LM.searchMemberByIdOrName();
                                     break;
                                 case 6:
                                     System.out.println("Returning to Main Menu...");
@@ -141,10 +141,10 @@ public class Main {
                                     LM.returnBook();
                                     break;
                                 case 3:
-                                    //ham
+                                    LM.viewBorrowedBooks();
                                     break;
                                 case 4:
-                                    //ham
+                                    LM.viewBorrowingHistoryOfSpecificMember();
                                     break;
                                 case 5:
                                     System.out.println("Returning to Main Menu...");
@@ -174,16 +174,16 @@ public class Main {
                             reportChoice = scanner.nextInt();
                             switch (reportChoice) {
                                 case 1:
-                                    //ham
+                                    LM.viewCurrentlyBorrowedBooks();
                                     break;
                                 case 2:
-                                    //ham
+                                    LM.viewOverdueBooks();
                                     break;
                                 case 3:
-                                    //ham
+                                    LM.viewMostPopularBooks();
                                     break;
                                 case 4:
-                                    //ham
+                                    LM.viewMemberWithTheMostBorrowing();
                                     break;
                                 case 5:
                                     System.out.println("Returning to Main Menu...");
