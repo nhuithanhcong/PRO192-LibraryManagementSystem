@@ -1,8 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.time.LocalDateTime;
+import java.time.LocalDateTime; // do mins, hours, day, month
 import java.time.format.DateTimeFormatter;
-import javafx.beans.binding.NumberBinding;
 
 
 public class TransactionList extends ArrayList<BorrowingTransaction> 
@@ -11,39 +10,82 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
     private String bookID;
     private MemberList ML = new MemberList();
     private BookList BL = new BookList(); 
+    
+  
+    
+    
+    
     public void borrowBook()
     {
         Scanner input = new Scanner(System.in); // tao object scanner de lay du lieu tu user
         
 
         
-        //User enters member ID and Book ID
-        System.out.println("Please enter user ID: ");
-        memberID = input.nextLine();
-        System.out.println("Please enter book ID: ");
-        bookID = input.nextLine();
-        
-       
+        //User enters member ID and Book ID 
+        while(true)
+        {
+            System.out.print("Please Enter the user ID: ");
+            String userId = input.nextLine();
+            if(userId.length() != 0)
+            {
+                System.out.println("User ID Entered Successfully!");
+                break;
+            }
+            else
+            {
+                System.out.println("Please Enter The User ID correctly! (Press Enter to continue)");
+                input.nextLine();
+                continue;
+            }
+        }
+        //User enters Book ID 
+        while(true)
+        {
+            System.out.print("Please Enter the Book ID: ");
+            String bookId = input.nextLine();
+            if(bookId.length() != 0)
+            {
+                System.out.println("book ID Entered Successfully!");
+                break;
+            }
+            else
+            {
+                System.out.println("Please Enter The book ID correctly! (Press enter to continue!)");
+                input.nextLine();
+                continue;
+            }
+                
+        }
+        // check if the member list is empty
+        if(ML.size() == 0)
+        {
+            System.out.println("There are no Data in the member list database! (Press enter to return!)");
+            input.nextLine();
+            return;
+        }
         for(int i = 0; i < ML.size(); i++)
         {
             boolean check = memberID.equalsIgnoreCase((ML.get(i)).getMemberID());
-             //check whether member exists
-            if(check)
+            //check whether member exists
+            if(check == true)
             {
                 System.out.println("User ID Found!");
                 
-                //Check whether the book exists and is available.
+                
                 boolean checkB = bookID.equalsIgnoreCase((BL.get(i)).getBookID());
                 int quan = (BL.get(i)).getQuantity();
+                //Check whether the book exists and is available.
                 if(checkB == true && quan > 0 ) 
                 {
                   System.out.println("The Book is exist and avaiable!");
                   
                   
-                  //Check member borrowing limit.
+                  
+                  
                   int bLimit = (ML.get(i)).getBorrowLimit();
                   int threshold = 3; // the amount of books one could borrow
-                  if(bLimit < 3)
+                  //Check member borrowing limit.
+                  if(bLimit < threshold)
                   {
                        System.out.println("Borrowing Limit not exceeded!"); 
                        
@@ -51,7 +93,9 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                        BorrowingTransaction newBT = new BorrowingTransaction();
                        
                        //Reduce book quantity.
-                       BL.get(i).setQuantity(quan--); 
+                       System.out.println("Reducing the quantity"); 
+                       quan--;
+                       BL.get(i).setQuantity(quan); 
                        
                        //Save transaction into ArrayList.
                        newBT.setTransactionID("");
@@ -59,7 +103,7 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                        newBT.setDueDate("");
                        newBT.setFineAmount(1);
                        newBT.setReturnDate("");
-                       newBT.setStatus("1"); // 1 == borrowed
+                       newBT.setStatus("Borrowed"); // 1 == borrowed
                        newBT.setMemberID(memberID);
                        newBT.setBookID(bookID);
                        this.add(newBT);
@@ -67,23 +111,27 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                        //Display success message.
                        System.out.println("Transaction have been Saved in the list!");
                        
-                       //end?
+                       //end
                        input.close();
-                       break; 
+                       System.out.println("Press Enter to return!");
+                       input.nextLine();
+                       return; 
                   }
                 }
                 else
                 {
-                  System.out.println("The Book is unavailable");
-                    
+                  System.out.println("The Book is unavailable!");
+                  System.out.println("Press Enter to return!");
+                  input.nextLine();
+                  return;
                 }
             }
-            else if(check == false && i == ML.size()-1)
-            {
-                System.out.println("User ID Not Found"); 
                 
-            }
         } 
+        System.out.println("User ID Not Found In The DataBase!"); 
+        input.nextLine();
+        return;
+       
     }
     
     
@@ -95,10 +143,47 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
 
         
         //User enters member ID and Book ID
-        System.out.println("Please enter user ID: ");
-        memberID = input.nextLine();
-        System.out.println("Please enter book ID: ");
-        bookID = input.nextLine();
+        while(true)
+        {
+            System.out.print("Please Enter the user ID: ");
+            String userId = input.nextLine();
+            if(userId.length() != 0)
+            {
+                System.out.println("User ID Entered Successfully!");
+                break;
+            }
+            else
+            {
+                System.out.println("Please Enter The User ID correctly! (Press Enter to continue)");
+                input.nextLine();
+                continue;
+            }
+        }
+        //User enters Book ID 
+        while(true)
+        {
+            System.out.print("Please Enter the Book ID: ");
+            String bookId = input.nextLine();
+            if(bookId.length() != 0)
+            {
+                System.out.println("book ID Entered Successfully!");
+                break;
+            }
+            else
+            {
+                System.out.println("Please Enter The book ID correctly! (Press enter to continue!)");
+                input.nextLine();
+                continue;
+            }
+                
+        }
+        // check if the member list is empty
+        if(ML.size() == 0)
+        {
+            System.out.println("There are no Data in the member list database! (Press enter to return!)");
+            input.nextLine();
+            return;
+        }
         
         
         for(int i = 0; i < ML.size(); i++)
@@ -137,12 +222,53 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                    System.out.print("Transaction not found!");
                }
             }
-            else if(check == false && i == ML.size()-1)
+        }
+        System.out.println("User ID Not Found!");
+        System.out.println()
+    }
+    
+    
+    
+    public void displayBorrowedBooks()
+    {
+        System.out.println("Displaying Borrowed Books: ");
+        for(int i = 0; i < this.size();i++)
+        {
+            System.out.println(this.get(i).toString());
+        }
+        //Return to previous Menu
+        Scanner input = new Scanner(System.in);
+        
+        try
+        {
+            System.out.println("Enter 0 to exit: ");
+            int n = input.nextInt();
+            return;
+            
+        }catch(Exception e)
+        {
+            System.out.println("Please enter 0!");
+        }
+    }
+    public String displayBorrowingHistory()
+    {
+        System.out.println("Please Enter a member ID: ");
+        Scanner input = new Scanner(System.in);
+        String id = input.nextLine();
+        //place input.nextLine() to test whther the "" is gone 
+        for(int i = 0; i < this.size();i++)
+        {
+            boolean check = this.get(i).getMemberID().equalsIgnoreCase(id);
+            if(check) 
             {
-                System.out.println("USer ID Not Found"); 
-                //Missing Exit The Method Statement
+                return this.get(i).toString();
             }
         }
+        
+
+        input.next();
+        return "Cannot find the user in database!";
+        
     }
 }
    
