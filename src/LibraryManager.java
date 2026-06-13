@@ -3,41 +3,123 @@ import java.util.ArrayList;
 
 public class LibraryManager
 {
-    private List<Book> bookList = new ArrayList<>(); 
-    private List<Member> memberList = new ArrayList<>(); 
-    private List<BorrowingTransaction> transactionList = new ArrayList<>();
+    // call methods from list
+    private TransactionList TL = new TransactionList();
+    private MemberList ML = new MemberList();
+    private BookList BL = new BookList();
+
     
-    public void addBook(Book book) 
-    {
-        bookList.add(book);
-    }
-    
-    public void registerMember(Member member) 
-    {
-        memberList.add(member);
-    }
-    
-    public void borrowBook(String memberID, String bookID) 
-    {
-        // Logic tìm member, tìm book, kiểm tra điều kiện mượn ở đây
-    }
-    
-    public void returnBook(String transactionID)
+    public LibraryManager() 
     {
         
     }
     
-    public void generateOverdueReport()
+    
+    //~~~~~~~~~~~~~~~~~~~~~RETURN_MENU~~~~~~~~~~~~~~~~~~~~~//
+    public void backToMenu()
+    {
+       return;
+    }
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+    //~~~~~~~~~~~~~~~~~~~~~MANAGE___BOOK~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+    public void addBook()
+    {
+        BL.add();
+    } 
+    
+    public void updateBook()
+    {
+        BL.update();
+    }
+    
+    public void removeBook()
+    {
+        BL.delete();
+    }
+    
+    public void viewAllBook()
+    {
+        BL.display();
+    }
+    
+    public void searchBookByTerms()
+    {
+        BL.search();
+    }
+     
+    
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+    //~~~~~~~~~~~~~~~~~~~~~MANAGE___MEMBERS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+    public void addNewMember()
+    {
+        ML.add();
+    }
+    
+    public void updateMemberInfo()
+    {
+        ML.update();
+    }
+    
+    public void removeMember()
+    {
+        ML.delete();
+    }
+    
+    public void viewAllMember()
+    {
+        ML.display();
+    }
+    
+      public void searchMemberByIdOrName()
+    {
+        ML.search();
+    }
+    
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+    //~~~~~~~~~~~~~~~~~~~~~BORROWING___RETURNING____BOOK~~~~~~~~~~~~~~~~~~~~~//
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+    public void borrowBook() 
+    {
+       TL.borrowBook();
+    }
+    
+    public void returnBook()
+    {
+        TL.returnbook();
+    }
+    
+    public void viewBorrowedBooks()
+    {
+        TL.displayBorrowedBooks();
+    }
+    
+    public void viewBorrowingHistoryOfSpecificMember()
+    {
+       TL.displayBorrowingHistory();
+    }
+    
+    
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+    //~~~~~~~~~~~~~~~~~~~~~REPORTS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~// 
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+    public void viewCurrentlyBorrowedBooks()
     {
         
     }
     
-    public void saveData()
+    public void viewOverdueBooks()
     {
         
     }
     
-    public void loadData()
+    public void viewMostPopularBooks()
+    {
+        
+    }
+    
+    public void viewMemberWithTheMostBorrowing()
     {
         
     }
