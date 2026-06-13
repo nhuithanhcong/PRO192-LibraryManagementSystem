@@ -52,7 +52,7 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                 String e = input.nextLine();
                 if(returnOrcontinue(e)) 
                 {
-                    input.close();
+ 
                     return;
                 }
 
@@ -75,7 +75,6 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                 String e = input.nextLine();
                 if(returnOrcontinue(e)) 
                 {
-                    input.close();
                     return;
                 }
 
