@@ -10,22 +10,36 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
     private String bookID;
     private MemberList ML = new MemberList();
     private BookList BL = new BookList(); 
-    
   
     
     
+    public boolean returnOrcontinue(String input)
+    {
+        if(input.equalsIgnoreCase("Esc")) 
+        {
+            return true;
+            
+        }
+        else return false;
+    }
     
+    public boolean checkDate(String Date) // -> check if the input date from user is correct dd/mm/yyyy
+    {
+        if(Date.charAt(2) == '/' && Date.charAt(5) == '/') return true;
+        else return false;
+    }
     public void borrowBook()
     {
         Scanner input = new Scanner(System.in); // tao object scanner de lay du lieu tu user
         
 
-        
+        String userId = null;
+        String bookId = null;
         //User enters member ID and Book ID 
         while(true)
         {
             System.out.print("Please Enter the user ID: ");
-            String userId = input.nextLine();
+            userId = input.nextLine();
             if(userId.length() != 0)
             {
                 System.out.println("User ID Entered Successfully!");
@@ -33,16 +47,22 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
             }
             else
             {
-                System.out.println("Please Enter The User ID correctly! (Press Enter to continue)");
-                input.nextLine();
-                continue;
+                System.out.println("Please Enter The User ID correctly!");
+                System.out.println("Press Enter to continue Or type Esc to return!");
+                String e = input.nextLine();
+                if(returnOrcontinue(e)) 
+                {
+                    input.close();
+                    return;
+                }
+
             }
         }
         //User enters Book ID 
         while(true)
         {
             System.out.print("Please Enter the Book ID: ");
-            String bookId = input.nextLine();
+            bookId = input.nextLine();
             if(bookId.length() != 0)
             {
                 System.out.println("book ID Entered Successfully!");
@@ -50,9 +70,15 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
             }
             else
             {
-                System.out.println("Please Enter The book ID correctly! (Press enter to continue!)");
-                input.nextLine();
-                continue;
+                System.out.println("Please Enter The book ID correctly!");
+                System.out.println("Press Enter to continue Or type Esc to return!");
+                String e = input.nextLine();
+                if(returnOrcontinue(e)) 
+                {
+                    input.close();
+                    return;
+                }
+
             }
                 
         }
@@ -61,8 +87,10 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
         {
             System.out.println("There are no Data in the member list database! (Press enter to return!)");
             input.nextLine();
+            input.close();
             return;
         }
+        
         for(int i = 0; i < ML.size(); i++)
         {
             boolean check = memberID.equalsIgnoreCase((ML.get(i)).getMemberID());
@@ -97,13 +125,13 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                        quan--;
                        BL.get(i).setQuantity(quan); 
                        
-                       //Save transaction into ArrayList.
-                       newBT.setTransactionID("");
-                       newBT.setBorrowDate("");
-                       newBT.setDueDate("");
-                       newBT.setFineAmount(1);
-                       newBT.setReturnDate("");
-                       newBT.setStatus("Borrowed"); // 1 == borrowed
+                       //Save transaction into ArrayList (Transaction List).
+                       newBT.setTransactionID("TransacID:" + this.size()+1);
+                       newBT.setBorrowDate("Not Yet Settled");
+                       newBT.setDueDate("Not Yet Settled");
+                       newBT.setFineAmount(-9999999);
+                       newBT.setReturnDate("Not Yet Settled");
+                       newBT.setStatus("Borrowed");
                        newBT.setMemberID(memberID);
                        newBT.setBookID(bookID);
                        this.add(newBT);
@@ -112,24 +140,30 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                        System.out.println("Transaction have been Saved in the list!");
                        
                        //end
-                       input.close();
                        System.out.println("Press Enter to return!");
                        input.nextLine();
+                       input.close();
                        return; 
                   }
                 }
                 else
                 {
                   System.out.println("The Book is unavailable!");
-                  System.out.println("Press Enter to return!");
-                  input.nextLine();
-                  return;
+                  System.out.println("Press Enter to continue Or type Esc to return!");
+                  String e = input.nextLine();
+                  if(returnOrcontinue(e)) 
+                    {
+                        input.close();
+                        return;
+                    }
                 }
             }
                 
         } 
         System.out.println("User ID Not Found In The DataBase!"); 
+        System.out.println("Press Enter to return!");
         input.nextLine();
+        input.close();
         return;
        
     }
@@ -140,13 +174,14 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
     {
         Scanner input = new Scanner(System.in); // tao object scanner de lay du lieu tu user
         
-
-        
+        String userId = null;
+        String bookId = null;
+        String returnDate = null;
         //User enters member ID and Book ID
         while(true)
         {
             System.out.print("Please Enter the user ID: ");
-            String userId = input.nextLine();
+            userId = input.nextLine();
             if(userId.length() != 0)
             {
                 System.out.println("User ID Entered Successfully!");
@@ -154,16 +189,21 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
             }
             else
             {
-                System.out.println("Please Enter The User ID correctly! (Press Enter to continue)");
-                input.nextLine();
-                continue;
+                System.out.println("Please Enter The User ID correctly!");
+                System.out.println("Press Enter to continue Or type Esc to return!");
+                String e = input.nextLine();
+                if(returnOrcontinue(e)) 
+                {
+                    input.close();
+                    return;
+                }
             }
         }
         //User enters Book ID 
         while(true)
         {
             System.out.print("Please Enter the Book ID: ");
-            String bookId = input.nextLine();
+            bookId = input.nextLine();
             if(bookId.length() != 0)
             {
                 System.out.println("book ID Entered Successfully!");
@@ -171,17 +211,23 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
             }
             else
             {
-                System.out.println("Please Enter The book ID correctly! (Press enter to continue!)");
-                input.nextLine();
-                continue;
+                System.out.println("Please Enter The book ID correctly!");
+                System.out.println("Press Enter to continue Or type Esc to return!");
+                String e = input.nextLine();
+                if(returnOrcontinue(e)) 
+                {
+                    input.close();
+                    return;
+                }
             }
                 
         }
         // check if the member list is empty
-        if(ML.size() == 0)
+        if(ML.isEmpty()) // ML.isEmpty() = [ML.length() != 0 -> 0|| == 0 -> 1]
         {
             System.out.println("There are no Data in the member list database! (Press enter to return!)");
             input.nextLine();
+            input.close();
             return;
         }
         
@@ -199,8 +245,28 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                if(BTcheck)
                {
                    //Enter return date.
-                   System.out.println("Enter the return date: ");
-                   String returnDate = input.nextLine();
+                   while(true)
+                   {
+                    System.out.println("Enter the return date(dd/mm/yyyy): ");
+                    returnDate = input.nextLine();
+                    if(returnDate.length() == 9 && checkDate(returnDate))
+                    {
+                        System.out.println("Return Date Entered Successfully!");
+                        break;
+                    }
+                    else if(returnDate.length() != 9 || !checkDate(returnDate))
+                    {
+                        System.out.println("Please Enter the correct format of return date!");
+                        System.out.println("Press Enter to continue Or type Esc to return!");
+                        String e = input.nextLine();
+                        if(returnOrcontinue(e)) 
+                        {
+                            input.close();
+                            return;
+                        }
+                    }
+                   }
+                   
                    
                    //Calculate overdue fine if necessary.
                    BorrowingTransaction currentBT = this.get(i);
@@ -212,19 +278,33 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                    (BL.get(i)).setQuantity(quan++);
                    
                    //Update transaction status.
+                   this.get(i).setReturnDate(returnDate);
                    System.out.println("Transaction Updated!");
                    this.get(i).toString();
-                   break; // end
+                   System.out.println("Press Enter to return!");
+                   input.nextLine();
+                   input.close();
+                   return; // end
                    
                }
                else
                {
                    System.out.print("Transaction not found!");
+                   System.out.println("Press Enter to continue Or type Esc to return!");
+                   String e = input.nextLine();
+                   if(returnOrcontinue(e)) 
+                   {
+                       input.close();
+                       return;
+                   }
                }
             }
         }
         System.out.println("User ID Not Found!");
-        System.out.println()
+        System.out.println("Press Enter to return!");
+        input.nextLine();
+        input.close();
+        return;
     }
     
     
@@ -238,36 +318,61 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
         }
         //Return to previous Menu
         Scanner input = new Scanner(System.in);
-        
-        try
+        System.out.println("Press Enter to continue Or type Esc to return!");
+        String e = input.nextLine();
+        if(returnOrcontinue(e)) 
         {
-            System.out.println("Enter 0 to exit: ");
-            int n = input.nextInt();
+            input.close();
             return;
-            
-        }catch(Exception e)
-        {
-            System.out.println("Please enter 0!");
         }
+        
     }
-    public String displayBorrowingHistory()
+    public void displayBorrowingHistory()
     {
-        System.out.println("Please Enter a member ID: ");
         Scanner input = new Scanner(System.in);
-        String id = input.nextLine();
-        //place input.nextLine() to test whther the "" is gone 
+        String userId = null;
+        while(true)
+        {
+            System.out.print("Please Enter the user ID: ");
+            userId = input.nextLine();
+            if(userId.length() != 0)
+            {
+                System.out.println("User ID Entered Successfully!");
+                break;
+            }
+            else
+            {
+                System.out.println("Please Enter The User ID correctly!");
+                System.out.println("Press Enter to continue Or type Esc to return!");
+                String e = input.nextLine();
+                if(returnOrcontinue(e)) 
+                {
+                    input.close();
+                    return;
+                }
+            }
+        }
+
+        if(this.size() == 0)
+        {
+            System.out.println("there are no Data in the database!");
+            System.out.println("Press Enter to return");
+            String e = input.nextLine();
+            input.close();
+            return;
+        }
         for(int i = 0; i < this.size();i++)
         {
-            boolean check = this.get(i).getMemberID().equalsIgnoreCase(id);
+            boolean check = this.get(i).getMemberID().equalsIgnoreCase(userId);
             if(check) 
             {
-                return this.get(i).toString();
+                System.out.println(this.get(i).toString()); 
+                input.close();
+                return;
             }
         }
         
-
-        input.next();
-        return "Cannot find the user in database!";
+        
         
     }
 }
