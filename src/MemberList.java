@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class MemberList extends ArrayList<Member> implements GeneralUtil
+public class MemberList extends ArrayList<Member> implements/*lay chuc nang chung cua general*/ GeneralUtil
 {
     
     //input du lieu tu user
@@ -81,8 +81,8 @@ public class MemberList extends ArrayList<Member> implements GeneralUtil
             
 
             System.out.print("New Name: ");//nhap input gia tri moi vao
-            String newName = sc.nextLine();//gan gia tri moi vao member va tu member do se gan vao memberList moi
-            member.setMemberID(newName);
+            String newName = sc.nextLine();//gan gia tri moi vao member 
+            member.setMemberID(newName);// va tu member do se gan vao memberList moi nho chuhc nang set
 
             System.out.print("New Phone Number: ");
             String newPhoneNumber = sc.nextLine();
