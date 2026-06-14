@@ -34,8 +34,8 @@ public class MemberList extends ArrayList<Member> implements GeneralUtil
     int choice = sc.nextInt();
     if (choice == 1) {
         System.out.println("Member added successfully!");
-        Member newMember = new Member(id, name, phone, email);//tao ra object vao member moi
-        this.add(newMember);//them new member vao arraylist
+        Member newMember = new Member(id, name, phone, email);//tao ra object de gan scan member moi vao class member
+        this.add(newMember);//them new member vao class arraylist
     } else {
         System.out.println("Operation cancelled!");
     } 
