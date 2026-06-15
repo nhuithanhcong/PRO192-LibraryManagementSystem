@@ -32,8 +32,8 @@ public class BookList extends ArrayList<Book> implements GeneralUtil{
         int choice = input.nextInt();
         if (choice == 1) {
             System.out.println("Book added successfully!");
-            Book info = new Book(bookID, title, author, genre, publicationYear, Quantity);//tao ra object de gan scan member moi vao class member
-            this.add(info);//them new member vao class arraylist
+            Book info = new Book(bookID, title, author, genre, publicationYear, Quantity);
+            this.add(info);
         } else {
             System.out.println("Operation cancelled!");
         } 
