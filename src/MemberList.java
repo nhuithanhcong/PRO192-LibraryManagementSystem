@@ -71,8 +71,9 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
         System.out.println("Enter member ID: ");
         String updateID = sc.nextLine();
         
-        boolean found = false;
+        
         int size = this.size();
+        boolean found = false;
         for (int i = 0; i < size; i++) {
             Member member = this.get(i);
             if (member.getMemberID().equalsIgnoreCase(updateID)) {
@@ -82,22 +83,22 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
 
             System.out.print("New Name: ");//nhap input gia tri moi vao
             String newName = sc.nextLine();//gan gia tri moi vao member 
-            member.setMemberID(newName);// va tu member do se gan vao memberList moi nho chuhc nang set
+            member.setName(newName);// va tu member do se gan vao memberList moi nho chuhc nang set
 
             System.out.print("New Phone Number: ");
             String newPhoneNumber = sc.nextLine();
-            member.setMemberID(newPhoneNumber);
+            member.setPhone(newPhoneNumber);
 
             System.out.print("Email: ");
             String newEmail = sc.nextLine();
-            member.setMemberID(newEmail);                                                               
-            
+            member.setEmail(newEmail);                                                               
+            System.out.println("Member updated successfully!");
             break;//dung vonglap lun de k con phai chay them 1 vong moi nua de tiet kiem tai nguyen va thoi gian
-            }
-            
+            } 
         }
-         if (!found) {
+        if (!found) {
             System.out.println("Member not found.");
+         
         }
     }
     
@@ -185,8 +186,10 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
     
     public double calculateFine(int OverdueDays)
     {
-        return 696969696969.696969;
+        return 0;
     }
+
+    
     
     
     

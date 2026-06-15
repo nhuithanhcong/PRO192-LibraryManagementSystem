@@ -9,35 +9,34 @@ public class BookList extends ArrayList<Book> implements GeneralUtil{
         Scanner input = new Scanner(System.in);
         System.out.println("---ADD A NEW BOOK---");
         
-        System.out.println("Enter book ID: ");
+        System.out.print("Enter book ID: ");
         String bookID = input.nextLine();
-        System.out.println("Enter book title: ");
-        String title = input.nextLine();
-        System.out.println("Enter book author: ");
-        String author = input.nextLine();
-        System.out.println("Enter book genre: ");
-        String genre = input.nextLine();
-        System.out.println("Enter book puplication year: ");
-        int publicationYear = input.nextInt();
-        System.out.println("Enter book quantity: ");
-        int Quantity = input.nextInt();
-        Book info = new Book(bookID, title, author, genre, publicationYear, Quantity);
-        
-        //kiem tra xem sach da co hay chua
-        int size = this.size();
-        for(int i=0;i<size;i++){
-            Book book = this.get(i);
-            book.getBookID();
-            if (book.getBookID().equalsIgnoreCase(bookID)){
-                //id sach da co trong list
-                System.out.println("Book ID is already existed!");
-            }
-            else {
-                //id chua co trong list, them sach moi
-                this.add(info);
-                System.out.println("Book added successfully!");
-            }
+        if (isDuplicateID(bookID)) {
+            System.out.println("Book ID already exists!");
+            return;
         }
+        System.out.print("Enter book title: ");
+        String title = input.nextLine();
+        System.out.print("Enter book author: ");
+        String author = input.nextLine();
+        System.out.print("Enter book genre: ");
+        String genre = input.nextLine();
+        System.out.print("Enter book puplication year: ");
+        int publicationYear = input.nextInt();
+        System.out.print("Enter book quantity: ");
+        int Quantity = input.nextInt();
+        
+        
+        System.out.println("[1] Save    [2] Cancel");
+        System.out.print("Choose: ");
+        int choice = input.nextInt();
+        if (choice == 1) {
+            System.out.println("Book added successfully!");
+            Book info = new Book(bookID, title, author, genre, publicationYear, Quantity);//tao ra object de gan scan member moi vao class member
+            this.add(info);//them new member vao class arraylist
+        } else {
+            System.out.println("Operation cancelled!");
+        } 
     }
     //cap nhat info cua sach
     @Override
@@ -47,39 +46,41 @@ public class BookList extends ArrayList<Book> implements GeneralUtil{
         System.out.println("---UPDATE A BOOK INFO---");
         System.out.println("Enter book ID: ");
         String bookID = input.nextLine();
-        
+        boolean found = false;
         //kiem tra id cua sach
         int size = this.size();
         for(int i=0;i<size;i++){
             Book book = this.get(i);
-            book.getBookID();
             if(book.getBookID().equalsIgnoreCase(bookID)){
+                found = true;
+                System.out.println("Current Information: " + book.toString());
                 //id co trong list, thay doi info sach
-                System.out.println("Update book title: ");
+                System.out.print("Update book title: ");
                 String title = input.nextLine();
                 book.setTitle(title);
             
-                System.out.println("Update book author: ");
+                System.out.print("Update book author: ");
                 String author = input.nextLine();
                 book.setAuthor(author);
            
-                System.out.println("Update book genre: ");
+                System.out.print("Update book genre: ");
                 String genre = input.nextLine();
                 book.setGenre(genre);
            
-                System.out.println("Update book publication year: ");
+                System.out.print("Update book publication year: ");
                 int publicationYear = input.nextInt();
                 book.setPublicationYear(publicationYear);
             
-                System.out.println("Update book quantity: ");
+                System.out.print("Update book quantity: ");
                 int quantity = input.nextInt();
                 book.setQuantity(quantity);
                 System.out.println("Book is info successfully updated!");
+                break;
             }
-            else{
+        }
+        if (!found) {
                 //id khong co trong list
                 System.out.println("Book is not found!");
-            }
         }
     }
         
@@ -100,12 +101,11 @@ public class BookList extends ArrayList<Book> implements GeneralUtil{
         for(int i=0;i<size;i++){
             Book book = this.get(i);
             book.getBookID();
-            book.getQuantity();
             if(book.getBookID().equalsIgnoreCase(bookID)){
                 //id ton tai trong list
                 removeBook=book;
                 System.out.println("Book Found: ");
-                System.out.println("book.toString()");
+                System.out.println(book.toString());
                 break;
             }
         }
@@ -122,6 +122,7 @@ public class BookList extends ArrayList<Book> implements GeneralUtil{
     //hien info sach
     @Override
     public void display(){
+        System.out.println("---DISPLAY BOOK INFO---");
         int size = this.size();
         if (size == 0) {
             System.out.println("No available book!");
@@ -129,7 +130,7 @@ public class BookList extends ArrayList<Book> implements GeneralUtil{
         }
         for (int i = 0; i < size; i++) {
             Book book = this.get(i);
-            System.out.println("---DISPLAY BOOK INFO---");
+           
             System.out.println(book.toString());
         }
     }
@@ -139,36 +140,38 @@ public class BookList extends ArrayList<Book> implements GeneralUtil{
     public void search() {
         //chon giua 2 cach tim kiem
         Scanner input = new Scanner(System.in);
+        boolean found = false;
         System.out.println("---SEARCH BOOK---");
         System.out.println("[1]Search by ID      [2]Search by name");
-        System.out.println("Choose");
+        System.out.println("Choose: ");
         int choice = input.nextInt();
+        input.nextLine();
         if(choice==1){
             System.out.println("Enter book ID: ");
             String bookID = input.nextLine();
         
-            boolean isFound = false;
+
             int size = this.size();
             for (int i = 0; i < size; i++) {
                 Book book = this.get(i);
                 if (book.getBookID().equalsIgnoreCase(bookID)) {
-                    isFound = true;
+                    found = true;
                     System.out.println("Book found: ");
                     System.out.println(book.toString());
                     break;       
-                }
+                } 
             }
-            if (!isFound) {
+            if (!found) {
                System.out.println("Book not found.");
-            } 
+                } 
         }
-        else{
+        else {
             System.out.println("Enter book title: ");
             String title = input.nextLine();
         
             boolean isFound = false;
             int size = this.size();
-for (int i = 0; i < size; i++) {
+            for (int i = 0; i < size; i++) {
                 Book book = this.get(i);
                 if (book.getTitle().equalsIgnoreCase(title)) {
                     isFound = true;
@@ -181,5 +184,16 @@ for (int i = 0; i < size; i++) {
                System.out.println("Book not found.");
             } 
         }
+    }
+    public boolean isDuplicateID(String id) {
+    int size = this.size();
+    for (int i = 0; i < size; i++) {
+        Book book = this.get(i);
+        if (book.getBookID().equalsIgnoreCase(id)) {
+
+            return true;
+        }
+    }
+    return false;
     }
 }
