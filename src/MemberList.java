@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class MemberList extends ArrayList<Member> implements GeneralUtil
+public class MemberList extends ArrayList<Member> implements/*lay chuc nang chung cua general*/ GeneralUtil
 {
     
     //input du lieu tu user
@@ -34,8 +34,8 @@ public class MemberList extends ArrayList<Member> implements GeneralUtil
     int choice = sc.nextInt();
     if (choice == 1) {
         System.out.println("Member added successfully!");
-        Member newMember = new Member(id, name, phone, email);//tao ra object vao member moi
-        this.add(newMember);//them new member vao arraylist
+        Member newMember = new Member(id, name, phone, email);//tao ra object de gan scan member moi vao class member
+        this.add(newMember);//them new member vao class arraylist
     } else {
         System.out.println("Operation cancelled!");
     } 
@@ -71,8 +71,9 @@ public class MemberList extends ArrayList<Member> implements GeneralUtil
         System.out.println("Enter member ID: ");
         String updateID = sc.nextLine();
         
-        boolean found = false;
+        
         int size = this.size();
+        boolean found = false;
         for (int i = 0; i < size; i++) {
             Member member = this.get(i);
             if (member.getMemberID().equalsIgnoreCase(updateID)) {
@@ -81,23 +82,23 @@ public class MemberList extends ArrayList<Member> implements GeneralUtil
             
 
             System.out.print("New Name: ");//nhap input gia tri moi vao
-            String newName = sc.nextLine();//gan gia tri moi vao member va tu member do se gan vao memberList moi
-            member.setMemberID(newName);
+            String newName = sc.nextLine();//gan gia tri moi vao member 
+            member.setName(newName);// va tu member do se gan vao memberList moi nho chuhc nang set
 
             System.out.print("New Phone Number: ");
             String newPhoneNumber = sc.nextLine();
-            member.setMemberID(newPhoneNumber);
+            member.setPhone(newPhoneNumber);
 
             System.out.print("Email: ");
             String newEmail = sc.nextLine();
-            member.setMemberID(newEmail);                                                               
-            
+            member.setEmail(newEmail);                                                               
+            System.out.println("Member updated successfully!");
             break;//dung vonglap lun de k con phai chay them 1 vong moi nua de tiet kiem tai nguyen va thoi gian
-            }
-            
+            } 
         }
-         if (!found) {
+        if (!found) {
             System.out.println("Member not found.");
+         
         }
     }
     
@@ -185,8 +186,10 @@ public class MemberList extends ArrayList<Member> implements GeneralUtil
     
     public double calculateFine(int OverdueDays)
     {
-        return 696969696969.696969;
+        return 0;
     }
+
+    
     
     
     

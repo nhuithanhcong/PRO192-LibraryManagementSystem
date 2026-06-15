@@ -99,6 +99,12 @@ public class Book
         
         return Book;
     }
+
+    @Override
+    public String toString() {
+        return "Book Infor: " + "bookID: " + bookID + ", title: " + title + ", author: " + author + ", genre: " + genre + ", publicationYear: " + publicationYear + ", Quantity: " + Quantity;
+    }
+    
     
     public Boolean isAvailable()
     {

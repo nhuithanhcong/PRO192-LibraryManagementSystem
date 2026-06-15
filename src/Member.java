@@ -3,7 +3,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Member extends ArrayList<Member>
+public class Member
 {
     private String memberID, name, phone, email;
     
@@ -55,6 +55,14 @@ public class Member extends ArrayList<Member>
         this.email = email;
     }
 
+    @Override
+    public String toString() {
+        return "Member Infor: " + "memberID: " + memberID + ", name: " + name + ", phone: " + phone + ", email: " + email;
+    }
+
+    
+    
+    
   
     
     public int getBorrowLimit()
