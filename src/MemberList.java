@@ -46,7 +46,6 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
      
      
      //Display member
-    
     @Override
      public void display()
     {
