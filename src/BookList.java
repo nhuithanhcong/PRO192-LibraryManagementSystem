@@ -1,199 +1,229 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class BookList extends ArrayList<Book> implements GeneralUtil{
-    //Them sach moi vao danh sach
+public class BookList extends ArrayList<Book> implements GeneralUtil {
+
+    // Them sach moi vao danh sach
     @Override
-    public void add(){
-        //tao scanner de nhap info cua sach
+    public void add() {
         Scanner input = new Scanner(System.in);
         System.out.println("---ADD A NEW BOOK---");
         
         System.out.print("Enter book ID: ");
         String bookID = input.nextLine();
-        if (isDuplicateID(bookID)) {
-            System.out.println("Book ID already exists!");
-            return;
+        
+        // Kiem tra ID da ton tai chua 
+        boolean isExisted = false;
+        for (int i = 0; i < this.size(); i++) {
+            if (this.get(i).getBookID().equalsIgnoreCase(bookID)) {
+                isExisted = true;
+                break;
+            }
         }
+        
+        if (isExisted == true) {
+            System.out.println("Book ID already exists!");
+            return; 
+        }
+        
         System.out.print("Enter book title: ");
         String title = input.nextLine();
         System.out.print("Enter book author: ");
         String author = input.nextLine();
         System.out.print("Enter book genre: ");
         String genre = input.nextLine();
-        System.out.print("Enter book puplication year: ");
-        int publicationYear = input.nextInt();
-        System.out.print("Enter book quantity: ");
-        int Quantity = input.nextInt();
         
+        // kiem tra publication year
+        int publicationYear = 0;
+        while (true) {
+            System.out.print("Enter book publication year: ");
+            
+            // Neu dung la so nguyen
+            if (input.hasNextInt() == true) {
+                publicationYear = input.nextInt();
+                input.nextLine(); 
+                
+                if (publicationYear <= 0) {
+                    System.out.println("Year must be a positive number! Try again.");
+                } else {
+                    break; 
+                }
+            } 
+            // Neu nguoi dung nhap chu 
+            else {
+                System.out.println("Invalid format! Please enter a valid number.");
+                input.nextLine(); 
+            }
+        }
         
-        System.out.println("[1] Save    [2] Cancel");
-        System.out.print("Choose: ");
-        int choice = input.nextInt();
-        if (choice == 1) {
-            System.out.println("Book added successfully!");
-            Book info = new Book(bookID, title, author, genre, publicationYear, Quantity);
-            this.add(info);
-        } else {
-            System.out.println("Operation cancelled!");
-        } 
+        // kiem tra quantity
+        int quantity = 0;
+        while (true) {
+            System.out.print("Enter book quantity: ");
+            // Neu dung la so nguyen
+            if (input.hasNextInt() == true) {
+                quantity = input.nextInt();
+                input.nextLine(); 
+                
+                if (quantity < 0) {
+                    System.out.println("Quantity cannot be negative! Try again.");
+                } else {
+                    break;
+                }
+            }
+            // Neu nguoi dung nhap chu 
+            else {
+                System.out.println("Invalid format! Please enter a valid number.");
+                input.nextLine(); 
+            }
+        }
+        
+        Book info = new Book(bookID, title, author, genre, publicationYear, quantity);
+        info.setAvailableCopies(quantity); 
+        
+        this.add(info);
+        System.out.println("Book added successfully!");
     }
-    //cap nhat info cua sach
+
+    // Cap nhat thong tin sach
     @Override
-    public void update(){
-        //nhap id de tim sach 
+    public void update() {
         Scanner input = new Scanner(System.in);
-        System.out.println("---UPDATE A BOOK INFO---");
-        System.out.println("Enter book ID: ");
+System.out.println("---UPDATE A BOOK INFO---");
+        System.out.print("Enter book ID: ");
         String bookID = input.nextLine();
-        boolean found = false;
-        //kiem tra id cua sach
-        int size = this.size();
-        for(int i=0;i<size;i++){
-            Book book = this.get(i);
-            if(book.getBookID().equalsIgnoreCase(bookID)){
-                found = true;
-                System.out.println("Current Information: " + book.toString());
-                //id co trong list, thay doi info sach
-                System.out.print("Update book title: ");
-                String title = input.nextLine();
-                book.setTitle(title);
-            
-                System.out.print("Update book author: ");
-                String author = input.nextLine();
-                book.setAuthor(author);
-           
-                System.out.print("Update book genre: ");
-                String genre = input.nextLine();
-                book.setGenre(genre);
-           
-                System.out.print("Update book publication year: ");
-                int publicationYear = input.nextInt();
-                book.setPublicationYear(publicationYear);
-            
-                System.out.print("Update book quantity: ");
-                int quantity = input.nextInt();
-                book.setQuantity(quantity);
-                System.out.println("Book is info successfully updated!");
+        
+        Book foundBook = null;
+        for (int i = 0; i < this.size(); i++) {
+            if (this.get(i).getBookID().equalsIgnoreCase(bookID)) {
+                foundBook = this.get(i);
                 break;
             }
         }
-        if (!found) {
-                //id khong co trong list
-                System.out.println("Book is not found!");
+        
+        if (foundBook != null) {
+            System.out.print("Update book title: ");
+            foundBook.setTitle(input.nextLine());
+        
+            System.out.print("Update book author: ");
+            foundBook.setAuthor(input.nextLine());
+       
+            System.out.print("Update book genre: ");
+            foundBook.setGenre(input.nextLine());
+       
+            // Kiem tra publication year khi update
+            while (true) {
+                System.out.print("Update book publication year: ");
+                if (input.hasNextInt() == true) {
+                    int publicationYear = input.nextInt();
+                    input.nextLine();
+                    
+                    if (publicationYear <= 0) {
+                        System.out.println("Year must be a positive number! Try again.");
+                    } else {
+                        foundBook.setPublicationYear(publicationYear);
+                        break;
+                    }
+                } else {
+                    System.out.println("Invalid format! Please enter a valid number.");
+                    input.nextLine();
+                }
+            }
+        
+            // Kiem tra quantity khi update
+            while (true) {
+                System.out.print("Update book quantity: ");
+                if (input.hasNextInt() == true) {
+                    int quantity = input.nextInt();
+                    input.nextLine();
+                    
+                    if (quantity < 0) {
+                        System.out.println("Quantity cannot be negative! Try again.");
+                    } else {
+                        foundBook.setQuantity(quantity);
+                        foundBook.setAvailableCopies(quantity); 
+                        break;
+                    }
+                } else {
+                    System.out.println("Invalid format! Please enter a valid number.");
+                    input.nextLine();
+                }
+            }
+            
+            System.out.println("Book info successfully updated!");
+        } else {
+            System.out.println("Book not found!");
         }
     }
         
-    //xoa sach khoi list
+    // Xoa sach khoi danh sach
     @Override
-    public void delete(){
-        //nhap id sach
+    public void delete() {
         Scanner input = new Scanner(System.in);
         System.out.println("---DELETE A BOOK---");
-        System.out.println("Enter book ID: ");
+        System.out.print("Enter book ID: ");
         String bookID = input.nextLine();
         
-        //tao object de gan sach muon tim vao removeBook
-        Book removeBook=null;
-        
-        //kiem tra id sach
-        int size = this.size();
-        for(int i=0;i<size;i++){
-            Book book = this.get(i);
-            book.getBookID();
-            if(book.getBookID().equalsIgnoreCase(bookID)){
-                //id ton tai trong list
-                removeBook=book;
-                System.out.println("Book Found: ");
-                System.out.println(book.toString());
+        Book removeBook = null;
+        for (int i = 0; i < this.size(); i++) {
+            if (this.get(i).getBookID().equalsIgnoreCase(bookID)) {
+                removeBook = this.get(i);
                 break;
             }
         }
-        if (removeBook!=null){
-            //neu ton tai id sach thi xoa sach di
+        
+        if (removeBook != null) {
+            System.out.println("Book Found: ID " + removeBook.getBookID() + " - Title: " + removeBook.getTitle());
             this.remove(removeBook);
-        }
-        else{
-            //id sach khong ton tai
-            System.out.println("Book is not found!");
+            System.out.println("Book deleted successfully!");
+        } else {
+            System.out.println("Book not found!");
         }
     }
     
-    //hien info sach
+    // Hien thi danh sach sach
     @Override
-    public void display(){
-        System.out.println("---DISPLAY BOOK INFO---");
-        int size = this.size();
-        if (size == 0) {
+    public void display() {
+        if (this.isEmpty()) {
             System.out.println("No available book!");
             return;
         }
-        for (int i = 0; i < size; i++) {
+        System.out.println("---DISPLAY BOOK LIST---");
+        for(int i = 0; i < this.size(); i++) {
             Book book = this.get(i);
-           
             System.out.println(book.toString());
-        }
+        }   
     }
-    
-    //tim sach theo id hoac ten sach
+    // Tim kiem sach
     @Override
     public void search() {
-        //chon giua 2 cach tim kiem
         Scanner input = new Scanner(System.in);
-        boolean found = false;
         System.out.println("---SEARCH BOOK---");
-        System.out.println("[1]Search by ID      [2]Search by name");
-        System.out.println("Choose: ");
-        int choice = input.nextInt();
-        input.nextLine();
-        if(choice==1){
-            System.out.println("Enter book ID: ");
-            String bookID = input.nextLine();
+        System.out.print("Enter keyword (title, author, or genre) to search: ");
+        String keyword = input.nextLine().toLowerCase();
         
-
-            int size = this.size();
-            for (int i = 0; i < size; i++) {
-                Book book = this.get(i);
-                if (book.getBookID().equalsIgnoreCase(bookID)) {
-                    found = true;
-                    System.out.println("Book found: ");
-                    System.out.println(book.toString());
-                    break;       
-                } 
-            }
-            if (!found) {
-               System.out.println("Book not found.");
-                } 
+        if (keyword.length() == 0) {
+            System.out.println("Keyword cannot be empty!");
+            return;
         }
-        else {
-            System.out.println("Enter book title: ");
-            String title = input.nextLine();
         
-            boolean isFound = false;
-            int size = this.size();
-            for (int i = 0; i < size; i++) {
-                Book book = this.get(i);
-                if (book.getTitle().equalsIgnoreCase(title)) {
-                    isFound = true;
-                    System.out.println("Book found: ");
-                    System.out.println(book.toString());
-                    break;       
-                }
+        boolean isFound = false;
+        System.out.println("\n---SEARCH RESULTS---");
+        
+        for (int i = 0; i < this.size(); i++) {
+            Book book = this.get(i);
+            String title = book.getTitle().toLowerCase();
+            String author = book.getAuthor().toLowerCase();
+            String genre = book.getGenre().toLowerCase();
+            
+            if (title.contains(keyword) || author.contains(keyword) || genre.contains(keyword)) {
+                isFound = true;
+                System.out.println(book.toString());
             }
-            if (!isFound) {
-               System.out.println("Book not found.");
-            } 
         }
-    }
-    public boolean isDuplicateID(String id) {
-    int size = this.size();
-    for (int i = 0; i < size; i++) {
-        Book book = this.get(i);
-        if (book.getBookID().equalsIgnoreCase(id)) {
-
-            return true;
-        }
-    }
-    return false;
+        
+        if (isFound == false) {
+           System.out.println("No books match your search keyword.");
+        } 
     }
 }
