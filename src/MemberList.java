@@ -13,12 +13,15 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
 
     System.out.println("----------- ADD MEMBER -----------");
 
-    System.out.print("Member ID: ");
+    /*System.out.print("Member ID: ");
     String id = sc.nextLine();
     if (isDuplicateID(id)) {
         System.out.println("Member ID already exists!");
         return;
-    }
+    }*/
+    String id = Utility.generateID(this, "member");
+    System.out.println("Generated Member ID: " + id);
+    
     System.out.print("Name: ");
     String name = sc.nextLine();
 
