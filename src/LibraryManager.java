@@ -7,12 +7,9 @@ public class LibraryManager
     private TransactionList TL = new TransactionList();
     private MemberList ML = new MemberList();
     private BookList BL = new BookList();
-
     
-    public LibraryManager() 
-    {
-        
-    }
+    
+
     
     
     //~~~~~~~~~~~~~~~~~~~~~RETURN_MENU~~~~~~~~~~~~~~~~~~~~~//

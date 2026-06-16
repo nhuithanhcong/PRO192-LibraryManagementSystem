@@ -88,9 +88,19 @@ public class BorrowingTransaction
     }
 
     @Override
-    public String toString() {
-        return "BorrowingTransaction{" + "transactionID=" + transactionID + ", borrowDate=" + borrowDate + ", dueDate=" + dueDate + ", returnDate=" + returnDate + ", fineAmount=" + fineAmount + ", Status=" + Status + ", memberID=" + memberID + ", bookID=" + bookID + '}';
-    }
+public String toString() {
+    return String.format(
+        "%-8s %-12s %-12s %-12s %-10.2f %-12s %-10s %-10s",
+        transactionID,
+        borrowDate,
+        dueDate,
+        returnDate,
+        fineAmount,
+        Status,
+        memberID,
+        bookID
+    );
+}
 
     
     

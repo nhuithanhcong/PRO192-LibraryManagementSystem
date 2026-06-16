@@ -183,17 +183,33 @@ System.out.println("---UPDATE A BOOK INFO---");
     
     // Hien thi danh sach sach
     @Override
-    public void display() {
-        if (this.isEmpty()) {
-            System.out.println("No available book!");
-            return;
-        }
-        System.out.println("---DISPLAY BOOK LIST---");
-        for(int i = 0; i < this.size(); i++) {
-            Book book = this.get(i);
-            System.out.println(book.toString());
-        }   
+public void display() {
+
+    if (this.isEmpty()) {
+        System.out.println("No available books!");
+        return;
     }
+
+    System.out.println("\n------------ BOOK LIST ------------");
+
+    System.out.printf(
+        "%-6s %-25s %-25s %-15s %-6s %-4s\n",
+        "ID",
+        "Title",
+        "Author",
+        "Genre",
+        "Year",
+        "Qty"
+    );
+
+    System.out.println("--------------------------------------------------------------------------");
+
+    for (Book book : this) {
+        System.out.println(book);
+    }
+
+    System.out.println("--------------------------------------------------------------------------");
+}
     // Tim kiem sach
     @Override
     public void search() {

@@ -6,10 +6,15 @@ import java.time.format.DateTimeFormatter;
 
 public class TransactionList extends ArrayList<BorrowingTransaction> 
 {
+    
     private String memberID;
     private String bookID;
     private MemberList ML = new MemberList();
     private BookList BL = new BookList(); 
+    
+   
+
+   
   
     
     
@@ -300,11 +305,33 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
     
     public void displayBorrowedBooks()
     {
-        System.out.println("Displaying Borrowed Books: ");
-        for(int i = 0; i < this.size();i++)
-        {
-            System.out.println(this.get(i).toString());
-        }
+        if (this.isEmpty()) {
+        System.out.println("No transaction found!");
+        return;
+    }
+
+    System.out.println("\n---------------- BORROWING TRANSACTION LIST ----------------");
+
+    System.out.printf(
+        "%-8s %-12s %-12s %-12s %-10s %-12s %-10s %-10s\n",
+        "ID",
+        "Borrow",
+        "Due",
+        "Return",
+        "Fine",
+        "Status",
+        "Member",
+        "Book"
+    );
+
+    System.out.println("-------------------------------------------------------------------------------------------");
+
+    for (BorrowingTransaction transaction : this) {
+        System.out.println(transaction);
+    }
+
+    System.out.println("-------------------------------------------------------------------------------------------");
+
         //Return to previous Menu
         Scanner input = new Scanner(System.in);
         System.out.println("Press Enter to continue Or type Esc to return!");
