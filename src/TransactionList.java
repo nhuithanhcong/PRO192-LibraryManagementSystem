@@ -307,8 +307,32 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
     
     public void displayBorrowedBooks()
     {
-        System.out.println("Displaying Borrowed Books: ");
-        for (BorrowingTransaction memberBT : this)  System.out.println(memberBT.toString());
+        if (this.isEmpty()) {
+        System.out.println("No transaction found!");
+        return;
+    }
+
+    System.out.println("\n---------------- BORROWING TRANSACTION LIST ----------------");
+
+    System.out.printf(
+        "%-8s %-12s %-12s %-12s %-10s %-12s %-10s %-10s\n",
+        "ID",
+        "Borrow",
+        "Due",
+        "Return",
+        "Fine",
+        "Status",
+        "Member",
+        "Book"
+    );
+
+    System.out.println("-------------------------------------------------------------------------------------------");
+
+    for (BorrowingTransaction transaction : this) {
+        System.out.println(transaction);
+    }
+
+    System.out.println("-------------------------------------------------------------------------------------------");
         
         //Return to previous Menu
         Scanner input = new Scanner(System.in);
