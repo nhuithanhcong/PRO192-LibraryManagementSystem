@@ -1,15 +1,28 @@
 public class RegularMember extends Member
 {
-    private int borrowlimit;
-    private double fineRatePerDay;
+   
+    public RegularMember() {
+    }
+
+    public RegularMember(String memberID, String name, String phone, String email) {
+        super(memberID, name, phone, email);
+    }
+
+    @Override
+    public int getBorrowLimit() {
+        return 3;
+    }
+
+    @Override
+    public double calculateFine(int OverdueDays) {
+        return OverdueDays * 5000;
+    }
+
     
-    public int getBorrowLimit()
-    {
-        return 0;
-    }
-    public double calculateFine(int overdueDays)
-    {
-        return 0.1;
-    }
+
+    
+    
+    
+    
     
 }

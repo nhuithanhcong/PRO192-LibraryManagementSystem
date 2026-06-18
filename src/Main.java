@@ -6,14 +6,15 @@ public class Main {
         System.out.println("===================================");
         System.out.println(" _   _  _   _   ____   __  __     _  _   ");
         System.out.println("| \\ | || | | | / __ \\ |  \\/  |   | || |  ");
-        System.out.println("|  \\| || |_| || |  | || \\  /|   | || |_ ");
+        System.out.println("|  \\| || |_| || |  | || \\  / |   | || |_ ");
         System.out.println("| . ` ||  _  || |  | || |\\/| |   |__   _|");
         System.out.println("| |\\  || | | || |__| || |  | |      | |  ");
         System.out.println("|_| \\_||_| |_| \\____/ |_|  |_|      |_|  ");
         System.out.println("                                   ");
         
         LibraryManager LM = new LibraryManager();
-
+        
+        
         
         
         Scanner scanner = new Scanner(System.in);

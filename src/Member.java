@@ -78,7 +78,7 @@ public String toString() {
     
     public double calculateFine(int OverdueDays)
     {
-        return 696969696969.696969;
+        return 0;
     }
      
     

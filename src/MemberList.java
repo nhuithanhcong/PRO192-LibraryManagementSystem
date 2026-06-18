@@ -35,15 +35,27 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
 
     System.out.print("Email: ");
     String email = sc.nextLine();
-               
+    
+    System.out.println("Select your member type: ");
+    System.out.println("[1] Regular member    [2] Premium member");
+    int type = sc.nextInt();
+    Member newMember;// phai khai bao newMember o ngoai trc vi khi dua vao if else se chi tinh member trong {} -> khi ra ngoai if else ta k the this.add member vi member k ton tai
+    if(type == 1) {
+        newMember = new RegularMember(id, name, phone, email);
+    } else if (type == 2) {
+        newMember = new PremiumMember(id, name, phone, email);
+    } else {
+        System.out.println("Invalid member type!");
+        return;
+    }
     
     System.out.println("[1] Save    [2] Cancel");
     System.out.print("Choose: ");
     int choice = sc.nextInt();
     if (choice == 1) {
-        System.out.println("Member added successfully!");
-        Member newMember = new Member(id, name, phone, email);//tao ra object de gan scan member moi vao class member
         this.add(newMember);//them new member vao class arraylist
+        System.out.println("Member added successfully!");//tao ra object de gan scan member moi vao class member
+        
     } else {
         System.out.println("Operation cancelled!");
     } 
