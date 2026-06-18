@@ -4,18 +4,19 @@ import java.util.ArrayList;
 public class LibraryManager
 {
     // call methods from list
-    private TransactionList TL = new TransactionList();
-    private MemberList ML = new MemberList();
-    private BookList BL = new BookList();
+    private TransactionList TL;
+    private MemberList ML;
+    private BookList BL;
     
-    
-
-    
-    
-    //~~~~~~~~~~~~~~~~~~~~~RETURN_MENU~~~~~~~~~~~~~~~~~~~~~//
-    public void backToMenu()
+    //INITIALIZING AND RETRIEVING DATA FROM EXISTING CLASSES 
+    public LibraryManager() 
     {
-       return;
+        this.ML = new MemberList();
+        this.BL = new BookList();
+        this.TL = new TransactionList();
+        
+        this.TL.setML(this.ML);
+        this.TL.setBL(this.BL);
     }
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
     //~~~~~~~~~~~~~~~~~~~~~MANAGE___BOOK~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
@@ -101,24 +102,24 @@ public class LibraryManager
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
     //~~~~~~~~~~~~~~~~~~~~~REPORTS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~// 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-    public void viewCurrentlyBorrowedBooks()
+    public void viewCurrentlyBorrowedBooks() // --> ???
     {
-        
+        TL.displayBorrowedBooks(); 
     }
     
     public void viewOverdueBooks()
     {
-        
+        TL.viewOverdueBooks();
     }
     
     public void viewMostPopularBooks()
     {
-        
+        TL.viewMostPopularBooks();
     }
     
     public void viewMemberWithTheMostBorrowing()
     {
-        
+        TL.viewMemberWithTheMostBorrowing();
     }
     
 }

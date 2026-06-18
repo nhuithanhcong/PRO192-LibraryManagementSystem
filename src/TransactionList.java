@@ -6,16 +6,18 @@ import java.time.format.DateTimeFormatter;
 
 public class TransactionList extends ArrayList<BorrowingTransaction> 
 {
+    private MemberList ML;
+    private BookList BL;
+    private String userId = null;
+    private String bookId = null;
     
-    private String memberID;
-    private String bookID;
-    private MemberList ML = new MemberList();
-    private BookList BL = new BookList(); 
-    
-   
+    public void setML(MemberList ML) {
+        this.ML = ML;
+    }
 
-   
-  
+    public void setBL(BookList BL) {
+        this.BL = BL;
+    }
     
     
     public boolean returnOrcontinue(String input)
@@ -33,13 +35,11 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
         if(Date.charAt(2) == '/' && Date.charAt(5) == '/') return true;
         else return false;
     }
+    
+    
     public void borrowBook()
     {
         Scanner input = new Scanner(System.in); // tao object scanner de lay du lieu tu user
-        
-
-        String userId = null;
-        String bookId = null;
         //User enters member ID and Book ID 
         while(true)
         {
@@ -57,10 +57,8 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                 String e = input.nextLine();
                 if(returnOrcontinue(e)) 
                 {
- 
                     return;
                 }
-
             }
         }
         //User enters Book ID 
@@ -87,6 +85,7 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                 
         }
         // check if the member list is empty
+        System.out.println("Size of ML is: " + ML.size());
         if(ML.size() == 0)
         {
             System.out.println("There are no Data in the member list database! (Press enter to return!)");
@@ -94,27 +93,28 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
             return;
         }
         
-        for(int i = 0; i < ML.size(); i++)
+        for(Member member : ML)
         {
-            boolean check = memberID.equalsIgnoreCase((ML.get(i)).getMemberID());
+            boolean check = userId.equalsIgnoreCase(member.getMemberID());
             //check whether member exists
             if(check == true)
             {
                 System.out.println("User ID Found!");
                 
-                
-                boolean checkB = bookID.equalsIgnoreCase((BL.get(i)).getBookID());
-                int quan = (BL.get(i)).getQuantity();
-                //Check whether the book exists and is available.
-                if(checkB == true && quan > 0 ) 
+                for(Book book : BL)
                 {
+                 boolean checkB = bookId.equalsIgnoreCase(book.getBookID());
+                 int quan = book.getQuantity();
+                 //Check whether the book exists and is available.
+                 if(checkB == true && quan > 0 ) 
+                 {
                   System.out.println("The Book is exist and avaiable!");
                   
                   
                   
                   
-                  int bLimit = (ML.get(i)).getBorrowLimit();
-                  int threshold = 3; // the amount of books one could borrow
+                  int bLimit = member.getBorrowLimit(); //how many books member can borrow left
+                  int threshold = 3; // How many books member can actually borrow
                   //Check member borrowing limit.
                   if(bLimit < threshold)
                   {
@@ -126,17 +126,17 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                        //Reduce book quantity.
                        System.out.println("Reducing the quantity"); 
                        quan--;
-                       BL.get(i).setQuantity(quan); 
-                       
-                       //Save transaction into ArrayList (Transaction List).
+                       book.setQuantity(quan); 
+                       //Update transaction infomation of the object
                        newBT.setTransactionID("TransacID:" + this.size()+1);
                        newBT.setBorrowDate("Not Yet Settled");
                        newBT.setDueDate("Not Yet Settled");
                        newBT.setFineAmount(-9999999);
                        newBT.setReturnDate("Not Yet Settled");
                        newBT.setStatus("Borrowed");
-                       newBT.setMemberID(memberID);
-                       newBT.setBookID(bookID);
+                       newBT.setMemberID(userId);
+                       newBT.setBookID(bookId);
+                       //Save object into ArrayList (Transaction List).
                        this.add(newBT);
                        
                        //Display success message.
@@ -148,9 +148,9 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                        
                        return; 
                   }
-                }
-                else
-                {
+                 }
+                 else
+                 {
                   System.out.println("The Book is unavailable!");
                   System.out.println("Press Enter to continue Or type Esc to return!");
                   String e = input.nextLine();
@@ -158,6 +158,7 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                     {
                         return;
                     }
+                 }
                 }
             }
                 
@@ -165,18 +166,11 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
         System.out.println("User ID Not Found In The DataBase!"); 
         System.out.println("Press Enter to return!");
         input.nextLine();
-        return;
-       
     }
-    
-    
     
     public void returnbook()
     {
         Scanner input = new Scanner(System.in); // tao object scanner de lay du lieu tu user
-        
-        String userId = null;
-        String bookId = null;
         String returnDate = null;
         //User enters member ID and Book ID
         while(true)
@@ -218,11 +212,10 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                 {
                     return;
                 }
-            }
-                
+            }            
         }
         // check if the member list is empty
-        if(ML.isEmpty()) // ML.isEmpty() = [ML.length() != 0 -> 0|| == 0 -> 1]
+        if(ML.isEmpty())
         {
             System.out.println("There are no Data in the member list database! (Press enter to return!)");
             input.nextLine();
@@ -230,31 +223,69 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
         }
         
         
-        for(int i = 0; i < ML.size(); i++)
+        for(BorrowingTransaction memberBT: this)
         {
-            boolean check = memberID.equalsIgnoreCase((ML.get(i)).getMemberID());
+            boolean check = userId.equalsIgnoreCase(memberBT.getMemberID());
              //check whether member exists
             if(check)
             {
                 System.out.println("User ID Found!");
-                
-               //Find borrowing transaction.
-               boolean BTcheck = memberID.equalsIgnoreCase((this.get(i)).getMemberID());
-               if(BTcheck)
-               {
-                   //Enter return date.
-                   while(true)
-                   {
-                    System.out.println("Enter the return date(dd/mm/yyyy): ");
-                    returnDate = input.nextLine();
-                    if(returnDate.length() == 9 && checkDate(returnDate))
+                for(BorrowingTransaction BT : this)
+                {
+                    //Find borrowing transaction.
+                    boolean BTcheck = userId.equalsIgnoreCase(BT.getMemberID());
+                    if(BTcheck)
                     {
-                        System.out.println("Return Date Entered Successfully!");
-                        break;
+                        System.out.println("Transaction Found!");
+                        //Enter return date.
+                        while(true)
+                        {
+                            System.out.println("Enter the return date(dd/mm/yyyy): ");
+                            returnDate = input.nextLine();
+                            if(returnDate.length() == 9 && checkDate(returnDate))
+                            {
+                                System.out.println("Return Date Entered Successfully!");
+                                break;
+                            }
+                         else if(returnDate.length() != 9 || !checkDate(returnDate))
+                            {
+                                System.out.println("Please Enter the correct format of return date!");
+                                System.out.println("Press Enter to continue Or type Esc to return!");
+                                String e = input.nextLine();
+                                if(returnOrcontinue(e)) 
+                                {
+                                 return;
+                                }
+                            }
+                        }
+                   
+                   
+                        //Calculate overdue fine if necessary.                    
+                        int OverdueFine = 0; // Default = 0, initialized so can change into specific formula later
+                        memberBT.setFineAmount(OverdueFine);
+                        for(Book book : BL)
+                        {
+                            check = book.getBookID().equalsIgnoreCase(memberBT.getBookID());
+                            if(check) // check whether the boos is exist
+                            {
+                                //Increase book quantity.
+                                int quan = book.getQuantity(); quan++;
+                                book.setQuantity(quan);
+                                //Update transaction status.
+                                memberBT.setReturnDate(returnDate);
+                                memberBT.setStatus("Returned");
+                   
+                                System.out.println("Transaction Updated!");
+                                memberBT.toString(); // Display updated information of return
+                                System.out.println("Press Enter to return!");
+                                input.nextLine();
+                                return; // end
+                            }    
+                        }
                     }
-                    else if(returnDate.length() != 9 || !checkDate(returnDate))
+                    else
                     {
-                        System.out.println("Please Enter the correct format of return date!");
+                        System.out.print("Transaction not found!");
                         System.out.println("Press Enter to continue Or type Esc to return!");
                         String e = input.nextLine();
                         if(returnOrcontinue(e)) 
@@ -262,37 +293,8 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                             return;
                         }
                     }
-                   }
-                   
-                   
-                   //Calculate overdue fine if necessary.
-                   BorrowingTransaction currentBT = this.get(i);
-                   int OverdueFine = 0; // Default = 0, initialized so can change into specific formula later
-                   currentBT.setFineAmount(OverdueFine);
-                   
-                   //Increase book quantity.
-                   int quan = (BL.get(i)).getQuantity();
-                   (BL.get(i)).setQuantity(quan++);
-                   
-                   //Update transaction status.
-                   this.get(i).setReturnDate(returnDate);
-                   System.out.println("Transaction Updated!");
-                   this.get(i).toString();
-                   System.out.println("Press Enter to return!");
-                   input.nextLine();
-                   return; // end
-                   
-               }
-               else
-               {
-                   System.out.print("Transaction not found!");
-                   System.out.println("Press Enter to continue Or type Esc to return!");
-                   String e = input.nextLine();
-                   if(returnOrcontinue(e)) 
-                   {
-                       return;
-                   }
-               }
+                }
+                
             }
         }
         System.out.println("User ID Not Found!");
@@ -305,33 +307,9 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
     
     public void displayBorrowedBooks()
     {
-        if (this.isEmpty()) {
-        System.out.println("No transaction found!");
-        return;
-    }
-
-    System.out.println("\n---------------- BORROWING TRANSACTION LIST ----------------");
-
-    System.out.printf(
-        "%-8s %-12s %-12s %-12s %-10s %-12s %-10s %-10s\n",
-        "ID",
-        "Borrow",
-        "Due",
-        "Return",
-        "Fine",
-        "Status",
-        "Member",
-        "Book"
-    );
-
-    System.out.println("-------------------------------------------------------------------------------------------");
-
-    for (BorrowingTransaction transaction : this) {
-        System.out.println(transaction);
-    }
-
-    System.out.println("-------------------------------------------------------------------------------------------");
-
+        System.out.println("Displaying Borrowed Books: ");
+        for (BorrowingTransaction memberBT : this)  System.out.println(memberBT.toString());
+        
         //Return to previous Menu
         Scanner input = new Scanner(System.in);
         System.out.println("Press Enter to continue Or type Esc to return!");
@@ -339,9 +317,10 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
         if(returnOrcontinue(e)) 
         {
             return;
-        }
-        
+        } 
     }
+    
+    
     public void displayBorrowingHistory()
     {
         Scanner input = new Scanner(System.in);
@@ -383,8 +362,20 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                 return;
             }
         }
+    }
+    
+    public void viewOverdueBooks()
+    {
         
+    }
+    
+    public void viewMostPopularBooks()
+    {
         
+    }
+    
+    public void viewMemberWithTheMostBorrowing()
+    {
         
     }
 }
