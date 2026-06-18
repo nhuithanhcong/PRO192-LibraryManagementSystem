@@ -15,7 +15,7 @@ public class Utility {
             prefix = "M";
         } else {return "Error: Invalid Type";}
         
-        // neu danh sach rong
+        // neu danh sach rong 
         if (list == null || list.isEmpty()){return prefix + "0001";}
         
         int maxIdNum = 0;

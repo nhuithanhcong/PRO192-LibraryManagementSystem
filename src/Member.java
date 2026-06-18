@@ -15,7 +15,6 @@ public class Member
     }
     
    
-
     public Member(String memberID, String name, String phone, String email) {
         this.memberID = memberID;
         this.name = name;
