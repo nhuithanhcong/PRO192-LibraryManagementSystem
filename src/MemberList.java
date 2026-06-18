@@ -5,9 +5,8 @@ import java.util.Scanner;
 
 public class MemberList extends ArrayList<Member> implements/*lay chuc nang chung cua general*/ GeneralUtil
 {
-
-
-    
+   
+            
     //input du lieu tu user
     @Override
     public void add() {
@@ -16,17 +15,24 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
 
     System.out.println("----------- ADD MEMBER -----------");
 
-    System.out.print("Member ID: ");
+    /*System.out.print("Member ID: ");
     String id = sc.nextLine();
     if (isDuplicateID(id)) {
         System.out.println("Member ID already exists!");
         return;
-    }
+    }*/
+    String id = Utility.generateID(this, "member");
+    System.out.println("Generated Member ID: " + id);
+    
     System.out.print("Name: ");
     String name = sc.nextLine();
 
     System.out.print("Phone Number: ");
     String phone = sc.nextLine();
+    if (phone.length() != 10) {
+        System.out.println("your phone number must have 10 digits!");
+        return;
+    }
 
     System.out.print("Email: ");
     String email = sc.nextLine();
@@ -51,20 +57,32 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
      
      
      //Display member
-    
     @Override
-     public void display()
-    {
-        int size = this.size();
-        if (size == 0) {
-            System.out.println("No available member.");
-            return;
-        }
-        for (int i = 0; i < size; i++) {
-            Member member = this.get(i);
-            System.out.println(member.toString());
-        }
+    public void display() {
+
+        if (this.isEmpty()) {
+        System.out.println("No available members!");
+        return;
     }
+
+    System.out.println("\n----------- MEMBER LIST -----------");
+
+    System.out.printf(
+        "%-8s %-20s %-15s %-25s\n",
+        "ID",
+        "Name",
+        "Phone",
+        "Email"
+    );
+
+    System.out.println("------------------------------------------------------------------");
+    
+    for (Member member : this) {
+        System.out.println(member);
+    }
+
+    System.out.println("------------------------------------------------------------------");
+}
     
     
     
@@ -113,18 +131,18 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
     public void search() {
         Scanner sc = new Scanner(System.in);
         System.out.println("----------- SEARCH MEMBER -----------");
-        System.out.println("Enter member ID: ");
-        String searchID = sc.nextLine();
+        System.out.println("Enter member name: ");
+        String searchName = sc.nextLine();
         
         boolean found = false;
         int size = this.size();
         for (int i = 0; i < size; i++) {
             Member member = this.get(i);
-            if (member.getMemberID().equalsIgnoreCase(searchID)) {
+            if (member.getName().equalsIgnoreCase(searchName)) {
                 found = true;
                 System.out.println("Member found: ");
                 System.out.println(member.toString());
-                 break;       
+                break;       
                 
             }
         }
@@ -138,15 +156,15 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
     public void delete() {
         Scanner sc = new Scanner(System.in);
         System.out.println("----------- DELETE MEMBER -----------");
-        System.out.println("Enter member ID: ");
-        String searchID = sc.nextLine();
+        System.out.println("Enter member name: ");
+        String searchName = sc.nextLine();
         
         Member removeMember = null;//tao object removeMember = null de khi ma tim thay id cua member thi se gan object nay vao member dc tim thay
         
         int size = this.size();
         for (int i = 0; i < size; i++) {
             Member member = this.get(i);
-            if (member.getMemberID().equalsIgnoreCase(searchID)) {
+            if (member.getName().equalsIgnoreCase(searchName)) {
                 removeMember = member;// neu da tim dc member thanh cong thi se gan member dc tim thay do vao object removeMember de dinh danh member do de de hon trong vjec delete member
                 System.out.println("Member found: ");
                 System.out.println(member.toString());

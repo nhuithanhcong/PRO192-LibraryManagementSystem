@@ -44,6 +44,13 @@ public class Utility {
         } 
         return prefix + String.format("%04d", maxIdNum + 1);
     }
+    
+    public static void clearScreen() {
+    // In ra 50 dong cho troi het di :)
+        for (int i = 0; i < 50; i++) {
+            System.out.println();
+        }
+    }
 }
 
 

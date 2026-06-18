@@ -55,9 +55,15 @@ public class Member
     }
 
     @Override
-    public String toString() {
-        return "Member Infor: " + "memberID: " + memberID + ", name: " + name + ", phone: " + phone + ", email: " + email;
-    }
+public String toString() {
+    return String.format(
+        "%-8s %-20s %-15s %-25s",
+        memberID,
+        name,
+        phone,
+        email
+    );
+}
 
     
     

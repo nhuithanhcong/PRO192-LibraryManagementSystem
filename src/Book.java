@@ -100,10 +100,18 @@ public class Book
         return Book;
     }
 
-    @Override
-    public String toString() {
-        return "Book Infor: " + "bookID: " + bookID + ", title: " + title + ", author: " + author + ", genre: " + genre + ", publicationYear: " + publicationYear + ", Quantity: " + Quantity;
-    }
+   @Override
+public String toString() {
+    return String.format(
+        "%-6s %-25s %-25s %-15s %-6d %-4d",
+        bookID,
+        title,
+        author,
+        genre,
+        publicationYear,
+        Quantity
+    );
+}
     
     
     public Boolean isAvailable()
