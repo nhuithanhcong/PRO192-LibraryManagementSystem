@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Scanner;
 
 
@@ -52,6 +53,7 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
     System.out.println("[1] Save    [2] Cancel");
     System.out.print("Choose: ");
     int choice = sc.nextInt();
+    sc.nextLine();
     if (choice == 1) {
         this.add(newMember);//them new member vao class arraylist
         System.out.println("Member added successfully!");//tao ra object de gan scan member moi vao class member

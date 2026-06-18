@@ -7,24 +7,7 @@ public class BookList extends ArrayList<Book> implements GeneralUtil {
     @Override
     public void add() {
         Scanner input = new Scanner(System.in);
-        System.out.println("---ADD A NEW BOOK---");
-        
-        /*System.out.print("Enter book ID: ");
-        String bookID = input.nextLine();
-        
-        // Kiem tra ID da ton tai chua 
-        boolean isExisted = false;
-        for (int i = 0; i < this.size(); i++) {
-            if (this.get(i).getBookID().equalsIgnoreCase(bookID)) {
-                isExisted = true;
-                break;
-            }
-        }
-        
-        if (isExisted == true) {
-            System.out.println("Book ID already exists!");
-            return; 
-        }*/
+        System.out.println("---ADD A NEW BOOK---")
         
         String bookID = Utility.generateID(this, "book");
         System.out.println("Generated Member ID: " + bookID);
