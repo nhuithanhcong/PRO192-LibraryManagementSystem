@@ -1,14 +1,25 @@
 public class PremiumMember extends Member
 {
-    private int borrowlimit;
-    private double fineRatePerDay;
     
-    public int getBorrowLimit()
-    {
-        return 0;
+    public PremiumMember() {
     }
-    public double calculateFine(int overdueDays)
-    {
-        return 0.99;
+
+    public PremiumMember(String memberID, String name, String phone, String email) {
+        super(memberID, name, phone, email);
     }
+
+    @Override
+    public int getBorrowLimit() {
+        return 5;
+    }
+
+    @Override
+    public double calculateFine(int OverdueDays) {
+        return OverdueDays * 3000; 
+    }
+
+    
+    
+    
+    
 }

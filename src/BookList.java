@@ -7,24 +7,10 @@ public class BookList extends ArrayList<Book> implements GeneralUtil {
     @Override
     public void add() {
         Scanner input = new Scanner(System.in);
-        System.out.println("---ADD A NEW BOOK---");
+        System.out.println("---ADD A NEW BOOK---")
         
-        System.out.print("Enter book ID: ");
-        String bookID = input.nextLine();
-        
-        // Kiem tra ID da ton tai chua 
-        boolean isExisted = false;
-        for (int i = 0; i < this.size(); i++) {
-            if (this.get(i).getBookID().equalsIgnoreCase(bookID)) {
-                isExisted = true;
-                break;
-            }
-        }
-        
-        if (isExisted == true) {
-            System.out.println("Book ID already exists!");
-            return; 
-        }
+        String bookID = Utility.generateID(this, "book");
+        System.out.println("Generated Member ID: " + bookID);
         
         System.out.print("Enter book title: ");
         String title = input.nextLine();
@@ -183,17 +169,33 @@ System.out.println("---UPDATE A BOOK INFO---");
     
     // Hien thi danh sach sach
     @Override
-    public void display() {
-        if (this.isEmpty()) {
-            System.out.println("No available book!");
-            return;
-        }
-        System.out.println("---DISPLAY BOOK LIST---");
-        for(int i = 0; i < this.size(); i++) {
-            Book book = this.get(i);
-            System.out.println(book.toString());
-        }   
+public void display() {
+
+    if (this.isEmpty()) {
+        System.out.println("No available books!");
+        return;
     }
+
+    System.out.println("\n------------ BOOK LIST ------------");
+
+    System.out.printf(
+        "%-6s %-25s %-25s %-15s %-6s %-4s\n",
+        "ID",
+        "Title",
+        "Author",
+        "Genre",
+        "Year",
+        "Qty"
+    );
+
+    System.out.println("--------------------------------------------------------------------------");
+
+    for (Book book : this) {
+        System.out.println(book);
+    }
+
+    System.out.println("--------------------------------------------------------------------------");
+}
     // Tim kiem sach
     @Override
     public void search() {
