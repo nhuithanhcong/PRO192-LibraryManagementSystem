@@ -4,7 +4,8 @@ import java.util.Scanner;
 
 public class MemberList extends ArrayList<Member> implements/*lay chuc nang chung cua general*/ GeneralUtil
 {
-    
+   
+            
     //input du lieu tu user
     @Override
     public void add() {
