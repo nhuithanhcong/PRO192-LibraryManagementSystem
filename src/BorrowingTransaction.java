@@ -2,26 +2,29 @@ public class BorrowingTransaction
 {
     private String transactionID;
     private String borrowDate,dueDate,returnDate;
-    private  double fineAmount;
     private String Status; // Borrowed/Returned
     private String memberID;//  borrow va return can phai biet thong tin thanh vien
     private String bookID; // borrow va return can phai biet thong tin book
+    private double fineAmount;
+ 
 
     public BorrowingTransaction()
     {
          
     }
 
-    public BorrowingTransaction(String transactionID, String borrowDate, String dueDate, String returnDate, double fineAmount, String Status, String memberID, String bookID) {
+    public BorrowingTransaction(String transactionID, String borrowDate, String dueDate, String returnDate, String Status, String memberID, String bookID, double fineAmount) {
         this.transactionID = transactionID;
         this.borrowDate = borrowDate;
         this.dueDate = dueDate;
         this.returnDate = returnDate;
-        this.fineAmount = fineAmount;
         this.Status = Status;
         this.memberID = memberID;
         this.bookID = bookID;
+        this.fineAmount = fineAmount;
     }
+
+    
 
     public String getTransactionID() {
         return transactionID;

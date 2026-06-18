@@ -1,9 +1,12 @@
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Scanner;
 
 
 public class MemberList extends ArrayList<Member> implements/*lay chuc nang chung cua general*/ GeneralUtil
 {
+
+
     
     //input du lieu tu user
     @Override
@@ -32,9 +35,11 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
     System.out.println("[1] Save    [2] Cancel");
     System.out.print("Choose: ");
     int choice = sc.nextInt();
+    sc.nextLine();
     if (choice == 1) {
-        System.out.println("Member added successfully!");
+        System.out.println("Member added successfully!");    
         Member newMember = new Member(id, name, phone, email);//tao ra object de gan scan member moi vao class member
+        
         this.add(newMember);//them new member vao class arraylist
     } else {
         System.out.println("Operation cancelled!");
