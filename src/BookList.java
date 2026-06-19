@@ -9,8 +9,8 @@ public class BookList extends ArrayList<Book> implements GeneralUtil {
         Scanner input = new Scanner(System.in);
         System.out.println("---ADD A NEW BOOK---");
         
-        String bookID = Utility.generateID(this, "book");
-        System.out.println("Generated Member ID: " + bookID);
+        String bookID = Utility.generateIDvTest(this, "book");
+        System.out.println("Generated Book ID: " + bookID);
         
         System.out.print("Enter book title: ");
         String title = input.nextLine();

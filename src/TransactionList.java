@@ -161,11 +161,13 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                  }
                 }
             }
-                
+            else
+            {
+                System.out.println("User ID Not Found In The DataBase!"); 
+                System.out.println("Press Enter to return!");
+                input.nextLine();
+            }        
         } 
-        System.out.println("User ID Not Found In The DataBase!"); 
-        System.out.println("Press Enter to return!");
-        input.nextLine();
     }
     
     public void returnbook()
@@ -296,21 +298,26 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                 }
                 
             }
+            else
+            {
+                System.out.println("User ID Not Found!");
+                System.out.println("Press Enter to return!");
+                input.nextLine();
+                return;
+            }
         }
-        System.out.println("User ID Not Found!");
-        System.out.println("Press Enter to return!");
-        input.nextLine();
-        return;
+       
     }
     
     
     
     public void displayBorrowedBooks()
     {
-        if (this.isEmpty()) {
-        System.out.println("No transaction found!");
-        return;
-    }
+        if (this.isEmpty()) 
+        {
+            System.out.println("No transaction found!");
+            return;
+        }
 
     System.out.println("\n---------------- BORROWING TRANSACTION LIST ----------------");
 
@@ -328,9 +335,7 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
 
     System.out.println("-------------------------------------------------------------------------------------------");
 
-    for (BorrowingTransaction transaction : this) {
-        System.out.println(transaction);
-    }
+    for (BorrowingTransaction transaction : this)  System.out.println(transaction);
 
     System.out.println("-------------------------------------------------------------------------------------------");
         
