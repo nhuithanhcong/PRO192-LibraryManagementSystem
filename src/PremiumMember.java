@@ -14,8 +14,8 @@ public class PremiumMember extends Member
     }
 
     @Override
-    public double calculateFine(int OverdueDays) {
-        return OverdueDays * 3000; 
+    public double calculateFine(int overdueDays) {
+        return overdueDays * 3000; 
     }
 
     

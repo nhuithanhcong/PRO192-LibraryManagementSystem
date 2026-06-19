@@ -14,8 +14,8 @@ public class RegularMember extends Member
     }
 
     @Override
-    public double calculateFine(int OverdueDays) {
-        return OverdueDays * 5000;
+    public double calculateFine(int overdueDays) {
+        return overdueDays * 5000;
     }
 
     
