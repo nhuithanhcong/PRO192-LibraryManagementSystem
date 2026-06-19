@@ -83,6 +83,7 @@ System.out.println("---UPDATE A BOOK INFO---");
         for (int i = 0; i < this.size(); i++) {
             if (this.get(i).getBookID().equalsIgnoreCase(bookID)) {
                 foundBook = this.get(i);
+                System.out.println("Current infor: " + foundBook.toString());
                 break;
             }
         }
