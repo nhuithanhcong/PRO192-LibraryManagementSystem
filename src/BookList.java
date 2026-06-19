@@ -7,7 +7,7 @@ public class BookList extends ArrayList<Book> implements GeneralUtil {
     @Override
     public void add() {
         Scanner input = new Scanner(System.in);
-        System.out.println("---ADD A NEW BOOK---")
+        System.out.println("---ADD A NEW BOOK---");
         
         String bookID = Utility.generateID(this, "book");
         System.out.println("Generated Member ID: " + bookID);

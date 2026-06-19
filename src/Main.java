@@ -71,7 +71,12 @@ public class Main {
                                     Utility.clearScreen();
                                     break;
                                 case 7:
-                                    System.out.println("Returning to Main Menu...");
+                                    System.out.print("Returning to Main Menu");
+                                    Utility.delay(500);System.out.print(".");
+                                    Utility.delay(500);System.out.print(".");
+                                    Utility.delay(500);System.out.println(".");
+                                    Utility.delay(500);
+                                    break;
                                 default:
                                     System.out.println("\nInvalid sub-option! Choose between 1 and 7.");
                             }
@@ -114,10 +119,15 @@ public class Main {
                                     LM.searchMemberByIdOrName();
                                     break;
                                 case 6:    
-                                Utility.clearScreen();
-                                break;
+                                    Utility.clearScreen();
+                                    break;
                                 case 7:
-                                    System.out.println("Returning to Main Menu...");
+                                    System.out.print("Returning to Main Menu");
+                                    Utility.delay(500);System.out.print(".");
+                                    Utility.delay(500);System.out.print(".");
+                                    Utility.delay(500);System.out.println(".");
+                                    Utility.delay(500);
+                                    break;
                                 default:
                                     System.out.println("\nInvalid sub-option! Choose between 1 and 7.");
                             }
@@ -159,7 +169,12 @@ public class Main {
                                     Utility.clearScreen();
                                     break;
                                 case 6:
-                                    System.out.println("Returning to Main Menu...");
+                                    System.out.print("Returning to Main Menu");
+                                    Utility.delay(500);System.out.print(".");
+                                    Utility.delay(500);System.out.print(".");
+                                    Utility.delay(500);System.out.println(".");
+                                    Utility.delay(500);
+                                    break;
                                 default:
                                     System.out.println("\nInvalid sub-option! Choose between 1 and 6.");
                             }
@@ -202,7 +217,12 @@ public class Main {
                                     Utility.clearScreen();
                                     break;
                                 case 6:
-                                    System.out.println("Returning to Main Menu...");
+                                    System.out.print("Returning to Main Menu");
+                                    Utility.delay(500);System.out.print(".");
+                                    Utility.delay(500);System.out.print(".");
+                                    Utility.delay(500);System.out.println(".");
+                                    Utility.delay(500);
+                                    break;
                                 default:
                                     System.out.println("\nInvalid sub-option! Choose between 1 and 6.");
                             }
