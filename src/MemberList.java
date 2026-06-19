@@ -29,11 +29,7 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
 
     System.out.print("Phone Number: ");
     String phone = sc.nextLine();
-    if (phone.length() != 10) {
-        System.out.println("your phone number must have 10 digits!");
-        return;
-    }
-
+    
     System.out.print("Email: ");
     String email = sc.nextLine();
     
