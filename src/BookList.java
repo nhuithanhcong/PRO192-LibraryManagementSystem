@@ -26,7 +26,7 @@ public class BookList extends ArrayList<Book> implements GeneralUtil {
             return; 
         }*/
         
-        String bookID = Utility.generateID(this, "book");
+        String bookID = Utility.generateIDvTest(this, "book");
         System.out.println("Generated Member ID: " + bookID);
         
         System.out.print("Enter book title: ");

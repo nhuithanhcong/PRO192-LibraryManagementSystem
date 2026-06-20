@@ -21,7 +21,7 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
         System.out.println("Member ID already exists!");
         return;
     }*/
-    String id = Utility.generateID(this, "member");
+    String id = Utility.generateIDvTest(this, "member");
     System.out.println("Generated Member ID: " + id);
     
     System.out.print("Name: ");
