@@ -38,9 +38,9 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
     int type = sc.nextInt();
     Member newMember;// phai khai bao newMember o ngoai trc vi khi dua vao if else se chi tinh member trong {} -> khi ra ngoai if else ta k the this.add member vi member k ton tai
     if(type == 1) {
-        newMember = new RegularMember(id, name, phone, email);
+        newMember = new RegularMember(id, name, phone, email, 3, 0);
     } else if (type == 2) {
-        newMember = new PremiumMember(id, name, phone, email);
+        newMember = new PremiumMember(id, name, phone, email, 5, 0);
     } else {
         System.out.println("Invalid member type!");
         return;
@@ -184,8 +184,13 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
             int choice = sc.nextInt();
             
             if (choice == 1) {
-                this.remove(removeMember);//Tu 2 note tren ta co the thay rang trong muc deleteMember can co 1 bien co de xac dinh member do la ai de co the remove de hon
-                System.out.println("Member deleted successfully!");
+                if (removeMember.getCurrentAmountOfBorrowing() != removeMember.getBorrowLimit()) {
+                    System.out.println("This person still currently borrowing a book");
+                }else {
+                    this.remove(removeMember);//Tu 2 note tren ta co the thay rang trong muc deleteMember can co 1 bien co de xac dinh member do la ai de co the remove de hon
+                    System.out.println("Member deleted successfully!");
+                }
+                
             } else {
                 System.out.println("Operation cancelled!");
             } 
