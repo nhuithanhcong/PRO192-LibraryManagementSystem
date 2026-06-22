@@ -1,12 +1,16 @@
 public class PremiumMember extends Member
 {
-    
+
     public PremiumMember() {
     }
 
-    public PremiumMember(String memberID, String name, String phone, String email) {
-        super(memberID, name, phone, email);
+    public PremiumMember(String memberID, String name, String phone, String email, int currentAmountOfBorrowing, int amountOfBorrowingForMember) {
+        super(memberID, name, phone, email, currentAmountOfBorrowing, amountOfBorrowingForMember);
     }
+    
+    
+
+    
 
     @Override
     public int getBorrowLimit() {

@@ -9,7 +9,24 @@ public class BookList extends ArrayList<Book> implements GeneralUtil {
         Scanner input = new Scanner(System.in);
         System.out.println("---ADD A NEW BOOK---");
         
-        String bookID = Utility.generateID(this, "book");
+        /*System.out.print("Enter book ID: ");
+        String bookID = input.nextLine();
+        
+        // Kiem tra ID da ton tai chua 
+        boolean isExisted = false;
+        for (int i = 0; i < this.size(); i++) {
+            if (this.get(i).getBookID().equalsIgnoreCase(bookID)) {
+                isExisted = true;
+                break;
+            }
+        }
+        
+        if (isExisted == true) {
+            System.out.println("Book ID already exists!");
+            return; 
+        }*/
+        
+        String bookID = Utility.generateIDvTest(this, "book");
         System.out.println("Generated Member ID: " + bookID);
         
         System.out.print("Enter book title: ");
@@ -192,7 +209,7 @@ public void display() {
     System.out.println("--------------------------------------------------------------------------");
 
     for (Book book : this) {
-        System.out.println(book);
+        System.out.println(book.toString());
     }
 
     System.out.println("--------------------------------------------------------------------------");

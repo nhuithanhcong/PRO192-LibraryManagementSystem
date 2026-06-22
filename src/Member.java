@@ -10,17 +10,39 @@ public class Member
     //localDate
     private LocalDateTime localDate;
     private DateTimeFormatter dateformatter;
+    private int currentAmountOfBorrowing;
+    private int amountOfBorrowingForMember;
     
     public Member() {
     }
-    
-   
-    public Member(String memberID, String name, String phone, String email) {
+
+    public Member(String memberID, String name, String phone, String email, int currentAmountOfBorrowing, int amountOfBorrowingForMember) {
         this.memberID = memberID;
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.currentAmountOfBorrowing = currentAmountOfBorrowing;
+        this.amountOfBorrowingForMember = amountOfBorrowingForMember;
     }
+
+    public int getAmountOfBorrowingForMember() {//so lan member muon sach
+        return amountOfBorrowingForMember;
+    }
+
+    public void setAmountOfBorrowingForMember(int amountOfBorrowingForMember) {
+        this.amountOfBorrowingForMember = amountOfBorrowingForMember;
+    }
+
+    
+
+    public int getCurrentAmountOfBorrowing() {//con bao nhieu luot muon nua cua member
+        return currentAmountOfBorrowing;
+    }
+
+    public void setCurrentAmountOfBorrowing(int currentAmountOfBorrowing) {
+        this.currentAmountOfBorrowing = currentAmountOfBorrowing;
+    }
+    
     
     public String getMemberID() {
         return memberID;
@@ -80,5 +102,10 @@ public String toString() {
         return 0;
     }
      
+    
+
+    
+    
+    
     
 }

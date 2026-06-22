@@ -21,7 +21,7 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
         System.out.println("Member ID already exists!");
         return;
     }*/
-    String id = Utility.generateID(this, "member");
+    String id = Utility.generateIDvTest(this, "member");
     System.out.println("Generated Member ID: " + id);
     
     System.out.print("Name: ");
@@ -29,18 +29,20 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
 
     System.out.print("Phone Number: ");
     String phone = sc.nextLine();
+    if (!Utility.isValidPhoneNumber(phone)) return;
     
     System.out.print("Email: ");
     String email = sc.nextLine();
     
     System.out.println("Select your member type: ");
     System.out.println("[1] Regular member    [2] Premium member");
+    System.out.print("choose: ");
     int type = sc.nextInt();
     Member newMember;// phai khai bao newMember o ngoai trc vi khi dua vao if else se chi tinh member trong {} -> khi ra ngoai if else ta k the this.add member vi member k ton tai
     if(type == 1) {
-        newMember = new RegularMember(id, name, phone, email);
+        newMember = new RegularMember(id, name, phone, email, 3, 0);
     } else if (type == 2) {
-        newMember = new PremiumMember(id, name, phone, email);
+        newMember = new PremiumMember(id, name, phone, email, 5, 0);
     } else {
         System.out.println("Invalid member type!");
         return;
@@ -85,7 +87,7 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
     System.out.println("------------------------------------------------------------------");
     
     for (Member member : this) {
-        System.out.println(member);
+        System.out.println(member.toString());
     }
 
     System.out.println("------------------------------------------------------------------");
@@ -138,24 +140,48 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
     public void search() {
         Scanner sc = new Scanner(System.in);
         System.out.println("----------- SEARCH MEMBER -----------");
-        System.out.println("Enter member name: ");
-        String searchName = sc.nextLine();
+        System.out.println("1. Enter member name ");
+        System.out.println("2. Enter member id");
+        System.out.print("Choose: ");
+        int choice = sc.nextInt();
+        if (choice == 1) {
+            System.out.print("Enter member name: ");
+            String searchName = sc.nextLine();
         
-        boolean found = false;
-        int size = this.size();
-        for (int i = 0; i < size; i++) {
-            Member member = this.get(i);
-            if (member.getName().equalsIgnoreCase(searchName)) {
-                found = true;
-                System.out.println("Member found: ");
-                System.out.println(member.toString());
-                break;       
-                
+            boolean found = false;
+            int size = this.size();
+            for (int i = 0; i < size; i++) {
+                Member member = this.get(i);
+                if (member.getName().equalsIgnoreCase(searchName)) {
+                    found = true;
+                    System.out.println("Member found: ");
+                    System.out.println(member.toString());
+                    break;       
+
+                }
             }
+            if (!found) {
+                System.out.println("Member not found.");
+            } 
+        } else if (choice == 2) {
+            System.out.print("Enter number ID: ");
+            String searchID = sc.nextLine();
+            boolean found = false;
+            for (int i = 0; i < this.size(); i++) {
+                Member member = this.get(i);
+                if (member.getMemberID().equalsIgnoreCase(searchID)) {
+                    found = true;
+                    System.out.println("Member found: ");
+                    System.out.println(member.toString());
+                    break;
+                }
+            }
+            if (!found) {
+                System.out.println("Member not found.");
+            }
+        } else{
+            System.out.println("invalid choice!");
         }
-        if (!found) {
-            System.out.println("Member not found.");
-        } 
     }
     
    
@@ -184,8 +210,13 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
             int choice = sc.nextInt();
             
             if (choice == 1) {
-                this.remove(removeMember);//Tu 2 note tren ta co the thay rang trong muc deleteMember can co 1 bien co de xac dinh member do la ai de co the remove de hon
-                System.out.println("Member deleted successfully!");
+                if (removeMember.getCurrentAmountOfBorrowing() != removeMember.getBorrowLimit()) {
+                    System.out.println("This person still currently borrowing a book");
+                }else {
+                    this.remove(removeMember);//Tu 2 note tren ta co the thay rang trong muc deleteMember can co 1 bien co de xac dinh member do la ai de co the remove de hon
+                    System.out.println("Member deleted successfully!");
+                }
+                
             } else {
                 System.out.println("Operation cancelled!");
             } 
@@ -206,21 +237,5 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
 
     return false;
 }
-    
-    
-    
-    public int getBorrowLimit()
-    {
-        return 0;
-    }
-    
-    public double calculateFine(int OverdueDays)
-    {
-        return 0;
-    }
-
-    
-    
-    
     
 }
