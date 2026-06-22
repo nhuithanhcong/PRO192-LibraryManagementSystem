@@ -25,7 +25,7 @@ public class Member
         this.amountOfBorrowingForMember = amountOfBorrowingForMember;
     }
 
-    public int getAmountOfBorrowingForMember() {
+    public int getAmountOfBorrowingForMember() {//so lan member muon sach
         return amountOfBorrowingForMember;
     }
 
@@ -35,7 +35,7 @@ public class Member
 
     
 
-    public int getCurrentAmountOfBorrowing() {
+    public int getCurrentAmountOfBorrowing() {//con bao nhieu luot muon nua cua member
         return currentAmountOfBorrowing;
     }
 

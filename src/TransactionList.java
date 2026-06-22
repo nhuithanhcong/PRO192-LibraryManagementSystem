@@ -555,7 +555,7 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
 
     System.out.println("-------------------------------------------------------------------------------------------");
 
-    for (BorrowingTransaction transaction : this)  System.out.println(transaction);
+    for (BorrowingTransaction transaction : this)  System.out.println(transaction.toString());
 
     System.out.println("-------------------------------------------------------------------------------------------");
         

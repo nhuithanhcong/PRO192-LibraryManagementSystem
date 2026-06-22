@@ -209,7 +209,7 @@ public void display() {
     System.out.println("--------------------------------------------------------------------------");
 
     for (Book book : this) {
-        System.out.println(book);
+        System.out.println(book.toString());
     }
 
     System.out.println("--------------------------------------------------------------------------");
