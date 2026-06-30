@@ -1,15 +1,7 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Member
 {
     private String memberID, name, phone, email;
-    
-    //localDate
-    private LocalDateTime localDate;
-    private DateTimeFormatter dateformatter;
     private int currentAmountOfBorrowing;
     private int amountOfBorrowingForMember;
     

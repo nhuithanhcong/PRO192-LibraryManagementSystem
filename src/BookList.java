@@ -86,13 +86,13 @@ public class BookList extends ArrayList<Book> implements GeneralUtil {
         
         this.add(info);
         System.out.println("Book added successfully!");
-    }
-
+        } 
+        
     // Cap nhat thong tin sach
     @Override
     public void update() {
         Scanner input = new Scanner(System.in);
-System.out.println("---UPDATE A BOOK INFO---");
+        System.out.println("---UPDATE A BOOK INFO---");
         System.out.print("Enter book ID: ");
         String bookID = input.nextLine();
         
@@ -177,7 +177,8 @@ System.out.println("---UPDATE A BOOK INFO---");
         }
         
         if (removeBook != null) {
-            System.out.println("Book Found: ID " + removeBook.getBookID() + " - Title: " + removeBook.getTitle());
+            System.out.println("Book Found.");
+            System.out.println("Book infor: " + removeBook.toString());
             this.remove(removeBook);
             System.out.println("Book deleted successfully!");
         } else {
@@ -187,7 +188,7 @@ System.out.println("---UPDATE A BOOK INFO---");
     
     // Hien thi danh sach sach
     @Override
-public void display() {
+    public void display() {
 
     if (this.isEmpty()) {
         System.out.println("No available books!");
