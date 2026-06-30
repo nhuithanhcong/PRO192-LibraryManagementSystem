@@ -4,9 +4,11 @@ public class PremiumMember extends Member
     public PremiumMember() {
     }
 
-    public PremiumMember(String memberID, String name, String phone, String email, int currentAmountOfBorrowing, int amountOfBorrowingForMember) {
-        super(memberID, name, phone, email, currentAmountOfBorrowing, amountOfBorrowingForMember);
+    public PremiumMember(String memberID, String name, String phone, String email, String status, int currentAmountOfBorrowing, int amountOfBorrowingForMember) {
+        super(memberID, name, phone, email, status, currentAmountOfBorrowing, amountOfBorrowingForMember);
     }
+
+    
     
     
 

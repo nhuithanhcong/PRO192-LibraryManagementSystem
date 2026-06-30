@@ -81,7 +81,7 @@ public class BookList extends ArrayList<Book> implements GeneralUtil {
             }
         }
         
-        Book info = new Book(bookID, title, author, genre, publicationYear, quantity);
+        Book info = new Book(bookID, title, author, genre, publicationYear, quantity, 0, 0, 0);
         info.setAvailableCopies(quantity); 
         
         this.add(info);

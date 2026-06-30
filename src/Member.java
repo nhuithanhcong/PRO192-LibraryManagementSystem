@@ -1,41 +1,23 @@
 
 public class Member
 {
-    private String memberID, name, phone, email;
+    private String memberID, name, phone, email, status;
     private int currentAmountOfBorrowing;
     private int amountOfBorrowingForMember;
     
     public Member() {
     }
 
-    public Member(String memberID, String name, String phone, String email, int currentAmountOfBorrowing, int amountOfBorrowingForMember) {
+    public Member(String memberID, String name, String phone, String email, String status, int currentAmountOfBorrowing, int amountOfBorrowingForMember) {
         this.memberID = memberID;
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.status = status;
         this.currentAmountOfBorrowing = currentAmountOfBorrowing;
         this.amountOfBorrowingForMember = amountOfBorrowingForMember;
     }
 
-    public int getAmountOfBorrowingForMember() {//so lan member muon sach
-        return amountOfBorrowingForMember;
-    }
-
-    public void setAmountOfBorrowingForMember(int amountOfBorrowingForMember) {
-        this.amountOfBorrowingForMember = amountOfBorrowingForMember;
-    }
-
-    
-
-    public int getCurrentAmountOfBorrowing() {//con bao nhieu luot muon nua cua member
-        return currentAmountOfBorrowing;
-    }
-
-    public void setCurrentAmountOfBorrowing(int currentAmountOfBorrowing) {
-        this.currentAmountOfBorrowing = currentAmountOfBorrowing;
-    }
-    
-    
     public String getMemberID() {
         return memberID;
     }
@@ -68,14 +50,41 @@ public class Member
         this.email = email;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public int getCurrentAmountOfBorrowing() {
+        return currentAmountOfBorrowing;
+    }
+
+    public void setCurrentAmountOfBorrowing(int currentAmountOfBorrowing) {
+        this.currentAmountOfBorrowing = currentAmountOfBorrowing;
+    }
+
+    public int getAmountOfBorrowingForMember() {
+        return amountOfBorrowingForMember;
+    }
+
+    public void setAmountOfBorrowingForMember(int amountOfBorrowingForMember) {
+        this.amountOfBorrowingForMember = amountOfBorrowingForMember;
+    }
+    
+   
+
     @Override
 public String toString() {
     return String.format(
-        "%-8s %-20s %-15s %-25s",
+        "%-8s %-20s %-15s %-25s %-15s",
         memberID,
         name,
         phone,
-        email
+        email,
+        status
     );
 }
 

@@ -5,18 +5,23 @@ public class Book
     private String bookID, title, author, genre;
     private int publicationYear, Quantity;
     private int availableCopies;
+    private int currentBorrowingBook, amountOfBorrowingForBook;
 
     public Book()
     {
         
     }
-    public Book(String bookID, String title, String author, String genre, int publicationYear, int Quantity) {
+
+    public Book(String bookID, String title, String author, String genre, int publicationYear, int Quantity, int availableCopies, int currentBorrowingBook, int amountOfBorrowingForBook) {
         this.bookID = bookID;
         this.title = title;
         this.author = author;
         this.genre = genre;
         this.publicationYear = publicationYear;
         this.Quantity = Quantity;
+        this.availableCopies = availableCopies;
+        this.currentBorrowingBook = currentBorrowingBook;
+        this.amountOfBorrowingForBook = amountOfBorrowingForBook;
     }
 
     public String getBookID() {
@@ -74,18 +79,23 @@ public class Book
     public void setAvailableCopies(int availableCopies) {
         this.availableCopies = availableCopies;
     }
-    
-    
 
-    public void addBook()
-    {
-        
+    public int getCurrentBorrowingBook() {
+        return currentBorrowingBook;
     }
-    
-    public void updateBook()
-    {
-        
+
+    public void setCurrentBorrowingBook(int currentBorrowingBook) {
+        this.currentBorrowingBook = currentBorrowingBook;
     }
+
+    public int getAmountOfBorrowingForBook() {
+        return amountOfBorrowingForBook;
+    }
+
+    public void setAmountOfBorrowingForBook(int amountOfBorrowingForBook) {
+        this.amountOfBorrowingForBook = amountOfBorrowingForBook;
+    }
+   
     
     public String displayBook()
     {
