@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Scanner;
 
 
@@ -40,9 +39,9 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
     int type = sc.nextInt();
     Member newMember;// phai khai bao newMember o ngoai trc vi khi dua vao if else se chi tinh member trong {} -> khi ra ngoai if else ta k the this.add member vi member k ton tai
     if(type == 1) {
-        newMember = new RegularMember(id, name, phone, email, 3, 0);
+        newMember = new RegularMember(id, name, phone, email,"Regular", 3, 0);
     } else if (type == 2) {
-        newMember = new PremiumMember(id, name, phone, email, 5, 0);
+        newMember = new PremiumMember(id, name, phone, email, "Premium", 5, 0);
     } else {
         System.out.println("Invalid member type!");
         return;
@@ -77,11 +76,12 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
     System.out.println("\n----------- MEMBER LIST -----------");
 
     System.out.printf(
-        "%-8s %-20s %-15s %-25s\n",
+        "%-8s %-20s %-15s %-25s %-10s\n",
         "ID",
         "Name",
         "Phone",
-        "Email"
+        "Email",
+        "Status"
     );
 
     System.out.println("------------------------------------------------------------------");

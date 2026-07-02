@@ -1,24 +1,43 @@
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 public class File_IO 
 {
+    private TransactionList TL;
+    private MemberList ML;
+    private BookList BL;
     //CREATING FILE 
-    public void createFileforBook()
-    {
-            File obj = new File("BookList.txt");  
+
+    public void setTL(TransactionList TL) {
+        this.TL = TL;
     }
-    public void createFileforUser()
-    {
-            File obj = new File("UserList.txt");     
+
+    public void setML(MemberList ML) {
+        this.ML = ML;
     }
-    public void createFileforBorrowingBook()
-    {
-            File obj = new File("TransactionList.txt");  
+
+    public void setBL(BookList BL) {
+        this.BL = BL;
     }
-    public void createFileforReturningBook()
+    
+    public void test()
     {
-            File obj = new File("Returning.txt");  
+        System.out.println( "TL size is:" + TL.size() );
+    }
+    public void createFileforBook() throws IOException
+    {
+            FileWriter obj = new FileWriter("BookList.txt");  
+    }
+    public void createFileforUser() throws IOException
+    {
+            FileWriter obj = new FileWriter("UserList.txt");     
+    }
+    public void createFileforBorrowingBook() throws IOException
+    {
+            FileWriter obj= new FileWriter("TransactionList.txt");  
+    }
+    public void createFileforReturningBook() throws IOException
+    {
+            FileWriter obj= new FileWriter("ReturningBook.txt");  
     }
     //WRITING FILE
     

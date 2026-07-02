@@ -4,10 +4,11 @@ public class RegularMember extends Member
     public RegularMember() {
     }
 
-    public RegularMember(String memberID, String name, String phone, String email, int currentAmountOfBorrowing, int amountOfBorrowingForMember) {
-        super(memberID, name, phone, email, currentAmountOfBorrowing, amountOfBorrowingForMember);
+    public RegularMember(String memberID, String name, String phone, String email, String status, int currentAmountOfBorrowing, int amountOfBorrowingForMember) {
+        super(memberID, name, phone, email, status, currentAmountOfBorrowing, amountOfBorrowingForMember);
     }
-   
+
+    
    
 
     
