@@ -166,7 +166,7 @@ System.out.println("There are no Data in the book list database! (Press enter to
         ////////////////////////////////////////////////
         //Look for the Book ID if it actually exist!//
         ////////////////////////////////////////////////
-        
+        int save_pointB = 0;
         for(int i = 0; i < BL.size(); i++)
         {
             Book book = BL.get(i);
@@ -174,6 +174,7 @@ System.out.println("There are no Data in the book list database! (Press enter to
             //Check whether the book exists and is available.
             if(checkB == true) 
             {
+               save_pointB = i;
                System.out.println("The Book is exist!");
                break;  // found book then break the loop no need to find anymore!
             }
@@ -193,23 +194,24 @@ System.out.println("There are no Data in the book list database! (Press enter to
         //Now Check the quantity and reducing quantity//
         ////////////////////////////////////////////////
         
-        int quantity;
+        int quantity = -9;
         for(int i = 0; i < BL.size(); i++)
         {
             Book book = BL.get(i);
+            System.out.println("Book Info: " + book.toString());
             boolean checkB = bookId.equalsIgnoreCase(book.getBookID()); // check bookId (input from user) and book.getBookID() (id from the book list!)
             quantity = book.getQuantity();
-            
+            System.out.println("Quantity: " + quantity);
             if(quantity > 0 && checkB) 
             {
-                System.out.println("Books are still available!"); 
+                System.out.println("quantity of the books is not 0!"); 
                 quantity--;    //Reduce book quantity and update the book quantity in the library
                 System.out.println("Reducing the quantity!"); 
                 book.setQuantity(quantity);
             }
-            else
+            else if(quantity <= 0 && !checkB)
             {
-                System.out.println("Books are not available right now!");
+                System.out.println("quantity of the books is 0!");
                 System.out.println("Press enter to return!");
                 input.nextLine();
                 return;
@@ -224,14 +226,16 @@ System.out.println("There are no Data in the book list database! (Press enter to
         for(int i = 0 ;i < ML.size();i++)
         {
             Member member = ML.get(i);
+            Book book = BL.get(save_pointB);
             boolean check = userId.equalsIgnoreCase(member.getMemberID());
-            if(check)
+if(check)
             {      
                 int CurrentAmountOfBorrowing = member.getCurrentAmountOfBorrowing(); // How many time one person can borrow a book left
                 int AmountOfBorrowingForMember = member.getAmountOfBorrowingForMember(); // how many time did this person borrowed a book
                 
-                int AmountOfBorrowingForBooks = 1; // how many time a book being borrowed
-               // ^^ lam chua lam
+                int AmountOfBorrowingForBooks = book.getAmountOfBorrowingForBook(); // how many time a book being borrowed
+                int CurrentlyborrowingAbook = book.getCurrentBorrowingBook(); // Is that book being borrowed
+              
                 
                 if(CurrentAmountOfBorrowing > 0) 
                 {
@@ -245,9 +249,10 @@ System.out.println("There are no Data in the book list database! (Press enter to
                     newBT.setAmountOfBorrowingForMembers(AmountOfBorrowingForMember);
                     
                     AmountOfBorrowingForBooks++;
-                   //  newbook.setAmountOfBorrowingForBooks(AmountOfBorrowingForBooks);
+                    newBT.setAmountOfBorrowingForBooks(AmountOfBorrowingForBooks);
+                    book.setAmountOfBorrowingForBook(AmountOfBorrowingForBooks);
                    
-                   
+                    book.setCurrentBorrowingBook(1); // 1 = borrowed, 0 = not borrowing
                     //now adding new information to the transaction object    
                        newBT.setTransactionID( Utility.generateIDvTest(this, "Transaction") );
                        
@@ -264,14 +269,13 @@ System.out.println("There are no Data in the book list database! (Press enter to
                        newBT.setDueDate(DueDateNTime); 
                        newBT.setFineAmount(0);
                        newBT.setReturnDate("Not Yet Settled");
-                       
+                       newBT.setAmountOfBorrowingForMembers(AmountOfBorrowingForMember);
                        newBT.setStatus("Borrowed");
                        newBT.setMemberID(userId);
                        newBT.setBookID(bookId);
                        //Save object into ArrayList (Transaction List).
                        this.add(newBT);
-                       
-                       //Display success message.
+//Display success message.
                        System.out.println("Transaction have been Saved in the list!");
                        
                        //end
@@ -285,7 +289,7 @@ System.out.println("There are no Data in the book list database! (Press enter to
     }
     
     //////////////////////////                             //////////////////////////
-//////////////////////////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//////////////////////////
+    //////////////////////////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//////////////////////////
     ///RETURN BOOK FUNCTION///~~~~~~~~~~~~~~~~~~~~~~~~~~~~~///RETURN BOOK FUNCTION///    
     //////////////////////////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//////////////////////////
     //////////////////////////                             //////////////////////////
@@ -343,7 +347,7 @@ System.out.println("There are no Data in the book list database! (Press enter to
             if(TransactionId.equalsIgnoreCase(this.get(i).getTransactionID()))
             {
                 save_indexForTransaction = i;
-                System.out.println("Transaction Found in the database!");
+System.out.println("Transaction Found in the database!");
                 break;
             }
             else if(save_indexForTransaction == -99 && i == this.size()-1)
@@ -417,7 +421,7 @@ System.out.println("There are no Data in the book list database! (Press enter to
         
         ////////////////////////////////////////////////////////////////////////////////////////
         // check if the book list is empty first before validaing the existence of the book ID//
-        ////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
         
         System.out.println("Size of BookList is: " + BL.size()); // -> optional
         if(BL.isEmpty())
@@ -428,7 +432,7 @@ System.out.println("There are no Data in the book list database! (Press enter to
         }
         
         ///////////////////////
-//User enters Book ID//
+        //User enters Book ID//
         ///////////////////////
         
         while(true)
@@ -494,7 +498,7 @@ System.out.println("There are no Data in the book list database! (Press enter to
     
     //update ReturnDate info in BT
     String ReturnDateNTime = DT.format(CustomFormat);
-    currentBT.setReturnDate(ReturnDateNTime); 
+currentBT.setReturnDate(ReturnDateNTime); 
     
     // Calculate Fine
     
@@ -503,7 +507,7 @@ System.out.println("There are no Data in the book list database! (Press enter to
     //Retrieve each parts of Date and Time
     String DueDateNTime = currentBT.getDueDate(); // vi du: 22/12/2022 12:23:19
     String[] DDNT = DueDateNTime.split(" "); // DDNT[0] = 22/12/2022 va DDNT[1] = 12:23:19\
-String[] DueDateS = DDNT[0].split("/"); // DueDateS[0] = 22; DueDateS[1] = 12; DueDateS[2] = 2022
+    String[] DueDateS = DDNT[0].split("/"); // DueDateS[0] = 22; DueDateS[1] = 12; DueDateS[2] = 2022
     String[] DueTimeS = DDNT[1].split(":"); // ^^^^^^^^^
     
     String[] RDNT = ReturnDateNTime.split(" ");
@@ -565,95 +569,6 @@ String[] DueDateS = DDNT[0].split("/"); // DueDateS[0] = 22; DueDateS[1] = 12; D
          else currentBT.setStatus("OVERDUE");
     }
     
-    
-    
-    
-    
-    
-    
-    //OLD CODE
-    /*    
-        for(BorrowingTransaction memberBT: this)
-        {
-            boolean check = userId.equalsIgnoreCase(memberBT.getMemberID());
-             //check whether member exists
-            if(check)
-            {
-                System.out.println("User ID Found!");
-                for(BorrowingTransaction BT : this)
-                {
-                    //Find borrowing transaction.
-                    boolean BTcheck = userId.equalsIgnoreCase(BT.getMemberID());
-                    if(BTcheck)
-                    {
-System.out.println("Transaction Found!");
-                        //Enter return date.
-                        while(true)
-                        {
-                            System.out.println("Enter the return date(dd/mm/yyyy): ");
-                            returnDate = input.nextLine();
-                            if(returnDate.length() == 9 && checkDate(returnDate))
-                            {
-                                System.out.println("Return Date Entered Successfully!");
-                                break;
-                            }
-                         else if(returnDate.length() != 9 || !checkDate(returnDate))
-                            {
-                                System.out.println("Please Enter the correct format of return date!");
-                                System.out.println("Press Enter to continue Or type Esc to return!");
-                                String e = input.nextLine();
-                                if(returnOrcontinue(e)) 
-                                {
-                                 return;
-                                }
-                            }
-                        }
-                   
-                   
-                        //Calculate overdue fine if necessary.                    
-                        int OverdueFine = 0; // Default = 0, initialized so can change into specific formula later
-                        memberBT.setFineAmount(OverdueFine);
-                        for(Book book : BL)
-                        {
-                            check = book.getBookID().equalsIgnoreCase(memberBT.getBookID());
-                            if(check) // check whether the boos is exist
-                            {
-                                //Increase book quantity.
-                                int quan = book.getQuantity(); quan++;
-                                book.setQuantity(quan);
-                                //Update transaction status.
-                                memberBT.setReturnDate(returnDate);
-                                memberBT.setStatus("Returned");
-                   
-                                System.out.println("Transaction Updated!");
-                                memberBT.toString(); // Display updated information of return
-                                System.out.println("Press Enter to return!");
-                                input.nextLine();
-                                return; // end
-                            }    
-                        }
-                    }
-                    else
-                    {
-                        System.out.print("Transaction not found!");
-                        System.out.println("Press Enter to continue Or type Esc to return!");
-                        String e = input.nextLine();
-                        if(returnOrcontinue(e)) 
-                        {
-                            return;
-                        }
-                    }
-                }
-}
-            else
-            {
-                System.out.println("User ID Not Found!");
-                System.out.println("Press Enter to return!");
-                input.nextLine();
-                return;
-            }
-        }
-     */
     }
     
     
@@ -665,8 +580,7 @@ System.out.println("Transaction Found!");
             System.out.println("No transaction found!");
             return;
         }
-
-    System.out.println("\n---------------- BORROWING TRANSACTION LIST ----------------");
+System.out.println("\n---------------- BORROWING TRANSACTION LIST ----------------");
 
     System.out.printf(
         "%-8s %-12s %-12s %-12s %-10s %-12s %-10s %-10s\n",
@@ -750,7 +664,28 @@ System.out.println("Transaction Found!");
     
     public void viewMostPopularBooks()
     {
-}
+        Scanner input = new Scanner(System.in);
+        if(BL.isEmpty())
+        {
+            System.out.println("There are no books in the database!");
+            input.nextLine();
+            return;
+        }   
+        int max = -99999;
+        int pos = -999;
+        Book book = new Book();
+        for(int i = 0; i < BL.size(); i++)
+        {
+            book = BL.get(i);
+            int am = book.getAmountOfBorrowingForBook();
+if(am > max ) 
+            {
+                max = am;
+                pos = i;
+            }
+        }
+        System.out.println("Book with the most amount of borrowing: " + book.toString());
+    }
     
     public void viewMemberWithTheMostBorrowing()
     {
