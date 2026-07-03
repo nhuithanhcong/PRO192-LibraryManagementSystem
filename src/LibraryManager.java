@@ -100,6 +100,8 @@ public class LibraryManager
        int oldSize = TL.size();
        TL.borrowBook();
        if (TL.size() > oldSize) {
+           file.createFileforBook();
+           file.createFileforUser();
            file.createFileforBorrowingBook();
        }
     }
