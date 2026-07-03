@@ -148,4 +148,21 @@ public class Utility {
     public static boolean isNotEmpty(String text) {
         return text != null && !text.trim().isEmpty();
     }
-}   
+    
+    public static boolean isValidPublicationYear(int year) {
+        int currentYear = java.time.Year.now().getValue();
+        return year > 0 && year <= currentYear;
+}
+    
+    public static boolean isValidDate(String dateStr) {
+    if (dateStr == null || dateStr.trim().isEmpty()) return false;
+    // Thay đổi "dd/MM/yyyy" thành định dạng bạn đang lưu trong file txt nếu khác
+    java.time.format.DateTimeFormatter dtf = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    try {
+        java.time.LocalDate.parse(dateStr.trim(), dtf);
+        return true;
+    } catch (java.time.format.DateTimeParseException e) {
+        return false;
+    }
+}
+} 
