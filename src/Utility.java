@@ -91,19 +91,6 @@ public class Utility {
         }
     }
     
-    //Huong dan su dung: delay()
-    /*
-    Utility.delay(so milisec delay);
-    Neu co loi Delay Function interruted!!! goi nguoi viet ham nay
-    */
-    public static void delay(int milliseconds) {
-        try {
-            Thread.sleep(milliseconds);
-        } catch (InterruptedException e) {
-            System.out.println("Delay Function interruted!!!-Request fixes"); // canh bao de khac phuc van de
-            Thread.currentThread().interrupt(); // Khoi phuc trang thai ngu cua thread neu co loi
-        }
-    }
     
     public static boolean isValidPhoneNumber(String phone) {
         //kiem tra null va do dai phai 10

@@ -14,9 +14,6 @@ public class Main {
         System.out.println("                                   ");
         
         LibraryManager LM = new LibraryManager();
-
-        
-        
         Scanner scanner = new Scanner(System.in);
         int choice;
 
@@ -36,6 +33,7 @@ public class Main {
             
             try{
             choice = scanner.nextInt();
+            scanner.nextLine();
             
             switch (choice) {
                 case 1:
@@ -52,6 +50,8 @@ public class Main {
                         System.out.print("Choose a sub-option: ");
                         try {
                             bookChoice = scanner.nextInt();
+                            scanner.nextLine();
+                            
                             switch (bookChoice) {
                                 case 1:
                                     LM.addBook();
@@ -72,18 +72,14 @@ public class Main {
                                     Utility.clearScreen();
                                     break;
                                 case 7:
-                                    System.out.print("Returning to Main Menu");
-                                    Utility.delay(500);System.out.print(".");
-                                    Utility.delay(500);System.out.print(".");
-                                    Utility.delay(500);System.out.println(".");
-                                    Utility.delay(500);
+                                    System.out.print("Returning to Main Menu...");
                                     break;
                                 default:
                                     System.out.println("\nInvalid sub-option! Choose between 1 and 7.");
                             }
                         }catch (InputMismatchException e) {
                             System.out.println("\nError: Invalid input. Please enter a number.");
-                            scanner.next();
+                            scanner.nextLine();
                             bookChoice = 0;
                         }
                     } while (bookChoice != 7);
@@ -103,6 +99,8 @@ public class Main {
                         System.out.print("Choose a sub-option: ");
                         try {
                             MemberChoice = scanner.nextInt();
+                            scanner.nextLine();
+                            
                             switch (MemberChoice) {
                                 case 1:
                                     LM.addNewMember();
@@ -123,18 +121,14 @@ public class Main {
                                     Utility.clearScreen();
                                     break;
                                 case 7:
-                                    System.out.print("Returning to Main Menu");
-                                    Utility.delay(500);System.out.print(".");
-                                    Utility.delay(500);System.out.print(".");
-                                    Utility.delay(500);System.out.println(".");
-                                    Utility.delay(500);
+                                    System.out.print("Returning to Main Menu...");
                                     break;
                                 default:
                                     System.out.println("\nInvalid sub-option! Choose between 1 and 7.");
                             }
                         }catch (InputMismatchException e) {
                             System.out.println("\nError: Invalid input. Please enter a number.");
-                            scanner.next();
+                            scanner.nextLine();
                             MemberChoice = 0;
                         }
                     } while (MemberChoice != 7);
@@ -153,6 +147,8 @@ public class Main {
                         System.out.print("Choose a sub-option: ");
                         try {
                             BRChoice = scanner.nextInt();
+                            scanner.nextLine();
+                            
                             switch (BRChoice) {
                                 case 1:
                                     LM.borrowBook();
@@ -170,18 +166,14 @@ public class Main {
                                     Utility.clearScreen();
                                     break;
                                 case 6:
-                                    System.out.print("Returning to Main Menu");
-                                    Utility.delay(500);System.out.print(".");
-                                    Utility.delay(500);System.out.print(".");
-                                    Utility.delay(500);System.out.println(".");
-                                    Utility.delay(500);
+                                    System.out.print("Returning to Main Menu...");
                                     break;
                                 default:
                                     System.out.println("\nInvalid sub-option! Choose between 1 and 6.");
                             }
                         }catch (InputMismatchException e) {
                             System.out.println("\nError: Invalid input. Please enter a number.");
-                            scanner.next();
+                            scanner.nextLine();
                             BRChoice = 0;
                         }
                     } while (BRChoice != 6);
@@ -201,6 +193,8 @@ public class Main {
                         System.out.print("Choose a sub-option: ");
                         try {
                             reportChoice = scanner.nextInt();
+                            scanner.nextLine();
+                            
                             switch (reportChoice) {
                                 case 1:
                                     LM.viewCurrentlyBorrowedBooks();
@@ -218,18 +212,15 @@ public class Main {
                                     Utility.clearScreen();
                                     break;
                                 case 6:
-                                    System.out.print("Returning to Main Menu");
-                                    Utility.delay(500);System.out.print(".");
-                                    Utility.delay(500);System.out.print(".");
-                                    Utility.delay(500);System.out.println(".");
-                                    Utility.delay(500);
+                                    System.out.print("Returning to Main Menu...");
                                     break;
                                 default:
                                     System.out.println("\nInvalid sub-option! Choose between 1 and 6.");
                             }
                         }catch (InputMismatchException e) {
                             System.out.println("\nError: Invalid input. Please enter a number.");
-                            scanner.next();
+                            scanner.nextLine();
+                            
                             reportChoice = 0;
                         }
                     } while (reportChoice != 6);
@@ -244,7 +235,7 @@ public class Main {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("\nError: Invalid input. Please enter a number.\n");
-                scanner.next();
+                scanner.nextLine();
                 choice = 0;
             }
         } while (choice != 6);
