@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-
+import java.io.IOException;
 
 public class MemberList extends ArrayList<Member> implements/*lay chuc nang chung cua general*/ GeneralUtil
 {
@@ -52,8 +52,16 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
     int choice = sc.nextInt();
     sc.nextLine();
     if (choice == 1) {
-        this.add(newMember);//them new member vao class arraylist
-        System.out.println("Member added successfully!");//tao ra object de gan scan member moi vao class member
+        File_IO io = new File_IO();
+        try {
+           this.add(newMember);//them new member vao class arraylist
+           io.setML(this);
+           io.createFileforUser();
+            System.out.println("Member added successfully!");//tao ra object de gan scan member moi vao class member 
+        } catch (IOException e){
+            System.out.println("Cannot save!");
+        }
+        
         
     } else {
         System.out.println("Operation cancelled!");
@@ -210,7 +218,7 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
             int choice = sc.nextInt();
             
             if (choice == 1) {
-                if (removeMember.getCurrentAmountOfBorrowing() != removeMember.getBorrowLimit()) {
+                if (removeMember.getCurrentAmountOfBorrowing() != 0) {
                     System.out.println("This person still currently borrowing a book");
                 }else {
                     this.remove(removeMember);//Tu 2 note tren ta co the thay rang trong muc deleteMember can co 1 bien co de xac dinh member do la ai de co the remove de hon

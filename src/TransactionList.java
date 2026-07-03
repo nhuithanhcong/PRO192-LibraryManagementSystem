@@ -228,7 +228,7 @@ System.out.println("There are no Data in the book list database! (Press enter to
             if(check)
             {      
                 int CurrentAmountOfBorrowing = member.getCurrentAmountOfBorrowing(); // How many time one person can borrow a book left
-int AmountOfBorrowingForMember = member.getAmountOfBorrowingForMember(); // how many time did this person borrowed a book
+                int AmountOfBorrowingForMember = member.getAmountOfBorrowingForMember(); // how many time did this person borrowed a book
                 
                 int AmountOfBorrowingForBooks = 1; // how many time a book being borrowed
                // ^^ lam chua lam
