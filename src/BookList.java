@@ -207,13 +207,13 @@ public class BookList extends ArrayList<Book> implements GeneralUtil {
         "Qty"
     );
 
-    System.out.println("--------------------------------------------------------------------------");
+    System.out.println("------------------------------------------------------------------------------------");
 
     for (Book book : this) {
         System.out.println(book.toString());
     }
 
-    System.out.println("--------------------------------------------------------------------------");
+    System.out.println("------------------------------------------------------------------------------------");
 }
     // Tim kiem sach
     @Override

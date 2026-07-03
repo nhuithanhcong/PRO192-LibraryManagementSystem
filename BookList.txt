@@ -1,2 +1,2 @@
-B0001, Harry Potter, J. K. Rolling, Adventure, 2007, 12
-B0002, Doraemon, Fujiko F. Fujio, comedy, 2000, 100
+B0001, Harry Potter, J. K. Rolling, Adventure, 2007, 14, 14, 0, 0
+B0002, Doraemon, Fujiko F. Fujio, comic, 1980, 11, 11, 0, 0
