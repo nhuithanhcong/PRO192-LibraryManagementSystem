@@ -1,4 +1,5 @@
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 public class LibraryManager
 {
@@ -9,7 +10,7 @@ public class LibraryManager
     private File_IO file;
     
     //INITIALIZING AND RETRIEVING DATA FROM EXISTING CLASSES 
-    public LibraryManager() 
+    public LibraryManager() throws FileNotFoundException 
     {
         this.ML = new MemberList();
         this.BL = new BookList();
@@ -21,6 +22,9 @@ public class LibraryManager
         this.file.setBL(this.BL);
         this.file.setML(this.ML);
         this.file.setTL(this.TL);
+        //chi them loadfile 1 lan de LM load data cu ve la duoc
+        file.loadFileForBook();
+        file.loadFileForMember();
         
     }
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
@@ -32,14 +36,16 @@ public class LibraryManager
         file.createFileforBook();
     } 
     
-    public void updateBook()
+    public void updateBook() throws IOException
     {
         BL.update();
+        file.createFileforBook();
     }
     
-    public void removeBook()
+    public void removeBook() throws IOException
     {
         BL.delete();
+        file.createFileforBook();
     }
     
     public void viewAllBook()
@@ -62,14 +68,16 @@ public class LibraryManager
         file.createFileforUser();
     }
     
-    public void updateMemberInfo()
+    public void updateMemberInfo() throws IOException
     {
         ML.update();
+        file.createFileforUser();
     }
     
-    public void removeMember()
+    public void removeMember() throws IOException
     {
         ML.delete();
+        file.createFileforUser();
     }
     
     public void viewAllMember()

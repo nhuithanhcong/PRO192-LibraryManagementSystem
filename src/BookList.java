@@ -84,15 +84,8 @@ public class BookList extends ArrayList<Book> implements GeneralUtil {
         
         Book info = new Book(bookID, title, author, genre, publicationYear, quantity, 0, 0, 0);
         info.setAvailableCopies(quantity); 
-        File_IO io = new File_IO();
-        try {
-          this.add(info);
-          io.setBL(this);
-          io.createFileforBook();  
+        this.add(info);
         System.out.println("Book added successfully!");
-        } catch (IOException e) {
-            System.out.println("cannot save");
-        }
     } 
         
     // Cap nhat thong tin sach
