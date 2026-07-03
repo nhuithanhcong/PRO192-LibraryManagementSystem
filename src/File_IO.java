@@ -25,11 +25,20 @@ public class File_IO
     }
     public void createFileforBook() throws IOException
     {
-            FileWriter obj = new FileWriter("BookList.txt");  
+            FileWriter obj = new FileWriter("BookList.txt");
+            for (Book b : BL) {
+                obj.write(b.getBookID() + ", " + b.getTitle() + ", " + b.getAuthor() + ", " + b.getGenre() + ", " + b.getPublicationYear() + ", "
+                        + b.getQuantity() + "\n");
+            }
+            obj.close();
     }
     public void createFileforUser() throws IOException
     {
-            FileWriter obj = new FileWriter("UserList.txt");     
+            FileWriter obj = new FileWriter("UserList.txt");  
+            for (Member m : ML) {
+                obj.write(m.getMemberID() + ", " + m.getName() + ", " + m.getPhone() + ", " + m.getEmail() + ", " + m.getStatus() + "\n");
+            }
+            obj.close();
     }
     public void createFileforBorrowingBook() throws IOException
     {

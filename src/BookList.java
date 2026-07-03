@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.IOException;
 
 public class BookList extends ArrayList<Book> implements GeneralUtil {
 
@@ -83,10 +84,16 @@ public class BookList extends ArrayList<Book> implements GeneralUtil {
         
         Book info = new Book(bookID, title, author, genre, publicationYear, quantity, 0, 0, 0);
         info.setAvailableCopies(quantity); 
-        
-        this.add(info);
+        File_IO io = new File_IO();
+        try {
+          this.add(info);
+          io.setBL(this);
+          io.createFileforBook();  
         System.out.println("Book added successfully!");
-        } 
+        } catch (IOException e) {
+            System.out.println("cannot save");
+        }
+    } 
         
     // Cap nhat thong tin sach
     @Override
