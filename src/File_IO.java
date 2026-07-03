@@ -30,8 +30,7 @@ public class File_IO
     {
         FileWriter obj = new FileWriter("BookList.txt");
         for (Book b : BL) {
-            obj.write(b.getBookID() + ", " + b.getTitle() + ", " + b.getAuthor() + ", " + b.getGenre() + ", " + b.getPublicationYear() + ", "
-                    + b.getQuantity() + "\n");
+            obj.write(b.getBookID() + ", " + b.getTitle() + ", " + b.getAuthor() + ", " + b.getGenre() + ", " + b.getPublicationYear() + ", " + b.getQuantity() + ", " + b.getAvailableCopies() + ", " + b.getCurrentBorrowingBook() + ", " + b.getAmountOfBorrowingForBook() + "\n");
         }
         obj.close();
     }
@@ -39,13 +38,20 @@ public class File_IO
     {
         FileWriter obj = new FileWriter("MemberList.txt");  
         for (Member m : ML) {
-            obj.write(m.getMemberID() + ", " + m.getName() + "," + m.getPhone() + ", " + m.getEmail() + ", " + m.getStatus() + "\n");
+            obj.write(m.getMemberID() + ", " + m.getName() + "," + m.getPhone() + ", " + m.getEmail() + ", " + m.getStatus()
+                    + ", " + m.getCurrentAmountOfBorrowing() + ", " + m.getAmountOfBorrowingForMember() + "\n");
         }
         obj.close();
     }
     public void createFileforBorrowingBook() throws IOException
     {
-            FileWriter obj= new FileWriter("TransactionList.txt");  
+            FileWriter obj= new FileWriter("TransactionList.txt"); 
+            for (BorrowingTransaction T: TL) {
+                obj.write( T.getTransactionID() + ", " + T.getBorrowDate() + ", " + T.getDueDate() + ", " + T.getReturnDate() + ", " + T.getStatus() 
+                + ", " + T.getMemberID() + ", " + T.getBookID() + ", " + T.getFineAmount() + ", " + T.getCurrentAmountOfBorrowing()
+                        + ", " + T.getAmountOfBorrowingForBooks()  + ", " + T.getAmountOfBorrowingForMembers() + "\n");
+            }
+            obj.close();
     }
     public void createFileforReturningBook() throws IOException
     {
@@ -56,7 +62,8 @@ public class File_IO
     //READING FILE
     /*Trong loadFIle hay readFile ta can phai Book book va add cai book do vao bookList moi vi du lieu khi ta write se tam luu vao ram =>> khi ta
     thoat chuong trinh du lieu trong writefile se bien mat va de lai 1 file txt, do do sau khi loadFile doc duoc file txt do ta can tao 1 data book moi
-     roi them book do vao booklist thi luc do size cua bookList se k con la 0 nua ma bang voi du lieu hien tai trong file txt*/
+     dua tren data cua bookList.txt roi them book do vao booklist thi luc do size cua bookList se k con la 0 nua ma bang voi du lieu hien tai trong file
+    txt*/
     public void loadFileForBook() throws FileNotFoundException {
         File obj = new File("BookList.txt");
         try (Scanner myReader = new Scanner(obj)) {
@@ -69,7 +76,10 @@ public class File_IO
                 String genre = info[3].trim();
                 int year = Integer.parseInt(info[4].trim());// chuyen String "year" thanh int year 
                 int quantity = Integer.parseInt(info[5].trim());// chuyen String "quant" thanh int quant
-                Book book = new Book(bookID, title, author, genre, year, quantity, 0, 0, 0);
+                int copies = Integer.parseInt(info[6].trim());
+                int current = Integer.parseInt(info[7].trim());
+                int amount = Integer.parseInt(info[8].trim());
+                Book book = new Book(bookID, title, author, genre, year, quantity, copies, current, amount);
                 BL.add(book);
             }
         }
@@ -85,9 +95,36 @@ public class File_IO
                 String phone = info[2].trim();
                 String email = info[3].trim();
                 String status = info[4].trim();
-                Member member = new Member(memberID, name, phone, email, status, 0, 0);
+                int current = Integer.parseInt(info[5].trim());
+                int amount = Integer.parseInt(info[6].trim());
+                Member member = new Member(memberID, name, phone, email, status, current, amount);
                 ML.add(member);
              }
+        }
+    }
+    public void loadFileForTransaction() throws FileNotFoundException {
+        File obj = new File("TransactionList.txt");
+        try(Scanner myReader = new Scanner(obj)) {
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                String[] info = data.split(",");
+                String transactionID = info[0].trim();
+                String borrowDate = info[1].trim();
+                String dueDate = info[2].trim();
+                String returnDate = info[3].trim();
+                String Status = info[4].trim(); 
+                String memberID = info[5].trim();
+                String bookID = info[6].trim(); 
+                double fineAmount = Double.parseDouble(info[7].trim());
+                int current =  Integer.parseInt(info[8].trim());
+                int amountOfBook = Integer.parseInt(info[9].trim());
+                int amountOfMember = Integer.parseInt(info[9]);
+                
+                BorrowingTransaction borrow = new BorrowingTransaction(transactionID, borrowDate, dueDate, returnDate, Status, memberID,
+                    bookID, fineAmount, current, amountOfBook, amountOfMember);
+                TL.add(borrow);
+                        
+            }
         }
     }
     

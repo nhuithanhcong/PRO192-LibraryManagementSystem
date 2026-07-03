@@ -122,7 +122,7 @@ public class BorrowingTransaction
     @Override
 public String toString() {
     return String.format(
-        "%-8s %-12s %-12s %-12s %-10.2f %-12s %-10s %-10s",
+        "%-8s %-20s %-20s %-20s %-10.2f %-12s %-10s %-10s",
         transactionID,
         borrowDate,
         dueDate,

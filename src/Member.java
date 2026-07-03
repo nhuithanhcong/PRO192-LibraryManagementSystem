@@ -79,7 +79,7 @@ public class Member
     @Override
 public String toString() {
     return String.format(
-        "%-8s %-20s %-15s %-25s %-15s",
+        "%-8s %-20s %-15s %-25s %-60s",
         memberID,
         name,
         phone,
@@ -102,6 +102,8 @@ public String toString() {
     {
         return 0;
     }
+
+    
      
     
 

@@ -75,7 +75,7 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
     System.out.println("\n----------- MEMBER LIST -----------");
 
     System.out.printf(
-        "%-8s %-20s %-15s %-25s %-10s\n",
+        "%-8s %-20s %-15s %-25s %-60s\n",
         "ID",
         "Name",
         "Phone",
@@ -83,13 +83,13 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
         "Status"
     );
 
-    System.out.println("------------------------------------------------------------------");
+    System.out.println("-----------------------------------------------------------------------------------");
     
     for (Member member : this) {
         System.out.println(member.toString());
     }
 
-    System.out.println("------------------------------------------------------------------");
+    System.out.println("-----------------------------------------------------------------------------------");
 }
     
     

@@ -25,6 +25,8 @@ public class LibraryManager
         //chi them loadfile 1 lan de LM load data cu ve la duoc
         file.loadFileForBook();
         file.loadFileForMember();
+        file.loadFileForTransaction();
+        
         
     }
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
@@ -93,14 +95,21 @@ public class LibraryManager
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
     //~~~~~~~~~~~~~~~~~~~~~BORROWING___RETURNING____BOOK~~~~~~~~~~~~~~~~~~~~~//
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-    public void borrowBook() 
+    public void borrowBook() throws IOException 
     {
+       int oldSize = TL.size();
        TL.borrowBook();
+       if (TL.size() > oldSize) {
+           file.createFileforBook();
+           file.createFileforUser();
+           file.createFileforBorrowingBook();
+       }
     }
     
-    public void returnBook()
+    public void returnBook() throws IOException
     {
         TL.returnbook();
+        file.createFileforReturningBook();
     }
     
     public void viewBorrowedBooks()
