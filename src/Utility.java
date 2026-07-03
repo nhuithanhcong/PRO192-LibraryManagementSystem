@@ -156,7 +156,7 @@ public class Utility {
     
     public static boolean isValidDate(String dateStr) {
     if (dateStr == null || dateStr.trim().isEmpty()) return false;
-    // Thay đổi "dd/MM/yyyy" thành định dạng bạn đang lưu trong file txt nếu khác
+
     java.time.format.DateTimeFormatter dtf = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
     try {
         java.time.LocalDate.parse(dateStr.trim(), dtf);
