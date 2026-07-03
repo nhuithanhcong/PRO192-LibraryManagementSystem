@@ -52,17 +52,8 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
     int choice = sc.nextInt();
     sc.nextLine();
     if (choice == 1) {
-        File_IO io = new File_IO();
-        try {
-           this.add(newMember);//them new member vao class arraylist
-           io.setML(this);
-           io.createFileforUser();
-            System.out.println("Member added successfully!");//tao ra object de gan scan member moi vao class member 
-        } catch (IOException e){
-            System.out.println("Cannot save!");
-        }
-        
-        
+        this.add(newMember);//them new member vao class arraylist
+        System.out.println("Member added successfully!");//tao ra object de gan scan member moi vao class member 
     } else {
         System.out.println("Operation cancelled!");
     } 
