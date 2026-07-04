@@ -118,7 +118,7 @@ public class File_IO
                 double fineAmount = Double.parseDouble(info[7].trim());
                 int current =  Integer.parseInt(info[8].trim());
                 int amountOfBook = Integer.parseInt(info[9].trim());
-                int amountOfMember = Integer.parseInt(info[9]);
+                int amountOfMember = Integer.parseInt(info[9].trim());
                 
                 BorrowingTransaction borrow = new BorrowingTransaction(transactionID, borrowDate, dueDate, returnDate, Status, memberID,
                     bookID, fineAmount, current, amountOfBook, amountOfMember);
