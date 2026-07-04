@@ -91,19 +91,6 @@ public class Utility {
         }
     }
     
-    //Huong dan su dung: delay()
-    /*
-    Utility.delay(so milisec delay);
-    Neu co loi Delay Function interruted!!! goi nguoi viet ham nay
-    */
-    public static void delay(int milliseconds) {
-        try {
-            Thread.sleep(milliseconds);
-        } catch (InterruptedException e) {
-            System.out.println("Delay Function interruted!!!-Request fixes"); // canh bao de khac phuc van de
-            Thread.currentThread().interrupt(); // Khoi phuc trang thai ngu cua thread neu co loi
-        }
-    }
     
     public static boolean isValidPhoneNumber(String phone) {
         //kiem tra null va do dai phai 10
@@ -148,4 +135,21 @@ public class Utility {
     public static boolean isNotEmpty(String text) {
         return text != null && !text.trim().isEmpty();
     }
-}   
+    
+    public static boolean isValidPublicationYear(int year) {
+        int currentYear = java.time.Year.now().getValue();
+        return year > 0 && year <= currentYear;
+}
+    
+    public static boolean isValidDate(String dateStr) {
+    if (dateStr == null || dateStr.trim().isEmpty()) return false;
+
+    java.time.format.DateTimeFormatter dtf = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    try {
+        java.time.LocalDate.parse(dateStr.trim(), dtf);
+        return true;
+    } catch (java.time.format.DateTimeParseException e) {
+        return false;
+    }
+}
+} 
