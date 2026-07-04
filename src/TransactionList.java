@@ -256,6 +256,7 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                    
                     book.setCurrentBorrowingBook(1); // 1 = borrowed, 0 = not borrowing
                     //now adding new information to the transaction object    
+                    
                        newBT.setTransactionID( Utility.generateIDvTest(this, "Transaction") );
                        
                        ZonedDateTime DT = ZonedDateTime.now(ZoneId.of("Asia/Ho_Chi_Minh")); // khai bao object date va time o ho chi minh, lay thoi gian ngay luc chay code nay
