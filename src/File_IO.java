@@ -30,7 +30,9 @@ public class File_IO
     {
         FileWriter obj = new FileWriter("BookList.txt");
         for (Book b : BL) {
-            obj.write(b.getBookID() + ", " + b.getTitle() + ", " + b.getAuthor() + ", " + b.getGenre() + ", " + b.getPublicationYear() + ", " + b.getQuantity() + ", " + b.getAvailableCopies() + ", " + b.getCurrentBorrowingBook() + ", " + b.getAmountOfBorrowingForBook() + "\n");
+            obj.write(b.getBookID() + ", " + b.getTitle() + ", " + b.getAuthor() + ", " + b.getGenre() + ", " + b.getPublicationYear() + ", "
+                    + b.getQuantity() + ", " + b.getAvailableCopies() + ", " + b.getCurrentBorrowingBook() + ", "
+                    + b.getAmountOfBorrowingForBook() + "\n");
         }
         obj.close();
     }
