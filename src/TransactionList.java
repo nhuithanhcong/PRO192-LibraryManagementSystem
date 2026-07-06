@@ -382,7 +382,7 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
             // check if the member list is empty first before validaing the existence of the user ID//
             //////////////////////////////////////////////////////////////////////////////////////////
 
-            System.out.println("Size of ML is: " + ML.size()); // -> optional
+            //System.out.println("Size of ML is: " + ML.size()); // -> optional
             if(ML.isEmpty())
             {
                 System.out.println("There are no Data in the member list database! (Press enter to return!)");
@@ -545,8 +545,8 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
             int DueHours= Integer.parseInt(DueTimeS[2]);
 
             int ReturnSeconds = Integer.parseInt(ReturnTimeS[0]);
-            int ReturnMinutes = Integer.parseInt(ReturnTimeS[0]);
-            int ReturnHours = Integer.parseInt(ReturnTimeS[0]);
+            int ReturnMinutes = Integer.parseInt(ReturnTimeS[1]);
+            int ReturnHours = Integer.parseInt(ReturnTimeS[2]);
 
 
             /////////////////////////////////////////////////////
