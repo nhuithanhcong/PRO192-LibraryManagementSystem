@@ -1,5 +1,6 @@
 import java.util.List;
 
+
 public class Utility { 
     //Huong dan su dung: generateID()
     /*
@@ -107,28 +108,28 @@ public class Utility {
     }
     
     public static boolean isValidEmail(String email) {
-        // Kiem tra null hoac rong
-        if (email == null || email.trim().isEmpty()) {return false;}
+        // Kiem tra null, rong hoac chua khoang trang
+    if (email == null || email.trim().isEmpty() || email.contains(" ")) {
+        return false;
+    }
 
-        email = email.trim();
+    email = email.trim();
+    int atIndex = email.indexOf('@');
 
-        // Tim vi tri cua ky tu '@'
-        int atIndex = email.indexOf('@');
-        // '@' khong o đau, khong o cuoi, chi xuat hien 1 lan
-        if (atIndex <= 0 || atIndex == email.length() - 1 || atIndex != email.lastIndexOf('@')) {return false;}
+    // 2. '@' phai ton tai, khong o đau/cuoi va la duy nhat
+    if (atIndex <= 0 || atIndex == email.length() - 1 || atIndex != email.lastIndexOf('@')) {
+        return false;
+    }
 
-        //Tach phan ten (local part) và phan ten mien (domain part)
-        String localPart = email.substring(0, atIndex);
-        String domainPart = email.substring(atIndex + 1);
-
-        //Kiem tra dau cham '.' trong phan domain
-        int dotIndex = domainPart.lastIndexOf('.');
-        // Dau cham khong o đau, khong o cuoi cua domain
-        if (dotIndex <= 0 || dotIndex == domainPart.length() - 1) {return false;}
-
-        // Kiem tra ky tu khoang trang thua trong email
-        if (localPart.contains(" ") || domainPart.contains(" ")) {return false;}
-        return true;
+    // 3. Kiem tra dau '.' trong phan domain (tinh tu sau ky tu '@')
+    int dotIndex = email.lastIndexOf('.');
+    
+    // Dau '.' phai nam SAU dau '@' it nhat 1 ky tu va KHONG đuoc o cuoi cung
+    if (dotIndex <= atIndex + 1 || dotIndex == email.length() - 1) {
+        return false;
+    }
+    
+    return !email.contains("..");
     }
     
     //Ham kiem tra chung cho Title, Genre, Name, Author (Chi can khong đe trong)
@@ -152,4 +153,18 @@ public class Utility {
         return false;
     }
 }
+    
+    public static int tryCatchInt(java.util.Scanner scanner, String print){
+        while(true){
+            System.out.println(print);
+            try {
+                int value = scanner.nextInt();
+                scanner.nextLine(); // Xoa bo nho dem
+                return value;
+            }catch (java.util.InputMismatchException e) {
+                System.out.println("Error: Invalid input. Please enter a number.");
+                scanner.nextLine(); // Xoa ky tu loi khoi bo nho dem
+            }
+        }
+    }
 } 
