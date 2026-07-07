@@ -84,7 +84,7 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
         int choice = input.nextInt();
         input.nextLine();
         if (choice == 1) {
-            if(userId.length() == 0 && userId.charAt(0) != 'M')
+            if(userId.length() == 0 || userId.charAt(0) != 'M')
             {
                 System.out.println("Please Enter The User ID correctly!");
                 System.out.println("Press Enter to continue Or type Esc to return!");
@@ -198,7 +198,7 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
             int quantity = -9;
             for(int i = 0; i < BL.size(); i++)
             {
-            Book book = BL.get(i);
+                Book book = BL.get(i);
                 //System.out.println("Book Info: " + book.toString());
                 boolean checkB = bookId.equalsIgnoreCase(book.getBookID()); // check bookId (input from user) and book.getBookID() (id from the book list!)
                 quantity = book.getQuantity();
@@ -210,7 +210,7 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                     System.out.println("Reducing the quantity!"); 
                     book.setQuantity(quantity);
                     }
-                else if(quantity <= 0 && !checkB)
+                else if(quantity <= 0 && !checkB && i == BL.size()-1)
                 {
                     System.out.println("quantity of the books is 0!");
                     System.out.println("Press enter to return!");
@@ -576,10 +576,11 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
 
             if(OverdueDays > 0)
             {
-                 currentBT.setFineAmount(currentM.calculateFine(OverdueDays));
-                 if(OverdueDays > 3) currentBT.setStatus("OVERDUE [3]");
-                 else currentBT.setStatus("OVERDUE");
-                 System.out.println("Book " + currentB.getTitle() + " returned by " + currentM.getName() + " Overdue day: " + OverdueDays + ". Overdue fine: " + currentBT.getFineAmount());
+                currentBT.setFineAmount(currentM.calculateFine(OverdueDays));
+                if(OverdueDays > 3 && currentM.getBorrowLimit() != 5) currentBT.setStatus("OVERDUE [Regular]");
+                else if(OverdueDays >= 31  && currentM.getBorrowLimit() == 5) currentBT.setStatus("OVERDUE [Premium]"); // 31 fixed value of a month
+                else currentBT.setStatus("OVERDUE");
+                System.out.println("Book " + currentB.getTitle() + " returned by " + currentM.getName() + " Overdue day: " + OverdueDays + ". Overdue fine: " + currentBT.getFineAmount());
             } else {
                 System.out.println("Book " + currentB.getTitle() + " returned by " + currentM.getName() + ". No overdue fine");
             }
