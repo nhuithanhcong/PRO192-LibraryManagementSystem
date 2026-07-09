@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Comparator;
 
 public class MemberList extends ArrayList<Member> implements/*lay chuc nang chung cua general*/ GeneralUtil
 {
@@ -13,14 +14,14 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
 
     System.out.println("----------- ADD MEMBER -----------");
 
-    /*System.out.print("Member ID: ");
+    System.out.print("Member ID: ");
     String id = sc.nextLine();
     if (isDuplicateID(id)) {
         System.out.println("Member ID already exists!");
         return;
-    }*/
-    String id = Utility.generateIDvTest(this, "member");
-    System.out.println("Generated Member ID: " + id);
+    }
+    /*String id = Utility.generateIDvTest(this, "member");
+    System.out.println("Generated Member ID: " + id);*/
     
     System.out.print("Name: ");
     String name = sc.nextLine();
@@ -31,6 +32,7 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
     
     System.out.print("Email: ");
     String email = sc.nextLine();
+    if (!Utility.isValidEmail(email)) return;
     
     System.out.println("Select your member type: ");
     System.out.println("[1] Regular member    [2] Premium member");
@@ -83,6 +85,7 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
     );
 
     System.out.println("-----------------------------------------------------------------------------------");
+    this.sort(Comparator.comparing(Member :: getMemberID));
     
     for (Member member : this) {
         System.out.println(member.toString());

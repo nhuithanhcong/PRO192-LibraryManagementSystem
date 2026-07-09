@@ -82,7 +82,7 @@ public class Utility {
             }
             return prefix + String.format("%04d", list.size() + 1);
         }
-        return "Error: you suck bro"; // sao cung duoc do ham yeu cau
+        return "Error!"; // sao cung duoc do ham yeu cau
     }
    
     public static void clearScreen() {
@@ -156,7 +156,7 @@ public class Utility {
     
     public static int tryCatchInt(java.util.Scanner scanner, String print){
         while(true){
-            System.out.println(print);
+            System.out.print(print);
             try {
                 int value = scanner.nextInt();
                 scanner.nextLine(); // Xoa bo nho dem
