@@ -80,7 +80,7 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
         String BorrowDateNTime = DT.format(format);
         System.out.println("Borrow Date (DD/MM/YYYY): " + BorrowDateNTime);
         System.out.println("[1] Confirm  [2] Cancel");
-        System.out.println("Choose: ");
+        System.out.print("Choose: ");
         int choice = input.nextInt();
         input.nextLine();
         if (choice == 1) {
