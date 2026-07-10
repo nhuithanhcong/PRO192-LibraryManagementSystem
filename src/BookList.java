@@ -10,7 +10,7 @@ public class BookList extends ArrayList<Book> implements GeneralUtil {
         Scanner input = new Scanner(System.in);
         System.out.println("---ADD A NEW BOOK---");
         
-        System.out.print("Enter book ID: ");
+        /*System.out.print("Enter book ID: ");
         String bookID = input.nextLine();
         
         // Kiem tra ID da ton tai chua 
@@ -25,10 +25,10 @@ public class BookList extends ArrayList<Book> implements GeneralUtil {
         if (isExisted == true) {
             System.out.println("Book ID already exists!");
             return; 
-        }
+        }*/
         
-        /*String bookID = Utility.generateIDvTest(this, "book");
-        System.out.println("Generated Member ID: " + bookID);*/
+        String bookID = Utility.generateIDvTest(this, "book");
+        System.out.println("Generated Member ID: " + bookID);
         
         System.out.print("Enter book title: ");
         String title = input.nextLine();

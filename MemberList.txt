@@ -2,3 +2,4 @@ M0001, Le Nho Quoc Thang,0337988243, lnqt@gmail.com, Premium, 4, 1
 M0002, Le Nguyen Cat,0337888222, lnc@gmail.com, Regular, 3, 1
 M0003, Phan Tuong Quan,0908245188, ptq@gmail.com, Regular, 3, 0
 M0004, Tran Phuc Lam,0987982986, tpl@gmail.com, Regular, 3, 0
+M0005, Le Lai,0337988333, ll@gmail.com, Regular, 3, 0

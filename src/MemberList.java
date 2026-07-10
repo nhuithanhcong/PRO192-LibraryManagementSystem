@@ -14,14 +14,14 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
 
     System.out.println("----------- ADD MEMBER -----------");
 
-    System.out.print("Member ID: ");
+    /*System.out.print("Member ID: ");
     String id = sc.nextLine();
     if (isDuplicateID(id)) {
         System.out.println("Member ID already exists!");
         return;
-    }
-    /*String id = Utility.generateIDvTest(this, "member");
-    System.out.println("Generated Member ID: " + id);*/
+    }*/
+    String id = Utility.generateIDvTest(this, "member");
+    System.out.println("Generated Member ID: " + id);
     
     System.out.print("Name: ");
     String name = sc.nextLine();
@@ -35,9 +35,8 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
     if (!Utility.isValidEmail(email)) return;
     
     System.out.println("Select your member type: ");
-    System.out.println("[1] Regular member    [2] Premium member");
-    System.out.print("choose: ");
-    int type = sc.nextInt();
+    int type = Utility.tryCatchInt(sc, "[1] Regular member    [2] Premium member: ");
+    
     Member newMember;// phai khai bao newMember o ngoai trc vi khi dua vao if else se chi tinh member trong {} -> khi ra ngoai if else ta k the this.add member vi member k ton tai
     if(type == 1) {
         newMember = new RegularMember(id, name, phone, email,"Regular", 3, 0);
@@ -185,7 +184,11 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
         }
     }
     
-   
+    private TransactionList TL = new TransactionList();
+    public void setTL(TransactionList TL) {
+        this.TL = TL;
+    }
+    
     @Override
     public void delete() {
         Scanner sc = new Scanner(System.in);
@@ -211,11 +214,12 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
             int choice = sc.nextInt();
             
             if (choice == 1) {
-                if (removeMember.getCurrentAmountOfBorrowing() != 0) {
+                if (removeMember.getCurrentAmountOfBorrowing() != removeMember.getBorrowLimit()) {
                     System.out.println("This person still currently borrowing a book");
                 }else {
                     this.remove(removeMember);//Tu 2 note tren ta co the thay rang trong muc deleteMember can co 1 bien co de xac dinh member do la ai de co the remove de hon
                     System.out.println("Member deleted successfully!");
+                    
                 }
                 
             } else {
@@ -225,6 +229,7 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
             System.out.println("Member not found.");
         }
     }
+   
      //Ham ktra xem lieu id cua member dinh input da ton tai hay chua      
     public boolean isDuplicateID(String id) {
     int size = this.size();

@@ -19,6 +19,8 @@ public class LibraryManager
         this.TL.setML(this.ML);
         this.TL.setBL(this.BL);
         
+        this.ML.setTL(this.TL);
+        
         this.file.setBL(this.BL);
         this.file.setML(this.ML);
         this.file.setTL(this.TL);
@@ -109,6 +111,12 @@ public class LibraryManager
     public void returnBook() throws IOException
     {
         TL.returnbook();
+        int oldSize = TL.size();
+        if (TL.size() > oldSize) {
+           file.createFileforBook();
+           file.createFileforUser();
+           file.createFileforBorrowingBook();
+       }
     }
     
     public void viewBorrowedBooks()
