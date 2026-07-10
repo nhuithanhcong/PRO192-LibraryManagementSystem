@@ -190,7 +190,7 @@ public class BookList extends ArrayList<Book> implements GeneralUtil {
             int choice = input.nextInt();
             input.nextLine();
             if (choice == 1) {
-                if (removeBook.getCurrentBorrowingBook() != 0) {
+                if (removeBook.getCurrentBorrowingBook() > 0) {
                     System.out.println("This book still currently borrowing a book");
                 }else {
                     this.remove(removeBook);//Tu 2 note tren ta co the thay rang trong muc deleteMember can co 1 bien co de xac dinh member do la ai de co the remove de hon
@@ -226,7 +226,7 @@ public class BookList extends ArrayList<Book> implements GeneralUtil {
     );
 
     System.out.println("------------------------------------------------------------------------------------");
-    this.sort(Comparator.comparing(Book :: getBookID));
+    //this.sort(Comparator.comparing(Book :: getBookID));
 
     for (Book book : this) {
         System.out.println(book.toString());
