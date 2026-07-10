@@ -543,6 +543,7 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                 else currentBT.setStatus("OVERDUE");
                 System.out.println("Book " + currentB.getTitle() + " returned by " + currentM.getName() + " Overdue day: " + OverdueDays + ". Overdue fine: " + currentBT.getFineAmount());
             } else {
+                currentBT.setStatus("Returned");
                 System.out.println("Book " + currentB.getTitle() + " returned by " + currentM.getName() + ". No overdue fine");
             }
         } else {
