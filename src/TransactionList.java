@@ -2,7 +2,9 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.ZonedDateTime; // do mins, hours, day, month
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 // 6 h toi chuyen ngay
 // regular mem -> 1 tuan borrow
@@ -22,28 +24,6 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
 
     public void setBL(BookList BL) {
         this.BL = BL;
-    }
-    public int ReturnMaxDaysOfMonths(int currentDay, int start, int end, int year)
-    {
-        int howManyDays = 0;
-        boolean leapYear = (year % 4 == 0) && (year % 400 == 0);
-        while(start != end && howManyDays >= 0)
-        {
-            if(howManyDays == 0)
-            {
-                if(start == 2 && leapYear) howManyDays = 29 - currentDay;
-                else if(start == 2 && !leapYear) howManyDays = 28 - currentDay;
-                else if(start == 4 || start == 6 || start == 9 || start == 11) howManyDays = 30 - currentDay;
-                else howManyDays = 31 - currentDay;
-            }
-            if(start > 13) start = 1;
-            if(start == 2 && leapYear) howManyDays += 29;
-            else if(start == 2 && !leapYear) howManyDays += 28;
-            else if(start == 4 || start == 6 || start == 9 || start == 11) howManyDays += 30;
-            else howManyDays += 31;
-            start++;
-        }
-        return howManyDays;
     }
     public boolean returnOrcontinue(String input)
     {
@@ -80,7 +60,7 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
         String BorrowDateNTime = DT.format(format);
         System.out.println("Borrow Date (DD/MM/YYYY): " + BorrowDateNTime);
         System.out.println("[1] Confirm  [2] Cancel");
-        System.out.print("Choose: ");
+        System.out.println("Choose: ");
         int choice = input.nextInt();
         input.nextLine();
         if (choice == 1) {
@@ -551,29 +531,10 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
 
             /////////////////////////////////////////////////////
             //Compare DueDateNTIme with ReturnDateNTime
-            int OverdueDays = 0;
-            if(ReturnYears <= DueYears)
-            {
-                if(ReturnMonths <= DueMonths)
-                {
-                    if(ReturnDays <= DueDays)
-                    {
-                        currentBT.setStatus("Returned");
-                        currentBT.setFineAmount(0);
-                        currentBT.setReturnDate(ReturnDateNTime);
-
-                        //
-                        int temp = currentBT.getCurrentAmountOfBorrowing();
-                        temp++;
-                        currentBT.setCurrentAmountOfBorrowing(temp);
-                        currentM.setCurrentAmountOfBorrowing(temp);     
-                    } 
-                    else OverdueDays = ReturnMaxDaysOfMonths(ReturnDays, DueMonths, ReturnMonths, ReturnYears);
-                } 
-                else OverdueDays = ReturnMaxDaysOfMonths(ReturnDays, DueMonths, ReturnMonths, ReturnYears);
-            }
-            else OverdueDays = ReturnMaxDaysOfMonths(ReturnDays, DueMonths, ReturnMonths, ReturnYears);
-
+            LocalDate startDate = LocalDate.of(DueYears,DueMonths,DueDays);
+            LocalDate endDate = LocalDate.of(ReturnYears, ReturnMonths, ReturnDays);
+            int OverdueDays = (int) ChronoUnit.DAYS.between(startDate, endDate); 
+           
             if(OverdueDays > 0)
             {
                 currentBT.setFineAmount(currentM.calculateFine(OverdueDays));
@@ -588,11 +549,7 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
             System.out.println("Cancelled.");
         }
     }
-
-  
-    
-    
-    
+   
     public void displayBorrowedBooks()
     {
         if (this.isEmpty()) 
