@@ -101,7 +101,7 @@ public class LibraryManager
     {
        int oldSize = TL.size();
        TL.borrowBook();
-       if (TL.size() > oldSize) {
+       if (TL.size() > oldSize) {//dat dieu kien de tranh truong hop luu TL k hop le
            file.createFileforBook();
            file.createFileforUser();
            file.createFileforBorrowingBook();
@@ -111,12 +111,9 @@ public class LibraryManager
     public void returnBook() throws IOException
     {
         TL.returnbook();
-        int oldSize = TL.size();
-        if (TL.size() > oldSize) {
            file.createFileforBook();
            file.createFileforUser();
            file.createFileforBorrowingBook();
-       }
     }
     
     public void viewBorrowedBooks()
