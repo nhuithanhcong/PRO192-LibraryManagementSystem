@@ -1,99 +1,70 @@
 import java.util.List;
 
-
 public class Utility { 
     //Huong dan su dung: generateID()
     /*
     String id/bookID = Utility.generateID(this, "member/book");
     System.out.println("Generated Member/book ID: " + id/bookID); 
     */
-    public static String generateIDvTest(List<?> list, String type)
-    {   
-        // lay prefix cho ID
+    public static String generateIDvTest(List<?> list, String type) {
         String prefix = "";
-        if (type.equalsIgnoreCase("book")) {
-            prefix = "B";
-        } else if (type.equalsIgnoreCase("member")) {
-            prefix = "M";
-        } else if (type.equalsIgnoreCase("Transaction")){
-            prefix = "T";
-        } else {return "Error: Invalid Type";}
+        if      (type.equalsIgnoreCase("book"))         prefix = "B";
+        else if (type.equalsIgnoreCase("member"))       prefix = "M";
+        else if (type.equalsIgnoreCase("Transaction"))  prefix = "T";
+        else return "Error: Invalid Type";
         
         if (list == null || list.isEmpty()){return prefix + "0001";}
         
-        // tim khoang
-        String currentID = null;
-        Object item = null;
-        Book book;
-        Member member;
-        BorrowingTransaction BT;
-        if (type.equalsIgnoreCase("book")) {
-            book = (Book) (list.get(list.size() - 1));
-            currentID = book.getBookID();
-            String idNumStrList = currentID.substring(1); // Substring(position) M0002 (M co vi tri la 0) chung ta chi lay VALUE nen position se bang 1
-            int idNumList = Integer.parseInt(idNumStrList);
-            return prefix + String.format("%04d", idNumList + 1);       
-        } else if (type.equalsIgnoreCase("member")) {
-            member = (Member) (list.get(list.size() - 1));
-            currentID = member.getMemberID();
-            String idNumStrList = currentID.substring(1); // Substring(position) M0002 (M co vi tri la 0) chung ta chi lay VALUE nen position se bang 1
-            int idNumList = Integer.parseInt(idNumStrList);
-            return prefix + String.format("%04d", idNumList + 1);  
-        } else if (type.equalsIgnoreCase("Transaction")){
-            BT = (BorrowingTransaction) (list.get(list.size() - 1));
-            currentID = BT.getTransactionID();
-            String idNumStrList = currentID.substring(1); // Substring(position) M0002 (M co vi tri la 0) chung ta chi lay VALUE nen position se bang 1
-            int idNumList = Integer.parseInt(idNumStrList);
-            return prefix + String.format("%04d", idNumList + 1);  
-        }
-        return "Error!!!"; // sao cung duoc do ham yeu cau
+        // lay phan tu cuoi cung
+        String currentID = "";
+        Object   lastItem = list.get(list.size() - 1);
+        
+        //instanceof Dung de hoi lastItem co phai duoc tao ra tu BOOK/MEMBER/BT KHONG
+        //kiem tra TRUE thi moi ep kieu
+        if      (lastItem instanceof Book)                 currentID = ((Book)                 lastItem).getBookID();
+        else if (lastItem instanceof Member)               currentID = ((Member)               lastItem).getMemberID();
+        else if (lastItem instanceof BorrowingTransaction) currentID = ((BorrowingTransaction) lastItem).getTransactionID();
+        
+        int idNumList = Integer.parseInt(currentID.substring(1));
+        return prefix + String.format("%04d", idNumList + 1);
     }
    
     public static void clearScreen() {
-    // In ra 50 dong cho troi het di :)
-        for (int i = 0; i < 50; i++) {
-            System.out.println();
-        }
+    // In ra 50 dong cho troi het di 
+        for (int i = 0; i < 50; i++) System.out.println();
     }
-    
-    
+      
     public static boolean isValidPhoneNumber(String phone) {
         //kiem tra null va do dai phai 10
-        if (phone == null || phone.length() != 10) {return false;}
-    
+        if (phone == null || phone.length() != 10)      return false;
+        
         // ky tu dau tien phai la '0'
-        if (phone.charAt(0) != '0') {return false;}
-    
+        if (phone.charAt(0) != '0')                     return false;
+        
         // Kiem tra 9 ky tu con lai co phai la so khong
         for (int i = 1; i < phone.length(); i++) {
-            if (!Character.isDigit(phone.charAt(i))) {return false;}
+            if (!Character.isDigit(phone.charAt(i)))    return false;
         }
         return true;
     }
     
     public static boolean isValidEmail(String email) {
         // Kiem tra null, rong hoac chua khoang trang
-    if (email == null || email.trim().isEmpty() || email.contains(" ")) {
-        return false;
-    }
+        if (email == null || email.trim().isEmpty() || email.contains(" "))                     return false;
 
-    email = email.trim();
-    int atIndex = email.indexOf('@');
+        email = email.trim();
+        int atIndex = email.indexOf('@');
 
-    // 2. '@' phai ton tai, khong o đau/cuoi va la duy nhat
-    if (atIndex <= 0 || atIndex == email.length() - 1 || atIndex != email.lastIndexOf('@')) {
-        return false;
-    }
+        //'@' phai ton tai, khong o đau/cuoi va la duy nhat
+        if (atIndex <= 0 || atIndex == email.length() - 1 || atIndex != email.lastIndexOf('@')) return false;
 
-    // 3. Kiem tra dau '.' trong phan domain (tinh tu sau ky tu '@')
-    int dotIndex = email.lastIndexOf('.');
+        //Kiem tra dau '.' trong phan domain (tinh tu sau ky tu '@')
+        int dotIndex = email.lastIndexOf('.');
     
-    // Dau '.' phai nam SAU dau '@' it nhat 1 ky tu va KHONG đuoc o cuoi cung
-    if (dotIndex <= atIndex + 1 || dotIndex == email.length() - 1) {
-        return false;
-    }
+        //Dau '.' phai nam SAU dau '@' it nhat 1 ky tu va KHONG đuoc o cuoi cung
+        if (dotIndex <= atIndex + 1 || dotIndex == email.length() - 1)                          return false;
     
-    return !email.contains("..");
+        return !email.contains("..");
     }
     
     //Ham kiem tra chung cho Title, Genre, Name, Author (Chi can khong đe trong)
@@ -105,19 +76,7 @@ public class Utility {
         int currentYear = java.time.Year.now().getValue();
         return year > 0 && year <= currentYear;
 }
-    
-    public static boolean isValidDate(String dateStr) {
-    if (dateStr == null || dateStr.trim().isEmpty()) return false;
-
-    java.time.format.DateTimeFormatter dtf = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    try {
-        java.time.LocalDate.parse(dateStr.trim(), dtf);
-        return true;
-    } catch (java.time.format.DateTimeParseException e) {
-        return false;
-    }
-}
-    
+  
     public static int tryCatchInt(java.util.Scanner scanner, String print){
         while(true){
             System.out.print(print);
