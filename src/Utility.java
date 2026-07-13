@@ -28,61 +28,25 @@ public class Utility {
         Member member;
         BorrowingTransaction BT;
         if (type.equalsIgnoreCase("book")) {
-            for(int i = 0; i < list.size();i++)
-            {
-                book = (Book) list.get(i);
-                currentID = book.getBookID();
-                
-                //get the value from the number id (LIST)
-                String idNumStrList = currentID.substring(1); // Substring(position) M0002 (M co vi tri la 0) chung ta chi lay VALUE nen position se bang 1
-                int idNumList = Integer.parseInt(idNumStrList);
-                
-                //kiem tra xem gia tri ID tu vong lap va gia tri ID tu list co bi lech gia tri hay khong
-                // neu co thi chung ta se su dung ID tu vong lap
-                // checking id from 0 -> list.size()
-                    String idNumStrLoop = String.format("%04d", i + 1); //0001 
-                    int idNumLoop = Integer.parseInt(idNumStrLoop);
-                    if(idNumLoop != idNumList)  book.setBookID(prefix + idNumStrLoop);
-            }
-            return prefix + String.format("%04d", list.size() + 1);
+            book = (Book) (list.get(list.size() - 1));
+            currentID = book.getBookID();
+            String idNumStrList = currentID.substring(1); // Substring(position) M0002 (M co vi tri la 0) chung ta chi lay VALUE nen position se bang 1
+            int idNumList = Integer.parseInt(idNumStrList);
+            return prefix + String.format("%04d", idNumList + 1);       
         } else if (type.equalsIgnoreCase("member")) {
-            for(int i = 0; i < list.size();i++)
-            { 
-                //getting the data from list
-                member = (Member) list.get(i); // (member) goi la casting noi cach khac la EP/FORCE cai list.get(i) bien thanh Object theo kieu CLASS MEMBER
-                currentID = member.getMemberID();
-                
-                //get the value from the number id (LIST)
-                String idNumStrList = currentID.substring(1); // Substring(position) M0002 (M co vi tri la 0) chung ta chi lay VALUE nen position se bang 1
-                int idNumList = Integer.parseInt(idNumStrList);
-                
-                //kiem tra xem gia tri ID tu vong lap va gia tri ID tu list co bi lech gia tri hay khong
-                // neu co thi pushback (gia tri ID tu n thanh n - 1)
-                // checking id from 0 -> list.size()
-                    String idNumStrLoop = String.format("%04d", i + 1); //0001 
-                    int idNumLoop = Integer.parseInt(idNumStrLoop);
-                    if(idNumLoop != idNumList)  member.setMemberID(prefix + idNumStrLoop);
-            }
-        return prefix + String.format("%04d", list.size() + 1); 
+            member = (Member) (list.get(list.size() - 1));
+            currentID = member.getMemberID();
+            String idNumStrList = currentID.substring(1); // Substring(position) M0002 (M co vi tri la 0) chung ta chi lay VALUE nen position se bang 1
+            int idNumList = Integer.parseInt(idNumStrList);
+            return prefix + String.format("%04d", idNumList + 1);  
         } else if (type.equalsIgnoreCase("Transaction")){
-            for(int i = 0; i < list.size();i++)
-            {
-                BT = (BorrowingTransaction) list.get(i);
-                currentID = BT.getTransactionID();
-                //get the value from the number id (LIST)
-                String idNumStrList = currentID.substring(1); // Substring(position) M0002 (M co vi tri la 0) chung ta chi lay VALUE nen position se bang 1
-                int idNumList = Integer.parseInt(idNumStrList);
-                
-                //kiem tra xem gia tri ID tu vong lap va gia tri ID tu list co bi lech gia tri hay khong
-                // neu co thi chung ta se su dung ID tu vong lap
-                // checking id from 0 -> list.size()
-                    String idNumStrLoop = String.format("%04d", i + 1); //0001 
-                    int idNumLoop = Integer.parseInt(idNumStrLoop);
-                    if(idNumLoop != idNumList)  BT.setTransactionID(prefix + idNumStrLoop);
-            }
-            return prefix + String.format("%04d", list.size() + 1);
+            BT = (BorrowingTransaction) (list.get(list.size() - 1));
+            currentID = BT.getTransactionID();
+            String idNumStrList = currentID.substring(1); // Substring(position) M0002 (M co vi tri la 0) chung ta chi lay VALUE nen position se bang 1
+            int idNumList = Integer.parseInt(idNumStrList);
+            return prefix + String.format("%04d", idNumList + 1);  
         }
-        return "Error: you suck bro"; // sao cung duoc do ham yeu cau
+        return "Error!!!"; // sao cung duoc do ham yeu cau
     }
    
     public static void clearScreen() {
@@ -156,7 +120,7 @@ public class Utility {
     
     public static int tryCatchInt(java.util.Scanner scanner, String print){
         while(true){
-            System.out.println(print);
+            System.out.print(print);
             try {
                 int value = scanner.nextInt();
                 scanner.nextLine(); // Xoa bo nho dem

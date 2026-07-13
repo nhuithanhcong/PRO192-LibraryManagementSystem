@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.IOException;
+import java.util.Comparator;
 
 public class BookList extends ArrayList<Book> implements GeneralUtil {
 
@@ -84,9 +84,17 @@ public class BookList extends ArrayList<Book> implements GeneralUtil {
         
         Book info = new Book(bookID, title, author, genre, publicationYear, quantity, 0, 0, 0);
         info.setAvailableCopies(quantity); 
-        this.add(info);
-        System.out.println("Book added successfully!");
-    } 
+        System.out.println("[1] Save    [2] Cancel");
+        System.out.print("Choose: ");
+        int choice = input.nextInt();
+        input.nextLine();
+        if (choice == 1) {
+            this.add(info);//them new member vao class arraylist
+            System.out.println("Book added successfully!");//tao ra object de gan scan member moi vao class member 
+        } else {
+            System.out.println("Operation cancelled!");
+        } 
+    }
         
     // Cap nhat thong tin sach
     @Override
@@ -177,10 +185,20 @@ public class BookList extends ArrayList<Book> implements GeneralUtil {
         }
         
         if (removeBook != null) {
-            System.out.println("Book Found.");
-            System.out.println("Book infor: " + removeBook.toString());
-            this.remove(removeBook);
-            System.out.println("Book deleted successfully!");
+            System.out.println("[1] Delete   [2] Cancel");
+            System.out.print("Choose: ");
+            int choice = input.nextInt();
+            input.nextLine();
+            if (choice == 1) {
+                if (removeBook.getCurrentBorrowingBook() > 0) {
+                    System.out.println("This book still currently borrowing a book");
+                }else {
+                    this.remove(removeBook);//Tu 2 note tren ta co the thay rang trong muc deleteMember can co 1 bien co de xac dinh member do la ai de co the remove de hon
+                    System.out.println("Member deleted successfully!");
+                }
+            } else {
+                System.out.println("Operation cancelled!");
+            } 
         } else {
             System.out.println("Book not found!");
         }
@@ -208,6 +226,7 @@ public class BookList extends ArrayList<Book> implements GeneralUtil {
     );
 
     System.out.println("------------------------------------------------------------------------------------");
+    //this.sort(Comparator.comparing(Book :: getBookID));
 
     for (Book book : this) {
         System.out.println(book.toString());
