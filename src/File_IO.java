@@ -70,7 +70,7 @@ public class File_IO
         File obj = new File("BookList.txt");
         try (Scanner myReader = new Scanner(obj)) {
             while (myReader.hasNextLine()) { //neu myreader co ton tai data
-                String data = myReader.nextLine();//thi doc noi dung data hien tai va xuong dong de doc noi dung tiep theo
+                String data = myReader.nextLine();//thi doc noi dung data hien tai, luu vao bien data hien tai xuong dong de doc noi dung tiep theo
                 String[] info = data.split(",");//roi sau do tach data do ra de Book book moi
                 String bookID = info[0].trim();
                 String title = info[1].trim();
