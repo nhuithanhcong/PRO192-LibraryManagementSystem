@@ -194,7 +194,7 @@ public class BookList extends ArrayList<Book> implements GeneralUtil {
                     System.out.println("This book still currently borrowing a book");
                 }else {
                     this.remove(removeBook);//Tu 2 note tren ta co the thay rang trong muc deleteMember can co 1 bien co de xac dinh member do la ai de co the remove de hon
-                    System.out.println("Member deleted successfully!");
+                    System.out.println("Book deleted successfully!");
                 }
             } else {
                 System.out.println("Operation cancelled!");
