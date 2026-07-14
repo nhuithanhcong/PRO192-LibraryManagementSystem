@@ -118,10 +118,12 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
 
             System.out.print("New Phone Number: ");
             String newPhoneNumber = sc.nextLine();
+            if (!Utility.isValidPhoneNumber(newPhoneNumber)) return;
             member.setPhone(newPhoneNumber);
 
             System.out.print("Email: ");
             String newEmail = sc.nextLine();
+            if (!Utility.isValidEmail(newEmail)) return;
             member.setEmail(newEmail);                                                               
             System.out.println("Member updated successfully!");
             break;//dung vonglap lun de k con phai chay them 1 vong moi nua de tiet kiem tai nguyen va thoi gian
