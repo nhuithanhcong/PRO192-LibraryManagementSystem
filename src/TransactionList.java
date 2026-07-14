@@ -215,7 +215,7 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                     int AmountOfBorrowingForMember = member.getAmountOfBorrowingForMember(); // how many time did this person borrowed a book
 
                     int AmountOfBorrowingForBooks = book.getAmountOfBorrowingForBook(); // how many time a book being borrowed
-                    int CurrentlyborrowingAbook = book.getCurrentBorrowingBook(); // Is that book being borrowed
+                    int CurrentborrowingAbook = book.getCurrentBorrowingBook(); // Is that book being borrowed
                     //System.out.println("CurrentAmount 0f Borrowing: " + CurrentAmountOfBorrowing);
 
                     if(CurrentAmountOfBorrowing > 0) 
@@ -546,6 +546,9 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                 currentBT.setStatus("Returned");
                 System.out.println("Book " + currentB.getTitle() + " returned by " + currentM.getName() + ". No overdue fine");
             }
+            currentB.setQuantity(currentB.getQuantity() + 1);
+            currentB.setCurrentBorrowingBook(0);
+            currentM.setCurrentAmountOfBorrowing(currentM.getCurrentAmountOfBorrowing() + 1);
         } else {
             System.out.println("Cancelled.");
         }

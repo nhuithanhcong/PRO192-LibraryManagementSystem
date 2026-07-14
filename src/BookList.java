@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Comparator;
 
 public class BookList extends ArrayList<Book> implements GeneralUtil {
 
@@ -191,7 +190,7 @@ public class BookList extends ArrayList<Book> implements GeneralUtil {
             input.nextLine();
             if (choice == 1) {
                 if (removeBook.getCurrentBorrowingBook() > 0) {
-                    System.out.println("This book still currently borrowing a book");
+                    System.out.println("This book still currently borrowing");
                 }else {
                     this.remove(removeBook);//Tu 2 note tren ta co the thay rang trong muc deleteMember can co 1 bien co de xac dinh member do la ai de co the remove de hon
                     System.out.println("Book deleted successfully!");

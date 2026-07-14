@@ -1,175 +1,153 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-//import java.util.Comparator;
 
-public class MemberList extends ArrayList<Member> implements/*lay chuc nang chung cua general*/ GeneralUtil
-{
-   
-            
-    //input du lieu tu user
+public class MemberList extends ArrayList<Member> implements GeneralUtil {
+
     @Override
     public void add() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("----------- ADD MEMBER -----------");
 
-    Scanner sc = new Scanner(System.in);//tao scanner de lay input tu user
+        String id = Utility.generateIDvTest(this, "member");
+        System.out.println("Generated Member ID: " + id);
+        
+        System.out.print("Name: ");
+        String name = sc.nextLine();
 
-    System.out.println("----------- ADD MEMBER -----------");
+        System.out.print("Phone Number: ");
+        String phone = sc.nextLine();
+        if (!Utility.isValidPhoneNumber(phone)) {
+            System.out.println("Invalid Phone Number! Operation stopped.");
+            return;
+        }
+        
+        System.out.print("Email: ");
+        String email = sc.nextLine();
+        if (!Utility.isValidEmail(email)) {
+            System.out.println("Invalid Email! Operation stopped.");
+            return;
+        }
+        
+        System.out.println("Select your member type: ");
+        int type = Utility.tryCatchInt(sc, "[1] Regular member    [2] Premium member: ");
+        
+        Member newMember;
+        if (type == 1) {
+            newMember = new RegularMember(id, name, phone, email, "Regular", 3, 0);
+        } else if (type == 2) {
+            newMember = new PremiumMember(id, name, phone, email, "Premium", 5, 0);
+        } else {
+            System.out.println("Invalid member type! Operation stopped.");
+            return;
+        }
+        
+        System.out.println("[1] Save    [2] Cancel");
+        int choice = Utility.tryCatchInt(sc, "Choose action: ");
+        
+        if (choice == 1) {
+            this.add(newMember); // Thêm thành viên mới vào danh sách
+            System.out.println("Member added successfully!");
+        } else {
+            System.out.println("Operation cancelled!");
+        } 
+    }   
 
-    /*System.out.print("Member ID: ");
-    String id = sc.nextLine();
-    if (isDuplicateID(id)) {
-        System.out.println("Member ID already exists!");
-        return;
-    }*/
-    String id = Utility.generateIDvTest(this, "member");
-    System.out.println("Generated Member ID: " + id);
-    
-    System.out.print("Name: ");
-    String name = sc.nextLine();
-
-    System.out.print("Phone Number: ");
-    String phone = sc.nextLine();
-    if (!Utility.isValidPhoneNumber(phone)) return;
-    
-    System.out.print("Email: ");
-    String email = sc.nextLine();
-    if (!Utility.isValidEmail(email)) return;
-    
-    System.out.println("Select your member type: ");
-    int type = Utility.tryCatchInt(sc, "[1] Regular member    [2] Premium member: ");
-    Member newMember;// phai khai bao newMember o ngoai trc vi khi dua vao if else se chi tinh member trong {} -> khi ra ngoai if else ta k the this.add member vi member k ton tai
-    if(type == 1) {
-        newMember = new RegularMember(id, name, phone, email,"Regular", 3, 0);
-    } else if (type == 2) {
-        newMember = new PremiumMember(id, name, phone, email, "Premium", 5, 0);
-    } else {
-        System.out.println("Invalid member type!");
-        return;
-    }
-    
-    System.out.println("[1] Save    [2] Cancel");
-    System.out.print("Choose: ");
-    int choice = sc.nextInt();
-    sc.nextLine();
-    if (choice == 1) {
-        this.add(newMember);//them new member vao class arraylist
-        System.out.println("Member added successfully!");//tao ra object de gan scan member moi vao class member 
-    } else {
-        System.out.println("Operation cancelled!");
-    } 
-}   
-
-    
-     
-     
-     
-     //Display member
     @Override
     public void display() {
-
         if (this.isEmpty()) {
-        System.out.println("No available members!");
-        return;
+            System.out.println("No available members!");
+            return;
+        }
+
+        System.out.println("\n----------- MEMBER LIST -----------");
+        System.out.printf(
+            "%-8s %-20s %-15s %-25s %-60s\n",
+            "ID", "Name", "Phone", "Email", "Status"
+        );
+        System.out.println("-----------------------------------------------------------------------------------");
+        
+        for (Member member : this) {
+            System.out.println(member.toString());
+        }
+        System.out.println("-----------------------------------------------------------------------------------");
     }
-
-    System.out.println("\n----------- MEMBER LIST -----------");
-
-    System.out.printf(
-        "%-8s %-20s %-15s %-25s %-60s\n",
-        "ID",
-        "Name",
-        "Phone",
-        "Email",
-        "Status"
-    );
-
-    System.out.println("-----------------------------------------------------------------------------------");
-    //this.sort(Comparator.comparing(Member :: getMemberID));
     
-    for (Member member : this) {
-        System.out.println(member.toString());
-    }
-
-    System.out.println("-----------------------------------------------------------------------------------");
-}
-    
-    
-    
+    // --- 3. CHỨC NĂNG CẬP NHẬT (UPDATE) ---
     @Override
-    public void update()
-    {
+    public void update() {
         Scanner sc = new Scanner(System.in);
         System.out.println("----------- UPDATE MEMBER -----------");
-        System.out.println("Enter member ID: ");
+        System.out.print("Enter member ID: ");
         String updateID = sc.nextLine();
         
+        Member member = null;
+        for (Member m : this) {
+            if (m.getMemberID().equalsIgnoreCase(updateID)) {
+                member = m;
+                break;
+            }
+        }
         
-        int size = this.size();
-        boolean found = false;
-        for (int i = 0; i < size; i++) {
-            Member member = this.get(i);
-            if (member.getMemberID().equalsIgnoreCase(updateID)) {
-            found = true;
-            System.out.println("Current Information: " + member.toString());
-            
-
-            System.out.print("New Name: ");//nhap input gia tri moi vao
-            String newName = sc.nextLine();//gan gia tri moi vao member 
-            member.setName(newName);// va tu member do se gan vao memberList moi nho chuhc nang set
-
-            System.out.print("New Phone Number: ");
-            String newPhoneNumber = sc.nextLine();
-            if (!Utility.isValidPhoneNumber(newPhoneNumber)) return;
-            member.setPhone(newPhoneNumber);
-
-            System.out.print("Email: ");
-            String newEmail = sc.nextLine();
-            if (!Utility.isValidEmail(newEmail)) return;
-            member.setEmail(newEmail);                                                               
-            System.out.println("Member updated successfully!");
-            break;//dung vonglap lun de k con phai chay them 1 vong moi nua de tiet kiem tai nguyen va thoi gian
-            } 
-        }
-        if (!found) {
+        if (member == null) {
             System.out.println("Member not found.");
-         
+            return;
         }
+        
+        System.out.println("Current Information: " + member.toString());
+
+        System.out.print("New Name: ");
+        String newName = sc.nextLine().trim();
+
+        System.out.print("New Phone Number: ");
+        String newPhoneNumber = sc.nextLine().trim();
+        if (!newPhoneNumber.isEmpty() && !Utility.isValidPhoneNumber(newPhoneNumber)) {
+            System.out.println("Update failed! Invalid Phone Number format.");
+        }
+
+        System.out.print("New Email: ");
+        String newEmail = sc.nextLine().trim();
+        if (!newEmail.isEmpty() && !Utility.isValidEmail(newEmail)) {
+            System.out.println("Update failed! Invalid Email format.");
+        }
+
+        if (!newName.isEmpty()) member.setName(newName);
+        if (!newPhoneNumber.isEmpty()) member.setPhone(newPhoneNumber);
+        if (!newEmail.isEmpty()) member.setEmail(newEmail);
+
+        System.out.println("Member updated successfully!");
     }
     
-    
-    
+   
     @Override
     public void search() {
         Scanner sc = new Scanner(System.in);
         System.out.println("----------- SEARCH MEMBER -----------");
         System.out.println("1. Enter member name ");
-        System.out.println("2. Enter member id");
-        System.out.print("Choose: ");
-        int choice = sc.nextInt();
+        System.out.println("2. Enter member ID");
+        
+        int choice = Utility.tryCatchInt(sc, "Choose search option (1 or 2): ");
+        
         if (choice == 1) {
             System.out.print("Enter member name: ");
             String searchName = sc.nextLine();
         
             boolean found = false;
-            int size = this.size();
-            for (int i = 0; i < size; i++) {
-                Member member = this.get(i);
+            for (Member member : this) {
                 if (member.getName().equalsIgnoreCase(searchName)) {
                     found = true;
                     System.out.println("Member found: ");
                     System.out.println(member.toString());
-                    break;       
-
+                    break; 
                 }
             }
             if (!found) {
                 System.out.println("Member not found.");
             } 
         } else if (choice == 2) {
-            System.out.print("Enter number ID: ");
+            System.out.print("Enter member ID: ");
             String searchID = sc.nextLine();
             boolean found = false;
-            for (int i = 0; i < this.size(); i++) {
-                Member member = this.get(i);
+            for (Member member : this) {
                 if (member.getMemberID().equalsIgnoreCase(searchID)) {
                     found = true;
                     System.out.println("Member found: ");
@@ -180,47 +158,39 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
             if (!found) {
                 System.out.println("Member not found.");
             }
-        } else{
-            System.out.println("invalid choice!");
+        } else {
+            System.out.println("Invalid choice!");
         }
     }
     
-    private TransactionList TL = new TransactionList();
-    public void setTL(TransactionList TL) {
-        this.TL = TL;
-    }
     
     @Override
     public void delete() {
         Scanner sc = new Scanner(System.in);
         System.out.println("----------- DELETE MEMBER -----------");
-        System.out.println("Enter member name: ");
+        System.out.print("Enter member name: ");
         String searchName = sc.nextLine();
         
-        Member removeMember = null;//tao object removeMember = null de khi ma tim thay id cua member thi se gan object nay vao member dc tim thay
-        
-        int size = this.size();
-        for (int i = 0; i < size; i++) {
-            Member member = this.get(i);
+        Member removeMember = null;
+        for (Member member : this) {
             if (member.getName().equalsIgnoreCase(searchName)) {
-                removeMember = member;// neu da tim dc member thanh cong thi se gan member dc tim thay do vao object removeMember de dinh danh member do de de hon trong vjec delete member
+                removeMember = member;
                 System.out.println("Member found: ");
                 System.out.println(member.toString());
                 break;        
             }
         }
+        
         if (removeMember != null) {
             System.out.println("[1] Delete   [2] Cancel");
-            System.out.print("Choose: ");
-            int choice = sc.nextInt();
+            int choice = Utility.tryCatchInt(sc, "Choose action: ");
             
             if (choice == 1) {
-                if (removeMember.getCurrentAmountOfBorrowing() < removeMember.getBorrowLimit()) {
-                    System.out.println("This person still currently borrowing a book");
-                }else {
-                    this.remove(removeMember);//Tu 2 note tren ta co the thay rang trong muc deleteMember can co 1 bien co de xac dinh member do la ai de co the remove de hon
+                if (removeMember.getCurrentAmountOfBorrowing() > 0) {
+                    System.out.println("This person is still currently borrowing a book! Cannot delete.");
+                } else {
+                    this.remove(removeMember);
                     System.out.println("Member deleted successfully!");
-                    
                 }
             } else {
                 System.out.println("Operation cancelled!");
@@ -229,19 +199,4 @@ public class MemberList extends ArrayList<Member> implements/*lay chuc nang chun
             System.out.println("Member not found.");
         }
     }
-   
-     /*//Ham ktra xem lieu id cua member dinh input da ton tai hay chua      
-    public boolean isDuplicateID(String id) {
-    int size = this.size();
-    for (int i = 0; i < size; i++) {
-        Member member = this.get(i);
-        if (member.getMemberID().equalsIgnoreCase(id)) {
-
-            return true;
-        }
-    }
-
-    return false;
-}*/
-    
 }
