@@ -5,12 +5,13 @@ import java.time.ZonedDateTime; // do mins, hours, day, month
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.InputMismatchException;
 
 // 6 h toi chuyen ngay
 // regular mem -> 1 tuan borrow
 // premium mem -> 1 thang borrow
 // 3 ngay sau khi qua han
-public class TransactionList extends ArrayList<BorrowingTransaction> 
+public class TransactionList extends ArrayList<BorrowingTransaction>
 {
     private MemberList ML;
     private BookList BL;
@@ -30,7 +31,6 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
         if(input.equalsIgnoreCase("Esc")) 
         {
             return true;
-            
         }
         else return false;
     }
@@ -189,7 +189,7 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                     quantity--;    //Reduce book quantity and update the book quantity in the library
                     System.out.println("Reducing the quantity!"); 
                     book.setQuantity(quantity);
-                    }
+                }
                 else if(quantity <= 0 && !checkB && i == BL.size()-1)
                 {
                     System.out.println("quantity of the books is 0!");
@@ -242,8 +242,8 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
 
 
 
-                           if(member.getBorrowLimit() == 3) DT = DT.plusWeeks(1); // if regular DUE DATE = BORROWDATE + 1 tuan
-                           else DT = DT.plusMonths(1); // else la premium DUE DATE = BORROWDATE + 1 thang
+                           if(member.getBorrowLimit() == 3) DT = DT.plusWeeks(1); // if regular -> DUE DATE = BORROWDATE + 1 tuan (OBJECTT)
+                           else DT = DT.plusMonths(1); // else la premium DUE DATE = BORROWDATE + 1 thang (OBJECT)
                            String DueDateNTime = DT.format(format);
 
                            newBT.setBorrowDate(BorrowDateNTime); 
@@ -319,13 +319,24 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
         System.out.print("Please Enter the Book ID: ");
         bookId = input.nextLine();
         ZonedDateTime DT = ZonedDateTime.now(ZoneId.of("Asia/Ho_Chi_Minh"));
+        
+        
+        DT = DT.plusYears(1);
+        
+        
         DateTimeFormatter CustomFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         String ReturnDateNTime = DT.format(CustomFormat);
         System.out.println("Return date (DD/MM/YYYY): " + ReturnDateNTime);
         System.out.println("[1] Confirm  [2] Cancel");
         System.out.print("Choose: ");
-        int choice = input.nextInt();
-        input.nextLine();
+        int choice = 0;
+        try{
+            choice = input.nextInt();
+            input.nextLine();
+        }catch(InputMismatchException e)
+        {
+            System.out.println("Please enter a number!");
+        }
         if (choice == 1) {
             if(TransactionId.length() == 0 && TransactionId.charAt(0) != 'T')
             {
@@ -488,12 +499,18 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
             Member currentM = ML.get(save_indexForMember);
             Book currentB = BL.get(save_indexForBook);
 
+            if(currentBT.getStatus().equalsIgnoreCase("Returned"))
+            {
+                System.out.println("The User Already Returned a book!");
+                System.out.println("Press Enter to return!");
+                input.nextLine();
+                return;
+            }
             //update info for currentBT
             //update ReturnDate info in BT
             currentBT.setReturnDate(ReturnDateNTime); 
 
             // Calculate Fine
-
 
             ///////////////////////////////////////////////////
             //Retrieve each parts of Date and Time
@@ -517,30 +534,30 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
             int ReturnMonths = Integer.parseInt(ReturnDateS[1]);
             int ReturnYears = Integer.parseInt(ReturnDateS[2]);
 
-
-            /////////////////////////////////////////////////
-            //Turn String Time to Value Time
-            int DueSeconds = Integer.parseInt(DueTimeS[0]);
-            int DueMinutes = Integer.parseInt(DueTimeS[1]);
-            int DueHours= Integer.parseInt(DueTimeS[2]);
-
-            int ReturnSeconds = Integer.parseInt(ReturnTimeS[0]);
-            int ReturnMinutes = Integer.parseInt(ReturnTimeS[1]);
-            int ReturnHours = Integer.parseInt(ReturnTimeS[2]);
-
-
             /////////////////////////////////////////////////////
             //Compare DueDateNTIme with ReturnDateNTime
-            LocalDate startDate = LocalDate.of(DueYears,DueMonths,DueDays);
+            LocalDate startDate = LocalDate.of(DueYears,DueMonths,DueDays); // parameter la int
             LocalDate endDate = LocalDate.of(ReturnYears, ReturnMonths, ReturnDays);
             int OverdueDays = (int) ChronoUnit.DAYS.between(startDate, endDate); 
            
             if(OverdueDays > 0)
             {
                 currentBT.setFineAmount(currentM.calculateFine(OverdueDays));
-                if(OverdueDays > 3 && currentM.getBorrowLimit() != 5) currentBT.setStatus("OVERDUE [Regular]");
-                else if(OverdueDays >= 31  && currentM.getBorrowLimit() == 5) currentBT.setStatus("OVERDUE [Premium]"); // 31 fixed value of a month
-                else currentBT.setStatus("OVERDUE");
+                if(OverdueDays > 3 && currentM.getBorrowLimit() == 3)
+                {
+                    
+                    currentBT.setStatus("OVERDUE [Regular]");
+                    currentBT.setFineAmount(currentM.calculateFine(OverdueDays));
+                }
+                else if(OverdueDays >= 31  && currentM.getBorrowLimit() == 5){
+                    currentBT.setStatus("OVERDUE [Premium]");
+                    currentBT.setFineAmount(currentM.calculateFine(OverdueDays));
+                } // 31 fixed value of a month
+                else{
+                    currentBT.setStatus("OVERDUE");
+                    currentBT.setFineAmount(currentM.calculateFine(OverdueDays));
+                }
+                
                 System.out.println("Book " + currentB.getTitle() + " returned by " + currentM.getName() + " Overdue day: " + OverdueDays + ". Overdue fine: " + currentBT.getFineAmount());
             } else {
                 currentBT.setStatus("Returned");
@@ -561,10 +578,10 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
             System.out.println("No transaction found!");
             return;
         }
-    System.out.println("\n---------------- BORROWING TRANSACTION LIST ----------------");
+    System.out.println("\n---------------- BORROWED BOOKS LIST ----------------");
 
     System.out.printf(
-        "%-8s %-20s %-20s %-20s %-10.2s %-12s %-10s %-10s\n",
+        "%-8s %-20s %-20s %-20s %-10s %-12s %-10s %-10s\n",
         "ID",
         "Borrow",
         "Due",
