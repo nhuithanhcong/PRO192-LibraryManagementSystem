@@ -62,9 +62,9 @@ public class Utility {
         int dotIndex = email.lastIndexOf('.');
     
         //Dau '.' phai nam SAU dau '@' it nhat 1 ky tu va KHONG đuoc o cuoi cung
-        if (dotIndex <= atIndex + 1 || dotIndex == email.length() - 1)                          return false;
+        if (dotIndex <= atIndex + 1 || dotIndex == email.length() - 1 || dotIndex != email.lastIndexOf('.'))                          return false;
+        return true;
     
-        return !email.contains("..");
     }
     
     //Ham kiem tra chung cho Title, Genre, Name, Author (Chi can khong đe trong)

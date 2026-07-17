@@ -60,9 +60,8 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
         String BorrowDateNTime = DT.format(format);
         System.out.println("Borrow Date (DD/MM/YYYY): " + BorrowDateNTime);
         System.out.println("[1] Confirm  [2] Cancel");
-        System.out.println("Choose: ");
-        int choice = input.nextInt();
-        input.nextLine();
+        int choice = Utility.tryCatchInt(input, "Choose: ");
+            
         if (choice == 1) {
             if(userId.length() == 0 || userId.charAt(0) != 'M')
             {
@@ -289,7 +288,7 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
     //////////////////////////                             //////////////////////////
     
     
-    public void returnbook()
+   public void returnbook()
     {
         Scanner input = new Scanner(System.in); // tao object scanner de lay du lieu tu user
         String returnDate = null;
@@ -314,14 +313,8 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
         
         System.out.print("Please Enter the Transaction ID: ");
         TransactionId = input.nextLine();
-        System.out.print("Please Enter the user ID: ");
-        userId = input.nextLine();
-        System.out.print("Please Enter the Book ID: ");
-        bookId = input.nextLine();
         ZonedDateTime DT = ZonedDateTime.now(ZoneId.of("Asia/Ho_Chi_Minh"));
         
-        
-        DT = DT.plusYears(1);
         
         
         DateTimeFormatter CustomFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
@@ -338,16 +331,10 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
             System.out.println("Please enter a number!");
         }
         if (choice == 1) {
-            if(TransactionId.length() == 0 && TransactionId.charAt(0) != 'T')
+            while(TransactionId.length() == 0 || TransactionId.charAt(0) != 'T')
             {
-            //System.out.println("TransactionID ID Entered Successfully!");
-            System.out.println("Please Enter The Transaction ID correctly!");
-            System.out.println("Press Enter to continue Or type Esc to return!");
-            String e = input.nextLine();
-            if(returnOrcontinue(e)) 
-            {
-                return;
-            }
+                System.out.println("Please Enter The Transaction ID correctly!");
+                TransactionId = input.nextLine();
             }
             /////////////////////////////////////////////////////////////////////
             // check if the Transaction ID actually existed within the database//
@@ -369,135 +356,21 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                     return;
                 }
             }
-            //////////////////////////////////////////////////////////////////////////////////////////
-            // check if the member list is empty first before validaing the existence of the user ID//
-            //////////////////////////////////////////////////////////////////////////////////////////
-
-            //System.out.println("Size of ML is: " + ML.size()); // -> optional
-            if(ML.isEmpty())
-            {
-                System.out.println("There are no Data in the member list database! (Press enter to return!)");
-                input.nextLine();
-                return;
-            }
-             /////////////////////////
-            //User enters member ID//
-            /////////////////////////
-
-            while(true)
-            {
-
-                if(userId.length() != 0 && userId.charAt(0) == 'M')
-                {
-                    //System.out.println("User ID Entered Successfully!");
-                    break;
-                }
-                else
-                {
-                    System.out.println("Please Enter The User ID correctly!");
-                    System.out.println("Press Enter to continue Or type Esc to return!");
-                    String e = input.nextLine();
-                    if(returnOrcontinue(e)) 
-                    {
-                        return;
-                    }
-                }
-            }
-
-            ////////////////////////////////////////////////
-            //Look for the member ID if it actually exist!//
-            ////////////////////////////////////////////////
-            int save_indexForMember = -99;
-            for(int i = 0; i < ML.size(); i++)
-            {
-                Member member = ML.get(i);
-                boolean check = userId.equalsIgnoreCase(member.getMemberID()); // check userId (input from user) and member.getMemberID() (id from the member list!)
-                //check whether member exists
-                if(check == true)
-                {
-                    save_indexForMember = i;
-                    //System.out.println("User ID Found!");
-                    break;
-                }
-                else if(check == false && i == ML.size()-1)
-                {
-                    System.out.println("User ID Not Found In The DataBase!"); 
-                    System.out.println("Press Enter to return!");
-                    input.nextLine();
-                    return;
-                }
-            }    
-
-            ////////////////////////////////////////////////////////////////////////////////////////
-            // check if the book list is empty first before validaing the existence of the book ID//
-            ////////////////////////////////////////////////////////////////////////////////////////
-
-            //System.out.println("Size of BookList is: " + BL.size()); // -> optional
-            if(BL.isEmpty())
-            {
-                System.out.println("There are no Data in the book list database! (Press enter to return!)");
-                input.nextLine();
-                return;
-            }
-
-            ///////////////////////
-            //User enters Book ID//
-            ///////////////////////
-
-            while(true)
-            {
-
-                if(bookId.length() != 0 && bookId.charAt(0) == 'B')
-                {
-                    //System.out.println("book ID Entered Successfully!");
-                    break;
-                }
-                else
-                {  
-                    System.out.println("Please Enter The book ID correctly!");
-                    System.out.println("Press Enter to continue Or type Esc to return!");
-                    String e = input.nextLine();
-                    if(returnOrcontinue(e)) 
-                    {
-                        return;
-                    }
-                }        
-            }
-            ////////////////////////////////////////////////
-            //Look for the Book ID if it actually exist!//
-            ////////////////////////////////////////////////
-            int save_indexForBook = -99;
-
-            for(int i = 0; i < BL.size(); i++)
-            {
-                Book book = BL.get(i);
-                boolean checkB = bookId.equalsIgnoreCase(book.getBookID()); // check bookId (input from user) and book.getBookID() (id from the book list!)
-                //Check whether the book exists and is available.
-                if(checkB == true) 
-                {
-                    save_indexForBook = i;
-                   //System.out.println("The Book is exist and avaiable!");
-                   break;  // found book then break the loop no need to find anymore!
-                }
-                else if(checkB == false && i == BL.size()-1)
-                {
-                    System.out.println("Book ID Not Found In The DataBase!"); 
-                    System.out.println("Press Enter to continue Or type Esc to return!");
-                    String e = input.nextLine();
-                    if(returnOrcontinue(e)) 
-                    {
-                        return;
-                    }
-                }
-            }
-
-            ///////////////////////////////////////
+///////////////////////////////////////
             //Update the transaction Information!//
             ///////////////////////////////////////
 
             BorrowingTransaction currentBT = this.get(save_indexForTransaction);
-            Member currentM = ML.get(save_indexForMember);
-            Book currentB = BL.get(save_indexForBook);
+            Member currentM = null;
+            Book currentB = null;
+            for(Member m : ML) 
+            {
+                if(m.getMemberID().equalsIgnoreCase(currentBT.getMemberID())) currentM = m;
+            }
+            for(Book b : BL)
+            {
+                if(b.getBookID().equalsIgnoreCase(currentBT.getBookID())) currentB = b;
+            }
 
             if(currentBT.getStatus().equalsIgnoreCase("Returned"))
             {
@@ -543,28 +416,23 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
             if(OverdueDays > 0)
             {
                 currentBT.setFineAmount(currentM.calculateFine(OverdueDays));
-                if(OverdueDays > 3 && currentM.getBorrowLimit() == 3)
+                if(OverdueDays > 0 && currentM.getBorrowLimit() == 3)
                 {
                     
                     currentBT.setStatus("OVERDUE [Regular]");
                     currentBT.setFineAmount(currentM.calculateFine(OverdueDays));
                 }
-                else if(OverdueDays >= 31  && currentM.getBorrowLimit() == 5){
+                else if(OverdueDays > 0  && currentM.getBorrowLimit() == 5){
                     currentBT.setStatus("OVERDUE [Premium]");
                     currentBT.setFineAmount(currentM.calculateFine(OverdueDays));
-                } // 31 fixed value of a month
-                else{
-                    currentBT.setStatus("OVERDUE");
-                    currentBT.setFineAmount(currentM.calculateFine(OverdueDays));
-                }
-                
+                } // 31 fixed value of a month               
                 System.out.println("Book " + currentB.getTitle() + " returned by " + currentM.getName() + " Overdue day: " + OverdueDays + ". Overdue fine: " + currentBT.getFineAmount());
             } else {
                 currentBT.setStatus("Returned");
                 System.out.println("Book " + currentB.getTitle() + " returned by " + currentM.getName() + ". No overdue fine");
             }
             currentB.setQuantity(currentB.getQuantity() + 1);
-            currentB.setCurrentBorrowingBook(0);
+            currentB.setCurrentBorrowingBook(0); // status 1 = book being borrowed, status 0 = book is not being borrowed
             currentM.setCurrentAmountOfBorrowing(currentM.getCurrentAmountOfBorrowing() + 1);
         } else {
             System.out.println("Cancelled.");
@@ -613,43 +481,33 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
     {
         Scanner input = new Scanner(System.in);
         String userId = null;
-        while(true)
-        {
-            System.out.print("Please Enter the user ID: ");
-            userId = input.nextLine();
-            if(userId.length() != 0)
-            {
-                System.out.println("User ID Entered Successfully!");
-                break;
-            }
-            else
-            {
-                System.out.println("Please Enter The User ID correctly!");
-                System.out.println("Press Enter to continue Or type Esc to return!");
-                String e = input.nextLine();
-                if(returnOrcontinue(e)) 
-                {
-                    return;
-                }
-            }
-        }
-
-        if(this.size() == 0)
+        if(this.isEmpty())
         {
             System.out.println("there are no Data in the database!");
             System.out.println("Press Enter to return");
-            String e = input.nextLine();
+            input.nextLine();
             return;
         }
+        System.out.print("Please Enter the user ID: ");
+        userId = input.nextLine();
+        while(userId.isEmpty() || userId.charAt(0) != 'M')
+        {
+                System.out.println("Invalid user ID!");
+                System.out.println("Please Enter user ID again: ");
+                userId = input.nextLine();
+        }      
         for(int i = 0; i < this.size();i++)
         {
-            boolean check = this.get(i).getMemberID().equalsIgnoreCase(userId);
-            if(check) 
+            BorrowingTransaction BT = this.get(i);
+            if(BT.getMemberID().equalsIgnoreCase(userId))
             {
-                System.out.println(this.get(i).toString()); 
-                return;
+                    System.out.println(BT.toString());
             }
-        }
+            else if(i == this.size()-1 && !BT.getMemberID().equalsIgnoreCase(userId))
+            {
+                System.out.println("No transaction Found");
+            }
+        }   
     }
     
     public void viewOverdueBooks()
@@ -673,7 +531,7 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
     for (BorrowingTransaction BT : this)
     {
         if (BT.getStatus().equalsIgnoreCase("OVERDUE")
-            || BT.getStatus().equalsIgnoreCase("OVERDUE [3]"))
+            || BT.getStatus().equalsIgnoreCase("OVERDUE [Regular]") || BT.getStatus().equalsIgnoreCase("OVERDUE [Premium]"))
     {
         Book book = null;
         Member member = null;

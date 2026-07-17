@@ -31,6 +31,7 @@ public class BookList extends ArrayList<Book> implements GeneralUtil {
         
         System.out.print("Enter book title: ");
         String title = input.nextLine();
+        if (title.isEmpty()) return;
         System.out.print("Enter book author: ");
         String author = input.nextLine();
         System.out.print("Enter book genre: ");
@@ -83,10 +84,9 @@ public class BookList extends ArrayList<Book> implements GeneralUtil {
         
         Book info = new Book(bookID, title, author, genre, publicationYear, quantity, 0, 0, 0);
         info.setAvailableCopies(quantity); 
-        System.out.println("[1] Save    [2] Cancel");
-        System.out.print("Choose: ");
-        int choice = input.nextInt();
-        input.nextLine();
+        int choice;
+        System.out.println("[1] Save    [2] Cancel  ");
+        choice = Utility.tryCatchInt(input, "choose: ");
         if (choice == 1) {
             this.add(info);//them new member vao class arraylist
             System.out.println("Book added successfully!");//tao ra object de gan scan member moi vao class member 
@@ -236,33 +236,62 @@ public class BookList extends ArrayList<Book> implements GeneralUtil {
     // Tim kiem sach
     @Override
     public void search() {
-        Scanner input = new Scanner(System.in);
-        System.out.println("---SEARCH BOOK---");
-        System.out.print("Enter keyword (title, author, or genre) to search: ");
-        String keyword = input.nextLine().toLowerCase();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("----------- SEARCH MEMBER -----------");
+        System.out.println("1. Enter book title ");
+        System.out.println("2. Enter book author");
+        System.out.println("3. Enter bood genre");
         
-        if (keyword.length() == 0) {
-            System.out.println("Keyword cannot be empty!");
-            return;
-        }
+        int choice = Utility.tryCatchInt(sc, "Choose search option (1 or 2 or 3): ");
         
-        boolean isFound = false;
-        System.out.println("\n---SEARCH RESULTS---");
+        if (choice == 1) {
+            System.out.print("Enter book title: ");
+            String searchTitle = sc.nextLine();
         
-        for (int i = 0; i < this.size(); i++) {
-            Book book = this.get(i);
-            String title = book.getTitle().toLowerCase();
-            String author = book.getAuthor().toLowerCase();
-            String genre = book.getGenre().toLowerCase();
-            
-            if (title.contains(keyword) || author.contains(keyword) || genre.contains(keyword)) {
-                isFound = true;
-                System.out.println(book.toString());
+            boolean found = false;
+            for (Book book : this) {
+                if (book.getTitle().equalsIgnoreCase(searchTitle)) {
+                    found = true;
+                    System.out.println("Book found: ");
+                    System.out.println(book.toString());
+                    break; 
+                }
             }
+            if (!found) {
+                System.out.println("Book not found.");
+            } 
+        } else if (choice == 2) {
+            System.out.print("Enter book author: ");
+            String searchAut = sc.nextLine();
+            boolean found = false;
+            for (Book book : this) {
+                if (book.getAuthor().equalsIgnoreCase(searchAut)) {
+                    found = true;
+                    System.out.println("Book found: ");
+                    System.out.println(book.toString());
+                    break;
+                }
+            }
+            if (!found) {
+                System.out.println("Member not found.");
+            }
+        } else if (choice == 3) {
+            System.out.print("Enter book genre: ");
+            String searchGenre = sc.nextLine();
+            boolean found = false;
+            for (Book book : this) {
+                if (book.getGenre().equalsIgnoreCase(searchGenre)) {
+                    found = true;
+                    System.out.println("Book found: ");
+                    System.out.println(book.toString());
+                    break;
+                }
+            }
+            if (!found) {
+                System.out.println("Book not found.");
+            } else {
+            System.out.println("Invalid choice!");
         }
-        
-        if (isFound == false) {
-           System.out.println("No books match your search keyword.");
-        } 
     }
+}
 }
