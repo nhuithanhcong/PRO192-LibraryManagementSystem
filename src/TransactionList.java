@@ -174,24 +174,24 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
             //Now Check the quantity and reducing quantity//
             ////////////////////////////////////////////////
 
-            int quantity = -9;
+            int copy = -9;
             for(int i = 0; i < BL.size(); i++)
             {
                 Book book = BL.get(i);
                 //System.out.println("Book Info: " + book.toString());
                 boolean checkB = bookId.equalsIgnoreCase(book.getBookID()); // check bookId (input from user) and book.getBookID() (id from the book list!)
-                quantity = book.getQuantity();
+                copy = book.getAvailableCopies();
                 //System.out.println("Quantity: " + quantity);
-                if(quantity > 0 && checkB) 
+                if(copy > 0 && checkB) 
                 {
                     //System.out.println("quantity of the books is not 0!"); 
-                    quantity--;    //Reduce book quantity and update the book quantity in the library
-                    System.out.println("Reducing the quantity!"); 
-                    book.setQuantity(quantity);
+                    copy--;    //Reduce book quantity and update the book quantity in the library
+                    System.out.println("Reducing the copies!"); 
+                    book.setAvailableCopies(copy);
                 }
-                else if(quantity <= 0 && !checkB && i == BL.size()-1)
+                else if(copy <= 0 && !checkB && i == BL.size()-1)
                 {
-                    System.out.println("quantity of the books is 0!");
+                    System.out.println("copies of the books is 0!");
                     System.out.println("Press enter to return!");
                     input.nextLine();
                     return;
@@ -431,7 +431,7 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                 currentBT.setStatus("Returned");
                 System.out.println("Book " + currentB.getTitle() + " returned by " + currentM.getName() + ". No overdue fine");
             }
-            currentB.setQuantity(currentB.getQuantity() + 1);
+            currentB.setAvailableCopies(currentB.getAvailableCopies() + 1);
             currentB.setCurrentBorrowingBook(0); // status 1 = book being borrowed, status 0 = book is not being borrowed
             currentM.setCurrentAmountOfBorrowing(currentM.getCurrentAmountOfBorrowing() + 1);
         } else {
