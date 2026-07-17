@@ -99,7 +99,11 @@ public class File_IO
                 String status = info[4].trim();
                 int current = Integer.parseInt(info[5].trim());
                 int amount = Integer.parseInt(info[6].trim());
-                Member member = new Member(memberID, name, phone, email, status, current, amount);
+                Member member;
+                if (status.equalsIgnoreCase("Regular")) {
+                    member = new RegularMember(memberID, name, phone, email, status, current, amount);
+                } else member = new PremiumMember(memberID, name, phone, email, status, current, amount);
+               
                 ML.add(member);
              }
         }
