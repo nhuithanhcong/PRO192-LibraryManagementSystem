@@ -13,6 +13,7 @@ public class MemberList extends ArrayList<Member> implements GeneralUtil {
         
         System.out.print("Name: ");
         String name = sc.nextLine();
+        if (name.isEmpty()) return;
 
         System.out.print("Phone Number: ");
         String phone = sc.nextLine();
@@ -97,17 +98,20 @@ public class MemberList extends ArrayList<Member> implements GeneralUtil {
 
         System.out.print("New Name: ");
         String newName = sc.nextLine().trim();
+        if (newName.isEmpty()) return;
 
         System.out.print("New Phone Number: ");
         String newPhoneNumber = sc.nextLine().trim();
-        if (!newPhoneNumber.isEmpty() && !Utility.isValidPhoneNumber(newPhoneNumber)) {
+        if (newPhoneNumber.isEmpty() && !Utility.isValidPhoneNumber(newPhoneNumber)) {
             System.out.println("Update failed! Invalid Phone Number format.");
+            return;
         }
 
         System.out.print("New Email: ");
         String newEmail = sc.nextLine().trim();
-        if (!newEmail.isEmpty() && !Utility.isValidEmail(newEmail)) {
+        if (newEmail.isEmpty() && !Utility.isValidEmail(newEmail)) {
             System.out.println("Update failed! Invalid Email format.");
+            return;
         }
 
         if (!newName.isEmpty()) member.setName(newName);
@@ -170,6 +174,7 @@ public class MemberList extends ArrayList<Member> implements GeneralUtil {
         System.out.println("----------- DELETE MEMBER -----------");
         System.out.print("Enter member name: ");
         String searchName = sc.nextLine();
+        if (searchName.isEmpty()) return;
         
         Member removeMember = null;
         for (Member member : this) {
@@ -184,7 +189,6 @@ public class MemberList extends ArrayList<Member> implements GeneralUtil {
         if (removeMember != null) {
             System.out.println("[1] Delete   [2] Cancel");
             int choice = Utility.tryCatchInt(sc, "Choose action: ");
-            
             if (choice == 1) {
                 if (removeMember.getCurrentAmountOfBorrowing() != removeMember.getBorrowLimit()) {
                     System.out.println("This person is still currently borrowing a book! Cannot delete.");
