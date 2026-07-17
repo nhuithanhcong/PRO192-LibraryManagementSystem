@@ -49,7 +49,7 @@ public class Main {
                             case 4: LM.viewAllBook();       break;
                             case 5: LM.searchBookByTerms(); break;
                             case 6: Utility.clearScreen();  break;
-                            case 7: System.out.print("Returning to Main Menu..."); break;
+                            case 7: System.out.println("Returning to Main Menu..."); break;
                             default:System.out.println("\nInvalid sub-option! Choose between 1 and 7.");
                         }
                     } while (bookChoice != 7);
@@ -74,7 +74,7 @@ public class Main {
                             case 4: LM.viewAllMember();          break;
                             case 5: LM.searchMemberByIdOrName(); break;
                             case 6: Utility.clearScreen();       break;
-                            case 7: System.out.print("Returning to Main Menu..."); break;
+                            case 7: System.out.println("Returning to Main Menu..."); break;
                             default:System.out.println("\nInvalid sub-option! Choose between 1 and 7.");
                         }
                     } while (MemberChoice != 7);
@@ -97,7 +97,7 @@ public class Main {
                             case 3: LM.viewBorrowedBooks();                        break;
                             case 4: LM.viewBorrowingHistoryOfSpecificMember();     break;
                             case 5: Utility.clearScreen();                         break;
-                            case 6: System.out.print("Returning to Main Menu..."); break;
+                            case 6: System.out.println("Returning to Main Menu..."); break;
                             default:System.out.println("\nInvalid sub-option! Choose between 1 and 6.");
                         }
                     } while (BRChoice != 6);
@@ -120,7 +120,7 @@ public class Main {
                             case 3: LM.viewMostPopularBooks();           break;
                             case 4: LM.viewMemberWithTheMostBorrowing(); break;
                             case 5: Utility.clearScreen();               break;
-                            case 6: System.out.print("Returning to Main Menu..."); break;
+                            case 6: System.out.println("Returning to Main Menu..."); break;
                             default:System.out.println("\nInvalid sub-option! Choose between 1 and 6.");
                         }
                     } while (reportChoice != 6);
