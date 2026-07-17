@@ -186,7 +186,7 @@ public class MemberList extends ArrayList<Member> implements GeneralUtil {
             int choice = Utility.tryCatchInt(sc, "Choose action: ");
             
             if (choice == 1) {
-                if (removeMember.getCurrentAmountOfBorrowing() > 0) {
+                if (removeMember.getCurrentAmountOfBorrowing() != removeMember.getBorrowLimit()) {
                     System.out.println("This person is still currently borrowing a book! Cannot delete.");
                 } else {
                     this.remove(removeMember);
