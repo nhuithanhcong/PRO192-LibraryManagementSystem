@@ -496,18 +496,17 @@ public class TransactionList extends ArrayList<BorrowingTransaction>
                 System.out.println("Please Enter user ID again: ");
                 userId = input.nextLine();
         }      
+        boolean check = false;
         for(int i = 0; i < this.size();i++)
         {
             BorrowingTransaction BT = this.get(i);
             if(BT.getMemberID().equalsIgnoreCase(userId))
             {
-                    System.out.println(BT.toString());
+                check = true;
+                System.out.println(BT.toString());
             }
-            else if(i == this.size()-1 && !BT.getMemberID().equalsIgnoreCase(userId))
-            {
-                System.out.println("No transaction Found");
-            }
-        }   
+        }
+        if(check == false) System.out.println("No transaction Found!");
     }
     
     public void viewOverdueBooks()

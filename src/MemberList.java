@@ -102,14 +102,14 @@ public class MemberList extends ArrayList<Member> implements GeneralUtil {
 
         System.out.print("New Phone Number: ");
         String newPhoneNumber = sc.nextLine().trim();
-        if (newPhoneNumber.isEmpty() && !Utility.isValidPhoneNumber(newPhoneNumber)) {
+        if (!Utility.isValidPhoneNumber(newPhoneNumber)) {
             System.out.println("Update failed! Invalid Phone Number format.");
             return;
         }
 
         System.out.print("New Email: ");
         String newEmail = sc.nextLine().trim();
-        if (newEmail.isEmpty() && !Utility.isValidEmail(newEmail)) {
+        if (!Utility.isValidEmail(newEmail)) {
             System.out.println("Update failed! Invalid Email format.");
             return;
         }
