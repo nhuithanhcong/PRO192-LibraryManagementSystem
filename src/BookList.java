@@ -240,7 +240,7 @@ public class BookList extends ArrayList<Book> implements GeneralUtil {
         System.out.println("----------- SEARCH MEMBER -----------");
         System.out.println("1. Enter book title ");
         System.out.println("2. Enter book author");
-        System.out.println("3. Enter bood genre");
+        System.out.println("3. Enter book genre");
         
         int choice = Utility.tryCatchInt(sc, "Choose search option (1 or 2 or 3): ");
         
@@ -254,7 +254,7 @@ public class BookList extends ArrayList<Book> implements GeneralUtil {
                     found = true;
                     System.out.println("Book found: ");
                     System.out.println(book.toString());
-                    break; 
+                    
                 }
             }
             if (!found) {
@@ -269,7 +269,7 @@ public class BookList extends ArrayList<Book> implements GeneralUtil {
                     found = true;
                     System.out.println("Book found: ");
                     System.out.println(book.toString());
-                    break;
+                    
                 }
             }
             if (!found) {
@@ -279,19 +279,20 @@ public class BookList extends ArrayList<Book> implements GeneralUtil {
             System.out.print("Enter book genre: ");
             String searchGenre = sc.nextLine();
             boolean found = false;
+            System.out.println("Book found: ");
             for (Book book : this) {
                 if (book.getGenre().equalsIgnoreCase(searchGenre)) {
                     found = true;
-                    System.out.println("Book found: ");
+                    
                     System.out.println(book.toString());
-                    break;
+                    
                 }
             }
             if (!found) {
-                System.out.println("Book not found.");
-            } else {
+                System.out.println("None.");
+            } 
+        }else {
             System.out.println("Invalid choice!");
-        }
     }
 }
 }

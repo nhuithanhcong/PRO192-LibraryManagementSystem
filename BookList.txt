@@ -1,4 +1,5 @@
 B0001, Harry Potter, J. K. Rolling, Fantasy, 2007, 15, 15, 0, 1
-B0002, Doraemon, Fujiko F. Fujio, Comedy, 1980, 21, 20, 0, 2
+B0002, Doraemon, Fujiko F. Fujio, Comedy, 1980, 20, 20, 1, 2
 B0003, One Piece, Eiichiro Oda, Adventure, 1997, 14, 14, 0, 1
-B0004, Crayon Shin-chan, Yoshito Usui, Comedy, 1990, 20, 19, 1, 2
+B0004, Crayon Shin-chan, Yoshito Usui, Comedy, 1990, 21, 19, 0, 1
+B0005, Cinderella, Harbor, fairy tale, 1987, 14, 14, 0, 0
